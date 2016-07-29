@@ -11,6 +11,10 @@ use Yii;
  * @property integer $expirience_id
  * @property integer $level_id
  * @property double $quantity
+ *
+ * @property Level $level
+ * @property Equipment $equipment
+ * @property Expirience $expirience
  */
 class EqiupmentExpirience extends \yii\db\ActiveRecord
 {
@@ -31,6 +35,9 @@ class EqiupmentExpirience extends \yii\db\ActiveRecord
             [['equipment_id', 'expirience_id', 'level_id'], 'required'],
             [['equipment_id', 'expirience_id', 'level_id'], 'integer'],
             [['quantity'], 'number'],
+            [['level_id'], 'exist', 'skipOnError' => true, 'targetClass' => Level::className(), 'targetAttribute' => ['level_id' => 'id']],
+            [['equipment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Equipment::className(), 'targetAttribute' => ['equipment_id' => 'id']],
+            [['expirience_id'], 'exist', 'skipOnError' => true, 'targetClass' => Expirience::className(), 'targetAttribute' => ['expirience_id' => 'id']],
         ];
     }
 
@@ -45,6 +52,30 @@ class EqiupmentExpirience extends \yii\db\ActiveRecord
             'level_id' => Yii::t('app', 'Level ID'),
             'quantity' => Yii::t('app', 'Quantity'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(Level::className(), ['id' => 'level_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEquipment()
+    {
+        return $this->hasOne(Equipment::className(), ['id' => 'equipment_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExpirience()
+    {
+        return $this->hasOne(Expirience::className(), ['id' => 'expirience_id']);
     }
 
     /**

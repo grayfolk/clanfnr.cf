@@ -107,6 +107,34 @@ if($controller->id === $default_controller && $controller->action->id === $contr
   </div>
 </footer>
 <?php $this->endBody() ?>
+<script>
+jQuery(document).ready(function($){
+	$(document).on('click', '#equipmentExpiriencesAdd', function(e){
+		$('#equipmentExpiriencesHolder').append('<div class="thumbnail jsEquipmentExpiriencesItem"><h4><span class="title">'+$('select[name="expiriences"] option:selected').text()+'</span> <span class="pull-right"><button class="btn btn-success btn-xs jsEquipmentExpiriencesDone" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button><button class="btn btn-primary btn-xs jsEquipmentExpiriencesEdit hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button><button class="btn btn-danger btn-xs jsEquipmentExpiriencesRemove" type="button" data-selected="'+$('select[name="expiriences"]').val()+'"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button></span></h4><table class="table table-striped table-condensed jsEquipmentExpiriencesEditArea"><?php foreach(app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all () as $level):?><tr><td><?= $level->title?></td><td><div class="input-group"><input type="text" name="expirience['+$('select[name="expiriences"]').val()+'][<?= $level->id?>]" class="form-control"><span class="input-group-addon">%</span></div></td></tr><?php endforeach;?></table><table class="table table-hover table-condensed jsEquipmentExpiriencesShowArea hide"><tr>  <td class="active">5%</td><td>5%</td><td class="success">5%</td><td class="info">5%</td><td class="danger">5%</td><td class="warning">5%</td></tr></table></div>')
+		// $('select[name="expiriences"] option:selected').prop('disabled', true)
+	})
+	$(document).on('click', '.jsEquipmentExpiriencesRemove', function(e){
+		// $('select[name="expiriences"] option[value="'+$(this).data('selected')+'"]').prop('disabled', false)
+		$(this).parents('.jsEquipmentExpiriencesItem').remove()
+	})
+	$(document).on('click', '.jsEquipmentExpiriencesDone', function(e){
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesDone').addClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesEditArea').addClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesShowArea').removeClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesEdit').removeClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('input').each(function(){
+			$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesShowArea td').eq($(this).parents('.jsEquipmentExpiriencesItem').find('input').index($(this))).text($(this).val()+'%')
+		})
+	})
+	$(document).on('click', '.jsEquipmentExpiriencesEdit', function(e){
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesDone').removeClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesEditArea').removeClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesShowArea').addClass('hide')
+		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesEdit').addClass('hide')
+	})
+	$('#equipmentExpiriencesHolder').sortable()/*.disableSelection()*/
+})
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

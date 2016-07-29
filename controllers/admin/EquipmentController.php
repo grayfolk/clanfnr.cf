@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
+use app\models\ar\Expirience;
+use app\models\ar\Level;
+use app\models\ar\EqiupmentExpirience;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
@@ -82,12 +85,15 @@ class EquipmentController extends AdminController {
 		$model = new Equipment ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
+			$this->updateExpiriences ( $model->id );
 			return $this->redirect ( [ 
 					'index' 
 			] );
 		} else {
 			return $this->render ( 'create', [ 
-					'model' => $model 
+					'model' => $model,
+					'expiriences' => Expirience::find ()->all (),
+					'levels' => Level::find ()->all () 
 			] );
 		}
 	}
@@ -103,13 +109,18 @@ class EquipmentController extends AdminController {
 		$model = $this->findModel ( $id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
+			$this->updateExpiriences ( $id );
+			
 			return $this->redirect ( [ 
 					'view',
 					'id' => $model->id 
 			] );
 		} else {
 			return $this->render ( 'update', [ 
-					'model' => $model 
+					'model' => $model,
+					'expiriences' => Expirience::find ()->all (),
+					'levels' => Level::find ()->all (),
+					'expirienceData' => EqiupmentExpirience::getEqiupmentExpirience ( $id ) 
 			] );
 		}
 	}
@@ -142,6 +153,23 @@ class EquipmentController extends AdminController {
 			return $model;
 		} else {
 			throw new NotFoundHttpException ( 'The requested page does not exist.' );
+		}
+	}
+	protected function updateExpiriences($id) {
+		EqiupmentExpirience::deleteAll ( [ 
+				'equipment_id' => $id 
+		] );
+		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
+			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
+				foreach ( $levels as $level => $quantity ) {
+					$ee = new EqiupmentExpirience ();
+					$ee->equipment_id = $id;
+					$ee->expirience_id = $expirience;
+					$ee->level_id = $level;
+					$ee->quantity = $quantity;
+					$ee->save ();
+				}
+			}
 		}
 	}
 }
