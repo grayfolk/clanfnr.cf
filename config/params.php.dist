@@ -1,0 +1,44 @@
+<?php
+return [ 
+		'adminEmail' => 'admin@example.com',
+		'authClientCollection' => [ ],
+		'authClientCollection' => [ 
+				'class' => 'yii\authclient\Collection',
+				'clients' => [ 
+						'google' => [ 
+								'class' => 'dektrium\user\clients\Google',
+								'clientId' => '',
+								'clientSecret' => '' 
+						],
+						'facebook' => [ 
+								'class' => 'dektrium\user\clients\Facebook',
+								'clientId' => '',
+								'clientSecret' => '' 
+						],
+						'vkontakte' => [ 
+								'class' => 'dektrium\user\clients\VKontakte',
+								'clientId' => '',
+								'clientSecret' => '' 
+						] 
+				] 
+		],
+		'dektriumModule' => [ 
+				'class' => 'dektrium\user\Module',
+				'enableRegistration' => false,
+				'enableGeneratingPassword' => true,
+				'mailer' => [ 
+						'sender' => [ 
+								'no-reply@example.com' => 'No-Reply' 
+						] 
+				],
+				'admins' => [ 
+						'admin' 
+				] 
+		],
+		'giiAllowedIps' => [ 
+				'*' 
+		],
+		'debugAllowedIps' => [ 
+				'*' 
+		] 
+];

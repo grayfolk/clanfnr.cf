@@ -1,0 +1,14 @@
+{
+  "name": "clanfnr-cf",
+  "version": "1.0.0b",
+  "authors": [
+    "Vladymyr Protsenko"
+  ],
+  "license": "MIT",
+  "ignore": [
+  ],
+  "devDependencies": {
+		"datatables": "*",
+		"datatables-responsive": "*"
+  }
+}
