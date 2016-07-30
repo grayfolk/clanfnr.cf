@@ -28,7 +28,8 @@ class EquipmentController extends Controller {
 							$query->from ( [ 
 									'accessory_type' 
 							] );
-						} 
+						},
+						'eqiupmentExpiriences'
 				] ),
 				'sort' => false 
 		] );

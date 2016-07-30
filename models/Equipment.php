@@ -14,10 +14,9 @@ use Yii;
  * @property integer $level
  * @property integer $silver
  *
+ * @property EqiupmentExpirience[] $eqiupmentExpiriences
  * @property Accessory $type
  * @property Accessory $accessory
- * @property ExpirienceEquipment[] $expirienceEquipments
- * @property Expirience[] $expiriences
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -61,6 +60,14 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEqiupmentExpiriences()
+    {
+        return $this->hasMany(EqiupmentExpirience::className(), ['equipment_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getType()
     {
         return $this->hasOne(Accessory::className(), ['id' => 'type_id']);
@@ -72,22 +79,6 @@ class Equipment extends \yii\db\ActiveRecord
     public function getAccessory()
     {
         return $this->hasOne(Accessory::className(), ['id' => 'accessory_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExpirienceEquipments()
-    {
-        return $this->hasMany(ExpirienceEquipment::className(), ['equipment_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExpiriences()
-    {
-        return $this->hasMany(Expirience::className(), ['id' => 'expirience_id'])->viaTable('{{%expirience_equipment}}', ['equipment_id' => 'id']);
     }
 
     /**

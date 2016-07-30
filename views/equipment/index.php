@@ -13,36 +13,82 @@ $expiriencesColumns = [];
 foreach($expiriences as $expirience){
 	$expiriencesColumns [] = [
 		'header' => $expirience->title,
-		'contentOptions' =>function ($model, $key, $index, $column){
+		'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
+			$html = '';
+			$data = [];
+			foreach($model->eqiupmentExpiriences as $row){
+				if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+			}
+			if(count($data)){
+				ksort($data);
+				$html .= '<table class="table table-hover table-condensed"><tr>';
+				foreach($data as $level=>$quantity){
+					switch($level){
+						case 1:
+							$class = 'active';
+							break;
+						case 3:
+							$class = 'success';
+							break;
+						case 4:
+							$class = 'info';
+							break;
+						case 5:
+							$class = 'danger';
+							break;
+						case 6:
+							$class = 'warning';
+							break;
+						default:
+							$class = '';
+							break;
+					}
+					$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
+				}
+				$html .= '</tr></table>';
+			}
 			return [
-				'data-sort' => 1,
-				'data-filter' => 1,
-				'data-html' => '<table class="table table-hover table-condensed">
-			<tr>
-			<td class="active">5%</td>
-			<td>5%</td>
-			<td class="success">5%</td>
-			<td class="info">5%</td>
-			<td class="danger">5%</td>
-			<td class="warning">5%</td>
-			</tr>
-			</table>'
+				'data-filter' => count($data)? $expirience->title : '',
+				'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
+				'data-html' => $html
 			];
 		},
-		'format' => 'html',
-		'content' => function($data){
+		'content' => function($model) use ($expirience){
 			return '';
-			// return app\helpers\CommonHelper::thousandsCurrencyFormat($data->silver);
-			return '<table class="table table-hover table-condensed">
-			<tr>
-			<td class="active">5%</td>
-			<td>5%</td>
-			<td class="success">5%</td>
-			<td class="info">5%</td>
-			<td class="danger">5%</td>
-			<td class="warning">5%</td>
-			</tr>
-			</table>';
+			$html = '';
+			$data = [];
+			foreach($model->eqiupmentExpiriences as $row){
+				if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+			}
+			if(count($data)){
+				ksort($data);
+				$html .= '<table class="table table-hover table-condensed"><tr>';
+				foreach($data as $level=>$quantity){
+					switch($level){
+						case 1:
+							$class = 'active';
+							break;
+						case 3:
+							$class = 'success';
+							break;
+						case 4:
+							$class = 'info';
+							break;
+						case 5:
+							$class = 'danger';
+							break;
+						case 6:
+							$class = 'warning';
+							break;
+						default:
+							$class = '';
+							break;
+					}
+					$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
+				}
+				$html .= '</tr></table>';
+			}
+			return $html;
 		}
 	];
 }

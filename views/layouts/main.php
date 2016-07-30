@@ -102,37 +102,58 @@ jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
 		// responsive: true,
 		scrollX: true,
-		drawCallback: function(settings){
-			$('td[data-type="e"]').each(function(){
-				console.log($(this).data('html'))
-				// $(this).html($(this).data('html'))
-			})
-		},
 		columnDefs: [
 			{ 
 				visible: false,
 				targets: expirienceColumns,
-				// render: function ( data, type, row ){
-				// },
 			}
-		]
+		],
+		/*columns: [
+			{},
+			{},
+			{visible: false},
+			{visible: false},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{visible: false,type: 'html'},
+			{}
+		]*/
 	})
 	$('input[name="expiriences[]"]').on('click', function(e){
 		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+4).visible($(this).is(':checked'))
-		if($(this).is(':checked')) 
+		/*if($(this).is(':checked')) 
 			$('td[data-html]').each(function(){
 				$(this).html($(this).data('html'))
-			})
+			})*/
+		triggerFilters()
 	})
 	$('input[name="accessoryTypes[]"], input[name="accessories[]"]').on('click', function(e){
 		triggerFilters()
 	})
 	$('#resetExpiriences').on('click', function(e){
-		// $('input[name="expiriences[]"]').prop('checked', true).trigger('click')
 		$('input[name="expiriences[]"]').prop('checked', false)
 		expirienceTable.columns(expirienceColumns).visible(false)
+		triggerFilters()
 	})
 	function triggerFilters(){
+		var ids1 = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
+			return $(e).parents('label').text().trim()
+		}).get().join('|')
 		var ids2 = $('input[name="accessories[]"]:checked').map(function(i, e){ 
 			return $(e).val()
 		}).get().join('|')
@@ -141,7 +162,11 @@ jQuery(document).ready(function($){
 		}).get().join('|')
 		expirienceTable.column(2).search(ids2, true, true)
 		expirienceTable.column(3).search(ids3, true, true)
+		expirienceTable.search(ids1, true, false)
 		expirienceTable.draw()
+		$('td[data-html]').each(function(){
+			$(this).html($(this).data('html'))
+		})
 	}
 })
 function range(start, end) {
