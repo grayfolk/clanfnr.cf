@@ -110,7 +110,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 <script>
 jQuery(document).ready(function($){
 	$(document).on('click', '#equipmentExpiriencesAdd', function(e){
-		$('#equipmentExpiriencesHolder').append('<div class="thumbnail jsEquipmentExpiriencesItem"><h4><span class="title">'+$('select[name="expiriences"] option:selected').text()+'</span> <span class="pull-right"><button class="btn btn-success btn-xs jsEquipmentExpiriencesDone" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button><button class="btn btn-primary btn-xs jsEquipmentExpiriencesEdit hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button><button class="btn btn-danger btn-xs jsEquipmentExpiriencesRemove" type="button" data-selected="'+$('select[name="expiriences"]').val()+'"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button></span></h4><table class="table table-striped table-condensed jsEquipmentExpiriencesEditArea"><?php foreach(app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all () as $level):?><tr><td><?= $level->title?></td><td><div class="input-group"><input type="text" name="expirience['+$('select[name="expiriences"]').val()+'][<?= $level->id?>]" class="form-control"><span class="input-group-addon">%</span></div></td></tr><?php endforeach;?></table><table class="table table-hover table-condensed jsEquipmentExpiriencesShowArea hide"><tr>  <td class="active">5%</td><td>5%</td><td class="success">5%</td><td class="info">5%</td><td class="danger">5%</td><td class="warning">5%</td></tr></table></div>')
+		$('#equipmentExpiriencesHolder').prepend('<div class="thumbnail jsEquipmentExpiriencesItem"><h4><span class="title">'+$('select[name="expiriences"] option:selected').text()+'</span> <span class="pull-right"><button class="btn btn-success btn-xs jsEquipmentExpiriencesDone" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button><button class="btn btn-primary btn-xs jsEquipmentExpiriencesEdit hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button><button class="btn btn-danger btn-xs jsEquipmentExpiriencesRemove" type="button" data-selected="'+$('select[name="expiriences"]').val()+'"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button></span></h4><table class="table table-striped table-condensed jsEquipmentExpiriencesEditArea"><?php foreach(app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all () as $level):?><tr><td><?= $level->title?></td><td><div class="input-group"><input type="text" name="expirience['+$('select[name="expiriences"]').val()+'][<?= $level->id?>]" class="form-control"><span class="input-group-addon">%</span></div></td></tr><?php endforeach;?></table><table class="table table-hover table-condensed jsEquipmentExpiriencesShowArea hide"><tr>  <td class="active">5%</td><td>5%</td><td class="success">5%</td><td class="info">5%</td><td class="danger">5%</td><td class="warning">5%</td></tr></table></div>')
 		// $('select[name="expiriences"] option:selected').prop('disabled', true)
 	})
 	$(document).on('click', '.jsEquipmentExpiriencesRemove', function(e){
@@ -133,6 +133,15 @@ jQuery(document).ready(function($){
 		$(this).parents('.jsEquipmentExpiriencesItem').find('.jsEquipmentExpiriencesEdit').addClass('hide')
 	})
 	$('#equipmentExpiriencesHolder').sortable()/*.disableSelection()*/
+	$(document).on('click', '.jsMaterialsIncrease', function(e){
+		$('input[name="material['+$(this).data('id')+']"]').val(parseInt($('input[name="material['+$(this).data('id')+']"]').val())+1)
+		return false
+	})
+	$(document).on('click', '.jsMaterialsDecrease', function(e){
+		if(parseInt($('input[name="material['+$(this).data('id')+']"]').val()) > 0)
+			$('input[name="material['+$(this).data('id')+']"]').val(parseInt($('input[name="material['+$(this).data('id')+']"]').val())-1)
+		return false
+	})
 })
 </script>
 </body>

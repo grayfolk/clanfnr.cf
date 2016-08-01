@@ -8,6 +8,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$materialsArray = ArrayHelper::map($materials, 'id', 'title');
+
 $this->title = 'Clan FNR';
 $expiriencesColumns = [];
 foreach($expiriences as $expirience){
@@ -104,6 +106,7 @@ foreach($expiriences as $expirience){
     <div class="equipment-index">
       <?= GridView::widget([
         'dataProvider' => $dataProvider,
+		'layout' => '{items}',
         'columns' => array_merge(
 			['title',
             'level',
@@ -113,7 +116,7 @@ foreach($expiriences as $expirience){
 			[[
 			 	'label' => 'silver',
 				'attribute' => 'silver',
-			 	'header' => 'Silver',
+			 	'header' => Yii::t('app', 'Silver'),
 				'contentOptions' =>function ($model, $key, $index, $column){
 					return [
 						'data-sort' => $model->silver
@@ -121,6 +124,21 @@ foreach($expiriences as $expirience){
 				},
 				'content' => function($data){
 					return app\helpers\CommonHelper::thousandsCurrencyFormat($data->silver);
+				}
+			]],
+			[[
+			 	'label' => 'materials',
+				'attribute' => 'materials',
+			 	'header' => Yii::t('app', 'Materials'),
+				'contentOptions' =>function ($model, $key, $index, $column){
+					return [];
+				},
+				'content' => function($data) use ($materialsArray){
+					$materials = [];
+					foreach(ArrayHelper::map($data->eqiupmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
+						$materials[] = $materialsArray[$key] . ( $quantity > 1 ? " ($quantity)" : '' );
+					}
+					return '<span style="white-space:nowrap">' . implode(', ', $materials) . '</span>';
 				}
 			]]
 		),

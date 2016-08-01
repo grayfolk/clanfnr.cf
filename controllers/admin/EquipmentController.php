@@ -12,6 +12,8 @@ use app\controllers\AdminController;
 use app\models\ar\Expirience;
 use app\models\ar\Level;
 use app\models\ar\EqiupmentExpirience;
+use app\models\ar\EqiupmentMaterial;
+use app\models\ar\Material;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
@@ -28,11 +30,15 @@ class EquipmentController extends AdminController {
 		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => $query,
 				'sort' => [ 
+						'defaultOrder' => [ 
+								'id' => SORT_DESC 
+						],
 						'attributes' => [ 
+								'id',
 								'title',
 								'level',
 								'silver',
-								'accessory.title' => [ 
+								/* 'accessory.title' => [ 
 										'asc' => [ 
 												'accessory.title' => SORT_ASC 
 										],
@@ -40,7 +46,7 @@ class EquipmentController extends AdminController {
 												'accessory.title' => SORT_DESC 
 										],
 										'default' => SORT_DESC 
-								] 
+								]  */
 						] 
 				] 
 		] );
@@ -55,7 +61,9 @@ class EquipmentController extends AdminController {
 					$query->from ( [ 
 							'accessory_type' 
 					] );
-				} 
+				},
+				'eqiupmentExpiriences',
+				'eqiupmentMaterials' 
 		] );
 		
 		return $this->render ( 'index', [ 
@@ -86,6 +94,8 @@ class EquipmentController extends AdminController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			$this->updateExpiriences ( $model->id );
+			$this->updateMaterials ( $model->id );
+			
 			return $this->redirect ( [ 
 					'index' 
 			] );
@@ -93,7 +103,8 @@ class EquipmentController extends AdminController {
 			return $this->render ( 'create', [ 
 					'model' => $model,
 					'expiriences' => Expirience::find ()->all (),
-					'levels' => Level::find ()->all () 
+					'levels' => Level::find ()->all (),
+					'materials' => Material::find ()->all () 
 			] );
 		}
 	}
@@ -110,16 +121,17 @@ class EquipmentController extends AdminController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			$this->updateExpiriences ( $id );
+			$this->updateMaterials ( $id );
 			
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'update', [ 
 					'model' => $model,
 					'expiriences' => Expirience::find ()->all (),
 					'levels' => Level::find ()->all (),
+					'materials' => Material::find ()->all (),
 					'expirienceData' => EqiupmentExpirience::getEqiupmentExpirience ( $id ) 
 			] );
 		}
@@ -168,6 +180,22 @@ class EquipmentController extends AdminController {
 					$ee->level_id = $level;
 					$ee->quantity = $quantity;
 					$ee->save ();
+				}
+			}
+		}
+	}
+	protected function updateMaterials($id) {
+		EqiupmentMaterial::deleteAll ( [ 
+				'equipment_id' => $id 
+		] );
+		if (Yii::$app->request->post ( 'material' ) && is_array ( Yii::$app->request->post ( 'material' ) )) {
+			foreach ( Yii::$app->request->post ( 'material' ) as $key => $material ) {
+				if ($material > 0) {
+					$m = new EqiupmentMaterial ();
+					$m->equipment_id = $id;
+					$m->material_id = $key;
+					$m->quantity = $material;
+					$m->save ();
 				}
 			}
 		}

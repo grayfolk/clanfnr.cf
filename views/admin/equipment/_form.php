@@ -7,11 +7,13 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\ar\Equipment */
 /* @var $form yii\widgets\ActiveForm */
+$eqiupmentMaterials = ArrayHelper::map($model->eqiupmentMaterials, 'material_id', 'quantity');
+$levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="equipment-form">
       <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
       <div class="form-group field-equipment-accessory">
@@ -33,7 +35,7 @@ use yii\widgets\ActiveForm;
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group field-equipment-type">
       <label for="equipment-type" class="control-label">Навык</label>
       <div class="input-group">
@@ -43,16 +45,18 @@ use yii\widgets\ActiveForm;
         </span> </div>
     </div>
     <div id="equipmentExpiriencesHolder">
-      <?php if($expirienceData):?>
+      <?php if(isset($expirienceData)):?>
       <?php foreach($expirienceData as $row):?>
       <div class="thumbnail jsEquipmentExpiriencesItem">
-        <h4><span class="title"><?= $row['title']?></span> <span class="pull-right">
+        <h4><span class="title">
+          <?= $row['title']?>
+          </span> <span class="pull-right">
           <button class="btn btn-success btn-xs jsEquipmentExpiriencesDone hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
           <button class="btn btn-primary btn-xs jsEquipmentExpiriencesEdit" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button>
           <button class="btn btn-danger btn-xs jsEquipmentExpiriencesRemove" type="button" data-selected="<?= $row['id']?>"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
           </span></h4>
         <table class="table table-striped table-condensed jsEquipmentExpiriencesEditArea hide">
-          <?php foreach(app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all () as $level):?>
+          <?php foreach($levels as $level):?>
           <tr>
             <td><?= $level->title?></td>
             <td><div class="input-group">
@@ -63,7 +67,7 @@ use yii\widgets\ActiveForm;
         </table>
         <table class="table table-hover table-condensed jsEquipmentExpiriencesShowArea">
           <tr>
-          	<?php foreach(app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all () as $level):
+            <?php foreach($levels as $level):
 			switch($level->id){
 				case 1:
 					$class = 'active';
@@ -85,7 +89,8 @@ use yii\widgets\ActiveForm;
 					break;
 			}
 			?>
-            <td class="<?= $class?>"><?= $row['levels'][$level->id]?>%</td>
+            <td class="<?= $class?>"><?= $row['levels'][$level->id]?>
+              %</td>
             <?php endforeach;?>
           </tr>
         </table>
@@ -93,6 +98,18 @@ use yii\widgets\ActiveForm;
       <?php endforeach;?>
       <?php endif;?>
     </div>
+  </div>
+  <div class="col-md-6 row">
+    <?php foreach($materials as $material):?>
+    <div class="form-group form-group-sm col-md-6">
+      <label for="material-<?= $material->id?>" class="control-label col-sm-6 small">
+        <?= $material->title?>
+      </label>
+      <div class="input-group col-sm-6"> <span class="input-group-addon"><a href="#" class="jsMaterialsDecrease" data-id="<?= $material->id?>"><span aria-hidden="true" class="glyphicon glyphicon-minus"></span></a></span>
+        <input type="text" class="form-control input-xs" name="material[<?= $material->id?>]" value="<?= array_key_exists($material->id, $eqiupmentMaterials) ? $eqiupmentMaterials[$material->id] : 0 ?>" data-id="<?= $material->id?>">
+        <span class="input-group-addon"><a href="#" class="jsMaterialsIncrease" data-id="<?= $material->id?>"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></a></span> </div>
+    </div>
+    <?php endforeach;?>
   </div>
 </div>
 <?php ActiveForm::end(); ?>

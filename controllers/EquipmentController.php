@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
 use app\models\ar\Expirience;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
+use app\models\ar\Material;
 
 class EquipmentController extends Controller {
 	public function behaviors() {
@@ -29,15 +30,18 @@ class EquipmentController extends Controller {
 									'accessory_type' 
 							] );
 						},
-						'eqiupmentExpiriences'
+						'eqiupmentExpiriences',
+						'eqiupmentMaterials' 
 				] ),
-				'sort' => false 
+				'sort' => false,
+				'pagination' => false 
 		] );
 		return $this->render ( 'index', [ 
 				'dataProvider' => $dataProvider,
 				'expiriences' => Expirience::find ()->all (),
 				'accessoryTypes' => AccessoryType::find ()->all (),
-				'accessories' => Accessory::find ()->all () 
+				'accessories' => Accessory::find ()->all (),
+				'materials' => Material::find ()->all () 
 		] );
 	}
 }

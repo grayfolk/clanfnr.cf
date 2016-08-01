@@ -15,8 +15,10 @@ use Yii;
  * @property integer $silver
  *
  * @property EqiupmentExpirience[] $eqiupmentExpiriences
- * @property Accessory $type
+ * @property EqiupmentMaterial[] $eqiupmentMaterials
+ * @property Material[] $materials
  * @property Accessory $accessory
+ * @property Accessory $type
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -37,8 +39,8 @@ class Equipment extends \yii\db\ActiveRecord
             [['accessory_id', 'type_id', 'level', 'silver'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accessory::className(), 'targetAttribute' => ['type_id' => 'id']],
             [['accessory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accessory::className(), 'targetAttribute' => ['accessory_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accessory::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -68,9 +70,17 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
+    public function getEqiupmentMaterials()
     {
-        return $this->hasOne(Accessory::className(), ['id' => 'type_id']);
+        return $this->hasMany(EqiupmentMaterial::className(), ['equipment_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterials()
+    {
+        return $this->hasMany(Material::className(), ['id' => 'material_id'])->viaTable('{{%eqiupment_material}}', ['equipment_id' => 'id']);
     }
 
     /**
@@ -79,6 +89,14 @@ class Equipment extends \yii\db\ActiveRecord
     public function getAccessory()
     {
         return $this->hasOne(Accessory::className(), ['id' => 'accessory_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
+        return $this->hasOne(Accessory::className(), ['id' => 'type_id']);
     }
 
     /**

@@ -28,6 +28,11 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 <?= Html::encode($this->title) ?>
 </title>
 <?php $this->head() ?>
+<style type="text/css">
+.dataTables_filter{
+	display:none;
+}
+</style>
 </head>
 <body class="<?= $bodyClass?>">
 <?php $this->beginBody() ?>
@@ -88,7 +93,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
     <?= $content ?>
   </div>
 </div>
-<footer class="footer">
+<footer class="footer hidden">
   <div class="container">
     <p class="pull-left">&copy; <a href="<?= yii\helpers\Url::home(true)?>">Clan FNR</a>
       2015 &ndash; <?= date('Y') ?>
@@ -97,15 +102,24 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceTable, expirienceColumns = range(2,22)
+var expirienceTable, expirienceColumns = range(2,34)
 jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
 		// responsive: true,
 		scrollX: true,
+		language: {
+			url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json'
+		},
+		pageLength: 50,
+		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
 		columnDefs: [
 			{ 
 				visible: false,
 				targets: expirienceColumns,
+			},
+			{ 
+				sortable: false,
+				targets: 35,
 			}
 		],
 		/*columns: [
@@ -134,7 +148,7 @@ jQuery(document).ready(function($){
 			{}
 		]*/
 	})
-	$('input[name="expiriences[]"]').on('click', function(e){
+	$(document).on('click', 'input[name="expiriences[]"]', function(e){
 		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+4).visible($(this).is(':checked'))
 		/*if($(this).is(':checked')) 
 			$('td[data-html]').each(function(){
@@ -142,10 +156,10 @@ jQuery(document).ready(function($){
 			})*/
 		triggerFilters()
 	})
-	$('input[name="accessoryTypes[]"], input[name="accessories[]"]').on('click', function(e){
+	$(document).on('click', 'input[name="accessoryTypes[]"], input[name="accessories[]"]', function(e){
 		triggerFilters()
 	})
-	$('#resetExpiriences').on('click', function(e){
+	$(document).on('click', '#resetExpiriences', function(e){
 		$('input[name="expiriences[]"]').prop('checked', false)
 		expirienceTable.columns(expirienceColumns).visible(false)
 		triggerFilters()
@@ -168,9 +182,13 @@ jQuery(document).ready(function($){
 			$(this).html($(this).data('html'))
 		})
 	}
+	$('input[name="expiriences[]"]:checked').each(function(){
+		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+4).visible($(this).is(':checked'))
+	})
+	triggerFilters()
 })
 function range(start, end) {
-    return Array(end-start).join(0).split(0).map(function(val, id) {return id+start});
+    return Array(end-start).join(0).split(0).map(function(val, id) {return id+start})
 }
 </script>
 </body>

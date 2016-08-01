@@ -25,20 +25,50 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'label' => 'accessory',
 				'attribute' => 'accessory',
-				'header' => 'Accessory',
+				'header' => Yii::t('app', 'Accessory'),
 				'value' => 'accessory.title',
 			],
              [
 			 	'label' => 'type',
 				'attribute' => 'type',
-			 	'header' => 'Type',
+			 	'header' => Yii::t('app', 'Type'),
 				'value' =>'type.title'
+			],
+			[
+			 	'label' => 'expiriences',
+				'attribute' => 'expiriences',
+			 	'header' => Yii::t('app', 'Expiriences'),
+				'value' => function($data){
+					if(count($data->eqiupmentExpiriences)){
+						$count = [];
+						foreach($data->eqiupmentExpiriences as $row){
+							$count[$row->expirience_id] = 1;
+						}
+						return count($count);
+					}
+					return '';
+				}
+			],
+			[
+			 	'label' => 'materials',
+				'attribute' => 'materials',
+			 	'header' => Yii::t('app', 'Materials'),
+				'value' => function($data){
+					if(count($data->eqiupmentMaterials)){
+						$count = [];
+						foreach($data->eqiupmentMaterials as $row){
+							$count[$row->material_id] = 1;
+						}
+						return count($count);
+					}
+					return '';
+				}
 			],
             'level',
              [
 			 	'label' => 'silver',
 				'attribute' => 'silver',
-			 	'header' => 'Silver',
+			 	'header' => Yii::t('app', 'Silver'),
 				'value' => function($data){
 					return app\helpers\CommonHelper::thousandsCurrencyFormat($data->silver);
 				}

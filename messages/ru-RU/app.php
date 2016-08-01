@@ -11,5 +11,6 @@ return [
 		'Expiriences' => '',
 		'Map' => 'Карта',
 		'Inviders' => 'Захватчики',
-		'Expiriences' => 'Навыки'
+		'Expiriences' => 'Навыки',
+		'Silver' => 'Серебро'
 ];

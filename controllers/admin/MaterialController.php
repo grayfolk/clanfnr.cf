@@ -17,7 +17,7 @@ class MaterialController extends AdminController {
 	
 	/**
 	 * Lists all Material models.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
@@ -32,7 +32,7 @@ class MaterialController extends AdminController {
 	
 	/**
 	 * Displays a single Material model.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -45,7 +45,7 @@ class MaterialController extends AdminController {
 	/**
 	 * Creates a new Material model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
@@ -53,8 +53,7 @@ class MaterialController extends AdminController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'create', [ 
@@ -66,7 +65,7 @@ class MaterialController extends AdminController {
 	/**
 	 * Updates an existing Material model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -88,7 +87,7 @@ class MaterialController extends AdminController {
 	/**
 	 * Deletes an existing Material model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -103,7 +102,7 @@ class MaterialController extends AdminController {
 	/**
 	 * Finds the Material model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return Material the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
