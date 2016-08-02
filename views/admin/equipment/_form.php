@@ -30,9 +30,6 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
       </div>
       <?= $form->field($model, 'level')->textInput() ?>
       <?= $form->field($model, 'silver')->textInput() ?>
-      <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-      </div>
     </div>
   </div>
   <div class="col-md-3">
@@ -60,7 +57,7 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
           <tr>
             <td><?= $level->title?></td>
             <td><div class="input-group">
-                <input type="text" name="expirience[<?= $row['id']?>][<?= $level->id?>]" class="form-control" value="<?= $row['levels'][$level->id]?>">
+                <input type="text" name="expirience[<?= $row['id']?>][<?= $level->id?>]" class="form-control" value="<?= $row['levels'][$level->id] ?? 0?>">
                 <span class="input-group-addon">%</span></div></td>
           </tr>
           <?php endforeach;?>
@@ -89,7 +86,7 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
 					break;
 			}
 			?>
-            <td class="<?= $class?>"><?= $row['levels'][$level->id]?>
+            <td class="<?= $class?>"><?= $row['levels'][$level->id] ?? 0?>
               %</td>
             <?php endforeach;?>
           </tr>
@@ -110,6 +107,9 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
         <span class="input-group-addon"><a href="#" class="jsMaterialsIncrease" data-id="<?= $material->id?>"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></a></span> </div>
     </div>
     <?php endforeach;?>
+  </div>
+  <div class="form-group">
+    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
   </div>
 </div>
 <?php ActiveForm::end(); ?>
