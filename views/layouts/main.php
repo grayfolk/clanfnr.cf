@@ -102,7 +102,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceTable, expirienceColumns = range(3,35)
+var expirienceTable, expirienceColumns = range(3,36)
 jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
 		// responsive: true,
@@ -110,6 +110,10 @@ jQuery(document).ready(function($){
 		language: {
 			url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json'
 		},
+		order: [
+			[ 2, "desc" ],
+			[ 0, "asc" ]
+		],
 		pageLength: 50,
 		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
 		columnDefs: [
@@ -119,7 +123,7 @@ jQuery(document).ready(function($){
 			},
 			{ 
 				sortable: false,
-				targets: [1,36],
+				targets: [1,37],
 			}
 		],
 	})
@@ -165,7 +169,7 @@ jQuery(document).ready(function($){
 		}).get().join('|')
 		expirienceTable.column(3).search(accessories, true, true)
 		expirienceTable.column(4).search(accessoryTypes, true, true)
-		expirienceTable.column(36).search(materials, true, true)
+		expirienceTable.column(37).search(materials, true, true)
 		expirienceTable.search(expiriences, true, false)
 		expirienceTable.draw()
 		$('td[data-html]').each(function(){

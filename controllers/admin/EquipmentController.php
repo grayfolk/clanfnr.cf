@@ -14,6 +14,8 @@ use app\models\ar\Level;
 use app\models\ar\EqiupmentExpirience;
 use app\models\ar\EqiupmentMaterial;
 use app\models\ar\Material;
+use app\models\ar\AccessoryType;
+use app\models\ar\Accessory;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
@@ -67,7 +69,11 @@ class EquipmentController extends AdminController {
 		] );
 		
 		return $this->render ( 'index', [ 
-				'dataProvider' => $dataProvider 
+				'dataProvider' => $dataProvider,
+				'expiriences' => Expirience::find ()->all (),
+				'accessoryTypes' => AccessoryType::find ()->all (),
+				'accessories' => Accessory::find ()->all (),
+				'materials' => Material::find ()->all () 
 		] );
 	}
 	

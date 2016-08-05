@@ -145,9 +145,6 @@ foreach($expiriences as $expirience){
 			 	'label' => 'materials',
 				'attribute' => 'materials',
 			 	'header' => Yii::t('app', 'Materials'),
-				'contentOptions' =>function ($model, $key, $index, $column){
-					return [];
-				},
 				'content' => function($data) use ($materialsArray){
 					$materials = [];
 					foreach(ArrayHelper::map($data->eqiupmentMaterials, 'material_id', 'quantity') as $key=>$quantity){

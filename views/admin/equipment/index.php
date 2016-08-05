@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -8,6 +9,9 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Equipments');
 $this->params['breadcrumbs'][] = $this->title;
+
+$materialsArray = ArrayHelper::map($materials, 'id', 'title');
+$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 ?>
 <div class="equipment-index">
 
@@ -38,30 +42,24 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'label' => 'expiriences',
 				'attribute' => 'expiriences',
 			 	'header' => Yii::t('app', 'Expiriences'),
-				'value' => function($data){
-					if(count($data->eqiupmentExpiriences)){
-						$count = [];
-						foreach($data->eqiupmentExpiriences as $row){
-							$count[$row->expirience_id] = 1;
-						}
-						return count($count);
+				'content' => function($data) use ($expiriencesArray){
+					$expiriences = [];
+					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
+						$expiriences[] = '<span class="label label-primary">' . $expiriencesArray[$key] . '</span>';
 					}
-					return '';
+					return implode('<div class="clearfix"></div>', $expiriences);
 				}
 			],
 			[
 			 	'label' => 'materials',
 				'attribute' => 'materials',
 			 	'header' => Yii::t('app', 'Materials'),
-				'value' => function($data){
-					if(count($data->eqiupmentMaterials)){
-						$count = [];
-						foreach($data->eqiupmentMaterials as $row){
-							$count[$row->material_id] = 1;
-						}
-						return count($count);
+				'content' => function($data) use ($materialsArray){
+					$materials = [];
+					foreach(ArrayHelper::map($data->eqiupmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
+						$materials[] = $materialsArray[$key] . ( $quantity > 1 ? " ($quantity)" : '' );
 					}
-					return '';
+					return '<span style="white-space:nowrap">' . implode(', ', $materials) . '</span>';
 				}
 			],
             'level',
@@ -70,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'silver',
 			 	'header' => Yii::t('app', 'Silver'),
 				'value' => function($data){
-					return app\helpers\CommonHelper::thousandsCurrencyFormat($data->silver);
+					if($data->silver) return app\helpers\CommonHelper::thousandsCurrencyFormat($data->silver);
 				}
 			],
 

@@ -15,6 +15,9 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
 <div class="row">
   <div class="col-md-3">
     <div class="equipment-form">
+      <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+      </div>
       <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
       <div class="form-group field-equipment-accessory">
         <label for="equipment-accessory" class="control-label">Accessory</label>

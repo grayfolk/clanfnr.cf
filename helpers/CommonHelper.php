@@ -4,6 +4,7 @@ namespace app\helpers;
 
 class CommonHelper {
 	public static function thousandsCurrencyFormat($num) {
+		if($num<1000) return $num;
 		$x = round ( $num );
 		$x_number_format = number_format ( $x );
 		$x_array = explode ( ',', $x_number_format );
