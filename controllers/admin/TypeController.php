@@ -9,11 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
+use app\components\CommonBackendController;
 
 /**
  * TypeController implements the CRUD actions for AccessoryType model.
  */
-class TypeController extends AdminController {
+class TypeController extends CommonBackendController {
 	
 	/**
 	 * Lists all AccessoryType models.

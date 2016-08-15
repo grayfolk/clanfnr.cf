@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\CommonController;
 use yii\filters\VerbFilter;
 use app\models\ar\Equipment;
 use yii\data\ActiveDataProvider;
@@ -13,7 +13,7 @@ use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
 use app\models\ar\Material;
 
-class EquipmentController extends Controller {
+class EquipmentController extends CommonController {
 	public function behaviors() {
 		return [ ];
 	}

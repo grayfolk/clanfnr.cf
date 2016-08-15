@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $materialsArray = ArrayHelper::map($materials, 'id', 'title');
+$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 
 $this->title = 'Clan FNR';
 $expiriencesColumns = [];
@@ -114,7 +115,48 @@ foreach($expiriences as $expirience){
         'dataProvider' => $dataProvider,
 		'layout' => '{items}',
         'columns' => array_merge(
-			['title',
+			[[
+				'header' => Yii::t('app', 'Title'),
+				'content' => function($data) use ($expiriencesArray, $expirience){
+					$html = "";
+					$expiriences = [];
+					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
+						$html .= $expiriencesArray[$key] . "<table class='table table-condensed'><tr>";
+						$expiriencesData = [];
+						foreach($data->eqiupmentExpiriences as $row){
+							if($row->expirience_id == $key) $expiriencesData[$row->level_id] = $row->quantity;
+						}
+						if(count($expiriencesData)){
+							ksort($expiriencesData);
+							foreach($expiriencesData as $level=>$quantity){
+								switch($level){
+									case 1:
+										$class = 'active';
+										break;
+									case 3:
+										$class = 'success';
+										break;
+									case 4:
+										$class = 'info';
+										break;
+									case 5:
+										$class = 'danger';
+										break;
+									case 6:
+										$class = 'warning';
+										break;
+									default:
+										$class = '';
+										break;
+								}
+								$html .= "<td class='".$class."'>".$quantity."%</td>";
+							}
+							$html .= '</tr></table>';
+						}
+					}
+					return '<a tabindex="-1" role="button" data-toggle="popover" title="' . $data->title . '" data-content="' .$html . '">' . $data->title . '</a>';
+				}
+			],
 			[
 				'header' => Yii::t('app', 'Type'),
 				'content' => function($data){

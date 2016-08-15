@@ -9,11 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
+use app\components\CommonBackendController;
 
 /**
  * ExpirienceController implements the CRUD actions for Expirience model.
  */
-class ExpirienceController extends AdminController {
+class ExpirienceController extends CommonBackendController {
 	
 	/**
 	 * Lists all Expirience models.

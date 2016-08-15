@@ -30,13 +30,19 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 				'label' => 'accessory',
 				'attribute' => 'accessory',
 				'header' => Yii::t('app', 'Accessory'),
-				'value' => 'accessory.title',
+				// 'value' => 'accessory.title',
+				'content' => function($data){
+					return $data->accessory ? $data->accessory->title : '';
+				}
 			],
              [
 			 	'label' => 'type',
 				'attribute' => 'type',
 			 	'header' => Yii::t('app', 'Type'),
-				'value' =>'type.title'
+				// 'value' => 'type.title',
+				'content' => function($data){
+					return $data->type ? $data->type->title : '';
+				}
 			],
 			[
 			 	'label' => 'expiriences',

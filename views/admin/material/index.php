@@ -22,7 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
-
+			[
+				'label' => 'type',
+				'attribute' => 'type',
+				'header' => Yii::t('app', 'Type'),
+				'content' => function($data){
+					return $data->is_stone ? '<span class="label label-primary">Камень</span>' : '';
+				}
+			],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

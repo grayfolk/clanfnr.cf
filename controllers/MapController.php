@@ -4,11 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\CommonController;
 use yii\filters\VerbFilter;
 use yii\base\Exception;
 
-class MapController extends Controller {
+class MapController extends CommonController {
 	public function behaviors() {
 		return [ ];
 	}

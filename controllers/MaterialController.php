@@ -4,10 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
+use app\components\CommonController;
 use yii\filters\VerbFilter;
 
-class MaterialController extends Controller {
+class MaterialController extends CommonController {
 	public function behaviors() {
 		return [ ];
 	}

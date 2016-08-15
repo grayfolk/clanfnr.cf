@@ -8,16 +8,16 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AdminController;
+use app\components\CommonBackendController;
 
 /**
  * LocationTypeController implements the CRUD actions for LocationType model.
  */
-class LocationtypeController extends AdminController {
+class LocationtypeController extends CommonBackendController {
 	
 	/**
 	 * Lists all LocationType models.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
@@ -32,7 +32,7 @@ class LocationtypeController extends AdminController {
 	
 	/**
 	 * Displays a single LocationType model.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -45,7 +45,7 @@ class LocationtypeController extends AdminController {
 	/**
 	 * Creates a new LocationType model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
@@ -66,7 +66,7 @@ class LocationtypeController extends AdminController {
 	/**
 	 * Updates an existing LocationType model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -88,7 +88,7 @@ class LocationtypeController extends AdminController {
 	/**
 	 * Deletes an existing LocationType model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -103,7 +103,7 @@ class LocationtypeController extends AdminController {
 	/**
 	 * Finds the LocationType model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return LocationType the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found

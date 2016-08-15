@@ -13,7 +13,7 @@ AppAsset::register($this);
 $bodyClass = '';
 $controller = Yii::$app->controller;
 $default_controller = Yii::$app->defaultRoute;
-$bodyClass = 'bg-soft';
+// $bodyClass = 'bg-soft';
 if($controller->id === $default_controller && $controller->action->id === $controller->defaultAction)
 	$bodyClass = 'bg';
 ?>
@@ -127,6 +127,24 @@ jQuery(document).ready(function($){
 			}
 		],
 	})
+	.on('order.dt', function(){
+		popover()
+		$('td[data-html]').each(function(){
+			$(this).html($(this).data('html'))
+		})
+	})
+	.on('search.dt', function(){
+		popover()
+		$('td[data-html]').each(function(){
+			$(this).html($(this).data('html'))
+		})
+	})
+	.on('page.dt', function(){
+		popover()
+		$('td[data-html]').each(function(){
+			$(this).html($(this).data('html'))
+		})
+	})
 	$(document).on('click', 'input[name="expiriencesModal[]"]', function(e){
 		$('input[name="expiriences[]"]').eq($('input[name="expiriencesModal[]"]').index($(this))).trigger('click')
 	})
@@ -181,7 +199,23 @@ jQuery(document).ready(function($){
 		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+5).visible($(this).is(':checked'))
 	})
 	triggerFilters()
+	popover()
+	$('body').on('click', function (e) {
+		$('[data-toggle="popover"]').each(function () {
+			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+				$(this).popover('hide');
+			}
+		})
+	})
 })
+function popover(){
+	$('[data-toggle="popover"]').popover({
+		trigger: 'click',
+		placement: 'auto',
+		container: 'body',
+		html: true
+	})
+}
 function range(start, end) {
     return Array(end-start).join(0).split(0).map(function(val, id) {return id+start})
 }

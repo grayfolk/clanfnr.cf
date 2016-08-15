@@ -9,11 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
+use app\components\CommonBackendController;
 
 /**
  * MaterialController implements the CRUD actions for Material model.
  */
-class MaterialController extends AdminController {
+class MaterialController extends CommonBackendController {
 	
 	/**
 	 * Lists all Material models.

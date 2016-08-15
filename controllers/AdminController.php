@@ -4,12 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use dektrium\user\filters\AccessRule;
+use app\components\CommonBackendController;
 
-class AdminController extends Controller {
-	public $layout = '@app/views/layouts/admin';
+class AdminController extends CommonBackendController {
 	public function behaviors() {
 		return [ 
 				'access' => [ 

@@ -9,11 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
+use app\components\CommonBackendController;
 
 /**
  * LocationController implements the CRUD actions for Location model.
  */
-class LocationController extends AdminController {
+class LocationController extends CommonBackendController {
 	
 	/**
 	 * Lists all Location models.

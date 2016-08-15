@@ -5,10 +5,8 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\Equipment;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\models\ar\Expirience;
 use app\models\ar\Level;
 use app\models\ar\EqiupmentExpirience;
@@ -16,11 +14,12 @@ use app\models\ar\EqiupmentMaterial;
 use app\models\ar\Material;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
+use app\components\CommonBackendController;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
  */
-class EquipmentController extends AdminController {
+class EquipmentController extends CommonBackendController {
 	
 	/**
 	 * Lists all Equipment models.
