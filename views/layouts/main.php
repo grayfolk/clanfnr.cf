@@ -115,7 +115,7 @@ jQuery(document).ready(function($){
 			[ 0, "asc" ]
 		],
 		pageLength: 50,
-		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
+		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= Yii::t('app', 'All')?>"]],
 		columnDefs: [
 			{ 
 				visible: false,

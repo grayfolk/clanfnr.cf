@@ -104,11 +104,10 @@ foreach($expiriences as $expirience){
     <hr>
     <?= Html::checkboxList('accessories', []/*ArrayHelper::getColumn($accessories, 'id')*/, ArrayHelper::map($accessories, 'id', 'title'), ['separator'=>' ']) ?>
     <hr>
-    <a href="#" class="btn btn-link visible-xs" data-toggle="modal" data-target="#expiriencesModal">
-    <?= Yii::t('app', 'Expiriences')?>
-    </a> <a href="#" class="btn btn-link visible-xs" data-toggle="modal" data-target="#materialsModal">
-    <?= Yii::t('app', 'Materials')?>
-    </a>
+    <div class="btn-group btn-group-justified visible-xs" role="group">
+      <a class="btn btn-primary" data-toggle="modal" data-target="#expiriencesModal"><?= Yii::t('app', 'Expiriences')?></a>
+      <a class="btn btn-primary" data-toggle="modal" data-target="#materialsModal"><?= Yii::t('app', 'Materials')?></a>
+    </div>
     <hr class=" visible-xs">
     <div class="equipment-index">
       <?= GridView::widget([
@@ -201,14 +200,18 @@ foreach($expiriences as $expirience){
   </div>
   <div class="col-md-3 hidden-xs">
     <div class="page-header">
-      <h4><?= Yii::t('app', 'Expiriences')?></h4>
+      <h4>
+        <?= Yii::t('app', 'Expiriences')?>
+      </h4>
     </div>
     <?= Html::checkboxList('expiriences', null, ArrayHelper::map($expiriences, 'id', 'title'), ['separator'=>'<br>']) ?>
     <button type="button" class="btn btn-primary btn-sm resetExpiriences">
     <?= Yii::t('app', 'Reset')?>
     </button>
     <div class="page-header">
-      <h4><?= Yii::t('app', 'Materials')?></h4>
+      <h4>
+        <?= Yii::t('app', 'Materials')?>
+      </h4>
     </div>
     <?= Html::checkboxList('materials', null, ArrayHelper::map($materials, 'id', 'title'), ['separator'=>'<br>']) ?>
     <button type="button" class="btn btn-primary btn-sm resetMaterials">
