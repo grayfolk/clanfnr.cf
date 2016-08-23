@@ -7,6 +7,7 @@
         "yiisoft/yii2": ">=2.0.5",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
+        "yiisoft/yii2-jii": "*",
         "dektrium/yii2-user": "*"
     },
     "require-dev": {
