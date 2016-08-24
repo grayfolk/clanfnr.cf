@@ -26,6 +26,6 @@ class AppAsset extends AssetBundle {
 			'yii\web\YiiAsset',
 			'yii\bootstrap\BootstrapAsset',
 			'\app\assets\DataTablesAsset',
-			'\app\assets\DataTablesResponsiveAsset' 
+			// '\app\assets\DataTablesResponsiveAsset' 
 	];
 }
