@@ -12,5 +12,6 @@ Required:
 3. Create files */config/db.php* from */config/db.php.dist* and */config/params.php* from */config/params.php.dist* and edit it
 4. Assign */web* folder as document root
 5. Install composer dependencies - `composer install`
-6. Install bower dependencies - `bower install`
-7. Make migrations - `php yii migrate` and `php yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations`
+6. Install npm dependencies - `npm install`
+7. Install bower dependencies - `bower install`
+8. Make migrations - `php yii migrate` and `php yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations`
