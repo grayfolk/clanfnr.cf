@@ -1,9 +1,6 @@
 RewriteEngine on
 RewriteBase /
 
-RewriteCond %{HTTP_HOST} ^www\.clanfnr\.cf$
-RewriteRule ^(.*)$ https://clanfnr.cf/$1 [L,R=301]
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [QSA,L]
