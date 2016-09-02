@@ -36,3 +36,4 @@ dw_php_codehinting.config
 _notes/
 /config/db.php
 /config/params.php
+/config/console.php
