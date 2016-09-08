@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-
+/*Базовый файл*/
 /* @var $this yii\web\View */
 /* @var $model app\models\MaterialType */
 

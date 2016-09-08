@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+/*Базовый файл*/
 /* @var $this yii\web\View */
 /* @var $model app\models\MaterialType */
 /* @var $form yii\widgets\ActiveForm */
