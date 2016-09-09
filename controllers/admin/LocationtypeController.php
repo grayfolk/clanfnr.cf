@@ -5,14 +5,14 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\LocationType;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\CommonBackendController;
 
 /**
  * LocationTypeController implements the CRUD actions for LocationType model.
  */
-class LocationtypeController extends Controller
+class LocationTypeController extends CommonBackendController
 {
     /**
      * @inheritdoc

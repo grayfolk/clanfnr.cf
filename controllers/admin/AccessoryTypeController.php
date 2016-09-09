@@ -12,7 +12,7 @@ use app\components\CommonBackendController;
 /**
  * TypeController implements the CRUD actions for AccessoryType model.
  */
-class AccessoryType extends CommonBackendController {
+class AccessoryTypeController extends CommonBackendController {
 	
 	/**
 	 * Lists all AccessoryType models.
