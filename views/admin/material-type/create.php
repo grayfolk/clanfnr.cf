@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-/*Базовый файл*/
-/* @var $this yii\web\View */
-/* @var $model app\models\MaterialType */
 
-$this->title = 'Create Material Type';
-$this->params['breadcrumbs'][] = ['label' => 'Material Types', 'url' => ['index']];
+/* @var $this yii\web\View */
+/* @var $model app\models\ar\MaterialType */
+
+$this->title = Yii::t('app', 'Create Material Type');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Material Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-type-create">

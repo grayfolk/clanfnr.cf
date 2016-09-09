@@ -83,11 +83,12 @@ if($controller->id === $default_controller && $controller->action->id === $contr
         'items' => [
             ['label' => Yii::t('app', 'Equipments'), 'url' => ['/admin/equipment/index']],
             ['label' => Yii::t('app', 'Accessories'), 'url' => ['/admin/accessory/index']],
-            ['label' => Yii::t('app', 'Accessory types'), 'url' => ['/admin/type/index']],
+            ['label' => Yii::t('app', 'Accessory Types'), 'url' => ['/admin/accessory-type/index']],
 			['label' => Yii::t('app', 'Locations'), 'url' => ['/admin/location/index']],
-			['label' => Yii::t('app', 'Location Types'), 'url' => ['/admin/locationtype/index']],
+			['label' => Yii::t('app', 'Location Types'), 'url' => ['/admin/location-type/index']],
 			['label' => Yii::t('app', 'Levels'), 'url' => ['/admin/level/index']],
 			['label' => Yii::t('app', 'Materials'), 'url' => ['/admin/material/index']],
+			['label' => Yii::t('app', 'Material Types'), 'url' => ['/admin/material-type/index']],
 			['label' => Yii::t('app', 'Expiriences'), 'url' => ['/admin/expirience/index']],
         ],
     ]);

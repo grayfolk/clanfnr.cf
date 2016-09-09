@@ -2,14 +2,15 @@
 
 use yii\helpers\Html;
 
-/*Базовый файл*/
 /* @var $this yii\web\View */
-/* @var $model app\models\MaterialType */
+/* @var $model app\models\ar\MaterialType */
 
-$this->title = 'Update Material Type: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Material Types', 'url' => ['index']];
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
+    'modelClass' => 'Material Type',
+]) . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Material Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="material-type-update">
 

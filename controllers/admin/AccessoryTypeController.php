@@ -5,16 +5,14 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\AccessoryType;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
 
 /**
  * TypeController implements the CRUD actions for AccessoryType model.
  */
-class TypeController extends CommonBackendController {
+class AccessoryType extends CommonBackendController {
 	
 	/**
 	 * Lists all AccessoryType models.
