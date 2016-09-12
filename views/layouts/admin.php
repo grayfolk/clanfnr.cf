@@ -88,6 +88,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 			['label' => Yii::t('app', 'Location Types'), 'url' => ['/admin/locationtype/index']],
 			['label' => Yii::t('app', 'Levels'), 'url' => ['/admin/level/index']],
 			['label' => Yii::t('app', 'Materials'), 'url' => ['/admin/material/index']],
+			['label' => Yii::t('app', 'Materials Types'), 'url' => ['/admin/material-type/index']],
 			['label' => Yii::t('app', 'Expiriences'), 'url' => ['/admin/expirience/index']],
         ],
     ]);
