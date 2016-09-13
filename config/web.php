@@ -47,7 +47,7 @@ $config = [
 						'rules' => [ 
 								'/' => 'home/index',
 								'<controller:(equipment|material|inviders)>' => '<controller>/index',
-								'admin/<controller:(equipment|material|accessory|type)>' => 'admin/<controller>/index',
+								'admin/<controller:(equipment|material|accessory|accessory-type|location|location-type|material-type)>' => 'admin/<controller>/index',
 								'<action:(about|contact|captcha)>' => 'home/<action>' 
 						] 
 				],

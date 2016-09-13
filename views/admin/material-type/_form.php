@@ -4,23 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ar\Material */
+/* @var $model app\models\ar\MaterialType */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="material-form">
+<div class="material-type-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-     <div class="form-group field-material-type">
-    <label for="location-type" class="control-label">Type</label>
-    <?= Html::activeDropDownList($model, 'type_id',
-      yii\helpers\ArrayHelper::map(app\models\ar\MaterialType::find()->all(), 'id', 'title'), ['class'=>'form-control']) ?>
-    <div class="help-block"></div>
-  </div>
-    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
@@ -28,5 +21,3 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-

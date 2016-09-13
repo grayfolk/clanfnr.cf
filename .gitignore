@@ -26,6 +26,9 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
+# npm vendor dir
+node_modules
+
 # DW Dreamweaver added files
 _notes
 _compareTemp
@@ -37,3 +40,5 @@ _notes/
 /config/db.php
 /config/params.php
 /config/console.php
+/node_modules
+/log

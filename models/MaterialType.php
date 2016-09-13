@@ -5,12 +5,10 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "material_type".
+ * This is the model class for table "{{%material_type}}".
  *
  * @property integer $id
  * @property string $title
- * @property integer $is_stone
- * @property integer $is_invider
  */
 class MaterialType extends \yii\db\ActiveRecord
 {
@@ -19,7 +17,7 @@ class MaterialType extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'material_type';
+        return '{{%material_type}}';
     }
 
     /**
@@ -28,7 +26,6 @@ class MaterialType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_stone', 'is_invider'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -39,10 +36,17 @@ class MaterialType extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'is_stone' => 'Is Stone',
-            'is_invider' => 'Is Invider',
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return MaterialTypeQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new MaterialTypeQuery(get_called_class());
     }
 }

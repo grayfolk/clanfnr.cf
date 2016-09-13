@@ -3,19 +3,16 @@
 namespace app\controllers\admin;
 
 use Yii;
-use app\models\ar\MaterialType;
+use app\models\ar\LocationType;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
 
-
-
 /**
- * MaterialTypeController implements the CRUD actions for MaterialType model.
+ * LocationTypeController implements the CRUD actions for LocationType model.
  */
-class MaterialTypeController extends CommonBackendController
+class LocationTypeController extends CommonBackendController
 {
     /**
      * @inheritdoc
@@ -33,13 +30,13 @@ class MaterialTypeController extends CommonBackendController
     }
 
     /**
-     * Lists all MaterialType models.
+     * Lists all LocationType models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => MaterialType::find(),
+            'query' => LocationType::find(),
         ]);
 
         return $this->render('index', [
@@ -48,25 +45,25 @@ class MaterialTypeController extends CommonBackendController
     }
 
     /**
-     * Displays a single MaterialType model.
+     * Displays a single LocationType model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel( $id ),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new MaterialType model.
+     * Creates a new LocationType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MaterialType();
+        $model = new LocationType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +75,7 @@ class MaterialTypeController extends CommonBackendController
     }
 
     /**
-     * Updates an existing MaterialType model.
+     * Updates an existing LocationType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +94,7 @@ class MaterialTypeController extends CommonBackendController
     }
 
     /**
-     * Deletes an existing MaterialType model.
+     * Deletes an existing LocationType model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +107,15 @@ class MaterialTypeController extends CommonBackendController
     }
 
     /**
-     * Finds the MaterialType model based on its primary key value.
+     * Finds the LocationType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MaterialType the loaded model
+     * @return LocationType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MaterialType::findOne($id)) !== null) {
+        if (($model = LocationType::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

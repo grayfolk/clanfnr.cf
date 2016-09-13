@@ -3,41 +3,34 @@
 namespace app\controllers\admin;
 
 use Yii;
-use app\models\ar\Material;
+use app\models\ar\AccessoryType;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
 
 /**
- * MaterialController implements the CRUD actions for Material model.
+ * TypeController implements the CRUD actions for AccessoryType model.
  */
-class MaterialController extends CommonBackendController {
+class AccessoryTypeController extends CommonBackendController {
 	
 	/**
-	 * Lists all Material models.
+	 * Lists all AccessoryType models.
 	 *
 	 * @return mixed
 	 */
-	 
-	public function actionIndex() {		
+	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Material::find ()->with ( [ 
-						'materialType' 
-				] )  			 
+				'query' => AccessoryType::find () 
 		] );
 		
-			
 		return $this->render ( 'index', [ 
-				'dataProvider' => $dataProvider
+				'dataProvider' => $dataProvider 
 		] );
 	}
 	
-	
 	/**
-	 * Displays a single Material model.
+	 * Displays a single AccessoryType model.
 	 *
 	 * @param integer $id        	
 	 * @return mixed
@@ -49,17 +42,18 @@ class MaterialController extends CommonBackendController {
 	}
 	
 	/**
-	 * Creates a new Material model.
+	 * Creates a new AccessoryType model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Material ();
+		$model = new AccessoryType ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'index' 
+					'view',
+					'id' => $model->id 
 			] );
 		} else {
 			return $this->render ( 'create', [ 
@@ -69,7 +63,7 @@ class MaterialController extends CommonBackendController {
 	}
 	
 	/**
-	 * Updates an existing Material model.
+	 * Updates an existing AccessoryType model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @param integer $id        	
@@ -91,7 +85,7 @@ class MaterialController extends CommonBackendController {
 	}
 	
 	/**
-	 * Deletes an existing Material model.
+	 * Deletes an existing AccessoryType model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id        	
@@ -106,15 +100,15 @@ class MaterialController extends CommonBackendController {
 	}
 	
 	/**
-	 * Finds the Material model based on its primary key value.
+	 * Finds the AccessoryType model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 *
 	 * @param integer $id        	
-	 * @return Material the loaded model
+	 * @return AccessoryType the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id) {
-		if (($model = Material::findOne ( $id )) !== null) {
+		if (($model = AccessoryType::findOne ( $id )) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException ( 'The requested page does not exist.' );

@@ -13,6 +13,7 @@ return [
 		'Inviders' => 'Захватчики',
 		'Expiriences' => 'Навыки',
 		'Silver' => 'Серебро',
-		'Materials Types' => 'Типы Матерниалов',
+		'Create' => 'Создать',
+		'Material Types' => 'Типы Матерниалов',
 		'Type' => 'Тип'
 ];

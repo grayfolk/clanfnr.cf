@@ -8,6 +8,7 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Materials');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="material-index">
 
@@ -22,16 +23,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
-			[
+			/*[
 				'label' => 'type',
 				'attribute' => 'type',
 				'header' => Yii::t('app', 'Type'),
 				'content' => function($data){
 					return $data->is_stone ? '<span class="label label-primary">Камень</span>' : '';
 				}
+			],*/
+			
+			[
+				'label' => 'materialType',
+				'attribute' => 'materialType',
+				'header' => Yii::t('app', 'Type'),
+				'value' => 'materialType.title',
+				
+				
 			],
+			
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
 
 </div>
