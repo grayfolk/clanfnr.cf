@@ -7,7 +7,10 @@ use app\models\ar\MaterialType;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\controllers\AdminController;
 use app\components\CommonBackendController;
+
+
 
 /**
  * MaterialTypeController implements the CRUD actions for MaterialType model.
@@ -52,7 +55,7 @@ class MaterialTypeController extends CommonBackendController
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel( $id ),
         ]);
     }
 

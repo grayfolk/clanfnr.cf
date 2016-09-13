@@ -21,15 +21,20 @@ class MaterialController extends CommonBackendController {
 	 *
 	 * @return mixed
 	 */
-	public function actionIndex() {
+	 
+	public function actionIndex() {		
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Material::find () 
+				'query' => Material::find ()->with ( [ 
+						'materialType' 
+				] )  			 
 		] );
 		
+			
 		return $this->render ( 'index', [ 
-				'dataProvider' => $dataProvider 
+				'dataProvider' => $dataProvider
 		] );
 	}
+	
 	
 	/**
 	 * Displays a single Material model.

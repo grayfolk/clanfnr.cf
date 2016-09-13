@@ -32,7 +32,7 @@ class Material extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_stone', 'is_invider'], 'integer'],
+            [['is_stone', 'is_invider', 'type_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],
         ];
@@ -48,6 +48,7 @@ class Material extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'is_stone' => Yii::t('app', 'Is Stone'),
             'is_invider' => Yii::t('app', 'Is Invider'),
+            'type_id' => Yii::t('app', 'Type Id'),
         ];
     }
 
@@ -57,6 +58,12 @@ class Material extends \yii\db\ActiveRecord
     public function getEqiupmentMaterials()
     {
         return $this->hasMany(EqiupmentMaterial::className(), ['material_id' => 'id']);
+    }
+    
+    
+    public function getMaterialType()
+    {
+        return $this->hasOne(MaterialType::className(), ['id' => 'type_id']);
     }
 
     /**
