@@ -172,31 +172,12 @@ jQuery(document).ready(function($){
 		$('input[name="materials[]"], input[name="materialsModal[]"]').prop('checked', false)
 		triggerFilters()
 	})
-	function triggerFilters(){
-		var expiriences = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
-			return $(e).parents('label').text().trim()
-		}).get().join('|')
-		var materials = $('input[name="materials[]"]:checked').map(function(i, e){ 
-			return $(e).parents('label').text().trim()
-		}).get().join('|')
-		var accessories = $('input[name="accessories[]"]:checked').map(function(i, e){ 
-			return $(e).val()
-		}).get().join('|')
-		var accessoryTypes = $('input[name="accessoryTypes[]"]:checked').map(function(i, e){ 
-			return $(e).val()
-		}).get().join('|')
-		expirienceTable.column(3).search(accessories, true, true)
-		expirienceTable.column(4).search(accessoryTypes, true, true)
-		expirienceTable.column(37).search(materials, true, true)
-		expirienceTable.search(expiriences, true, false)
-		expirienceTable.draw()
-		$('td[data-html]').each(function(){
-			$(this).html($(this).data('html'))
-		})
-		expirienceTable.draw()
-	}
 	$('input[name="expiriences[]"]:checked').each(function(){
 		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+5).visible($(this).is(':checked'))
+	})
+	$(document).on('change', '.jsExpiriencesBoolean', function(e){
+		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
+		triggerFilters()
 	})
 	triggerFilters()
 	popover()
@@ -208,6 +189,29 @@ jQuery(document).ready(function($){
 		})
 	})
 })
+function triggerFilters(){
+	var expiriences = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
+		return $(e).parents('label').text().trim()
+	}).get().join('|')
+	var materials = $('input[name="materials[]"]:checked').map(function(i, e){ 
+		return $(e).parents('label').text().trim()
+	}).get().join('|')
+	var accessories = $('input[name="accessories[]"]:checked').map(function(i, e){ 
+		return $(e).val()
+	}).get().join('|')
+	var accessoryTypes = $('input[name="accessoryTypes[]"]:checked').map(function(i, e){ 
+		return $(e).val()
+	}).get().join('|')
+	expirienceTable.column(3).search(accessories, true, true)
+	expirienceTable.column(4).search(accessoryTypes, true, true)
+	expirienceTable.column(37).search(materials, true, true)
+	expirienceTable.search(expiriences, true, $('.jsExpiriencesBoolean').is(':checked'))
+	expirienceTable.draw()
+	$('td[data-html]').each(function(){
+		$(this).html($(this).data('html'))
+	})
+	expirienceTable.draw()
+}
 function popover(){
 	$('[data-toggle="popover"]').popover({
 		trigger: 'click',

@@ -201,7 +201,7 @@ foreach($expiriences as $expirience){
   <div class="col-md-3 hidden-xs">
     <div class="page-header">
       <h4>
-        <?= Yii::t('app', 'Expiriences')?>
+        <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean"></label></small>
       </h4>
     </div>
     <?= Html::checkboxList('expiriences', null, ArrayHelper::map($expiriences, 'id', 'title'), ['separator'=>'<br>']) ?>
@@ -225,7 +225,7 @@ foreach($expiriences as $expirience){
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="<?= Yii::t('app', 'Close')?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">
-          <?= Yii::t('app', 'Expiriences')?>
+          <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean"></label></small>
         </h4>
       </div>
       <div class="modal-body">
