@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\controllers\AdminController;
 use app\components\CommonBackendController;
+use app\models\ar\Expirience;
+use app\models\ar\MaterialExpirience;
+use app\models\ar\Level;
 
 /**
  * MaterialController implements the CRUD actions for Material model.
@@ -22,18 +25,21 @@ class MaterialController extends CommonBackendController {
 	 * @return mixed
 	 */
 	 
-	public function actionIndex() {		
-		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Material::find ()->with ( [ 
-						'materialType' 
-				] )  			 
-		] );
+	public function actionIndex() {	
 		
-			
+		$dataProvider = new ActiveDataProvider ( [
+				'query' => Material::find () /*->with ( [ 
+						'materialType'
+				] ),*/		 			 
+		] );
+
 		return $this->render ( 'index', [ 
-				'dataProvider' => $dataProvider
+				'dataProvider' => $dataProvider,
+				//'expirience' => Expirience::find ()->all (),
+				'expiriences' => Expirience::find ()->all (),
 		] );
 	}
+	
 	
 	
 	/**
@@ -75,10 +81,12 @@ class MaterialController extends CommonBackendController {
 	 * @param integer $id        	
 	 * @return mixed
 	 */
-	public function actionUpdate($id) {
+/*	public function actionUpdate($id) {
 		$model = $this->findModel ( $id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
+			
+			
 			return $this->redirect ( [ 
 					'view',
 					'id' => $model->id 
@@ -89,7 +97,51 @@ class MaterialController extends CommonBackendController {
 			] );
 		}
 	}
+*/
+
 	
+	public function actionUpdate($id) {
+		$model = $this->findModel ( $id );
+		
+		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
+			$this->updateExpiriences ( $id );
+			
+			
+			return $this->redirect ( [ 
+					'index',
+			] );
+		} else {
+			return $this->render ( 'update', [ 
+					'model' => $model,
+					'expiriences' => Expirience::find ()->all (),
+					'levels' => Level::find ()->all (),
+					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id )
+			] );
+		}
+	}
+	
+
+	
+	
+	protected function updateExpiriences($id) {
+		MaterialExpirience::deleteAll ( [ 
+				'material_id' => $id 
+		] );
+		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
+			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
+				foreach ( $levels as $level => $quantity ) {
+					$ee = new MaterialExpirience ();
+					$ee->material_id = $id;
+					$ee->expirience_id = $expirience;
+					$ee->level_id = $level;
+					$ee->quantity = $quantity;
+					$ee->save ();
+				}
+			}
+		}
+	}
+
+
 	/**
 	 * Deletes an existing Material model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.

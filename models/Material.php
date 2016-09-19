@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use app\models\ar\Expirience;
 use Yii;
 
 /**
@@ -60,12 +60,12 @@ class Material extends \yii\db\ActiveRecord
         return $this->hasMany(EqiupmentMaterial::className(), ['material_id' => 'id']);
     }
     
-    
+   /* 
     public function getMaterialType()
     {
         return $this->hasOne(MaterialType::className(), ['id' => 'type_id']);
     }
-
+*/
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,6 +77,7 @@ class Material extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+                  
     public function getMaterialExpiriences()
     {
         return $this->hasMany(MaterialExpirience::className(), ['material_id' => 'id']);
