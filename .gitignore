@@ -1,3 +1,10 @@
+# ignor access.log
+logs/access.log
+
+# ignor composer
+composer.lock
+
+
 # phpstorm project files
 .idea
 

@@ -3,11 +3,20 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use yii\helpers\ArrayHelper;
+
+
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Materials');
 $this->params['breadcrumbs'][] = $this->title;
+
+
+
+$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
+
 
 ?>
 <div class="material-index">
@@ -37,10 +46,28 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'materialType',
 				'header' => Yii::t('app', 'Type'),
 				'value' => 'materialType.title',
-				
-				
+					
 			],
 			
+			[
+				'label' => 'expiriences',
+				'attribute' => 'expiriences',
+				'header' => Yii::t('app', 'Expiriences'),
+				'value' => 'expiriences.title',
+		
+	
+				'content' => function($data) use ($expiriencesArray){
+					
+					$expiriences = [];
+					foreach(ArrayHelper::map($data->materialExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
+						$expiriences[] = '<span class="label label-primary">' . $expiriencesArray[$key] . '</span>';
+					}
+					return implode('<div class="clearfix"></div>', $expiriences);
+				}
+					
+			],
+			
+				
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
