@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-use app\models\ar\Expirience;
+
 use Yii;
 
 /**
@@ -11,6 +11,7 @@ use Yii;
  * @property string $title
  * @property integer $is_stone
  * @property integer $is_invider
+ * @property integer $type_id
  *
  * @property EqiupmentMaterial[] $eqiupmentMaterials
  * @property Equipment[] $equipment
@@ -48,7 +49,7 @@ class Material extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'is_stone' => Yii::t('app', 'Is Stone'),
             'is_invider' => Yii::t('app', 'Is Invider'),
-            'type_id' => Yii::t('app', 'Type Id'),
+            'type_id' => Yii::t('app', 'Type ID'),
         ];
     }
 
@@ -59,13 +60,7 @@ class Material extends \yii\db\ActiveRecord
     {
         return $this->hasMany(EqiupmentMaterial::className(), ['material_id' => 'id']);
     }
-    
-   /* 
-    public function getMaterialType()
-    {
-        return $this->hasOne(MaterialType::className(), ['id' => 'type_id']);
-    }
-*/
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,7 +72,6 @@ class Material extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-                  
     public function getMaterialExpiriences()
     {
         return $this->hasMany(MaterialExpirience::className(), ['material_id' => 'id']);
