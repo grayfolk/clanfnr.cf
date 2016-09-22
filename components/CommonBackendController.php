@@ -3,7 +3,9 @@
 namespace app\components;
 
 use Yii;
-use app\models\ar\Level;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use dektrium\user\filters\AccessRule;
 
 /**
  *
@@ -11,9 +13,31 @@ use app\models\ar\Level;
  */
 class CommonBackendController extends CommonController {
 	public $layout = '@app/views/layouts/admin';
+	public function behaviors() {
+		return [ 
+				'access' => [ 
+						'class' => AccessControl::className (),
+						'ruleConfig' => [ 
+								'class' => AccessRule::className () 
+						],
+						'rules' => [ 
+								[ 
+										'allow' => true,
+										'roles' => [ 
+												'admin' 
+										] 
+								] 
+						] 
+				],
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ ] 
+				] 
+		];
+	}
 	public function init() {
-		/* $this->view->params ['levels'] = Level::find ()->orderBy ( [ 
-				'id' => SORT_ASC 
-		] )->all (); */
+		/*
+		 * $this->view->params ['levels'] = Level::find ()->orderBy ( [ 'id' => SORT_ASC ] )->all ();
+		 */
 	}
 }

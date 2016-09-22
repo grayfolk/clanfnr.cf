@@ -39,14 +39,14 @@ if($controller->id === $default_controller && $controller->action->id === $contr
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
+	echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
          //  ['label' => 'Home', 'url' => ['/home/index']],
          //   ['label' => 'About', 'url' => ['/home/about']],
          //   ['label' => 'Contact', 'url' => ['/home/contact']],
 			! Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin ? (
-                 ['label' => 'Admin', 'url' => ['/admin/index']]
+                 ['label' => 'Admin', 'url' => ['/admin']]
             ) : (
                ''
             ),
@@ -56,7 +56,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
                 ['label' => 'Profile', 'url' => ['/user/settings/profile']]
             ),
             Yii::$app->user->isGuest ? (
-                '' //['label' => 'Login', 'url' => ['/user/security/login']]
+                ['label' => 'Login', 'url' => ['/user/security/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/user/security/logout'], 'post', ['class'=>'navbar-form navbar-left'])
