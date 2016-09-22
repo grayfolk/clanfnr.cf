@@ -14,6 +14,6 @@ return [
 		'Expiriences' => 'Навыки',
 		'Silver' => 'Серебро',
 		'Create' => 'Создать',
-		'Material Types' => 'Типы Матерниалов',
+		'Material Types' => 'Типы Материалов',
 		'Type' => 'Тип'
 ];
