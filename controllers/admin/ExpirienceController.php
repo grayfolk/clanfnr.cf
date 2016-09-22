@@ -73,8 +73,7 @@ class ExpirienceController extends CommonBackendController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'update', [ 

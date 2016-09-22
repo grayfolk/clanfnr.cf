@@ -3,7 +3,7 @@ return [
 		'Equipments' => 'Экипировка',
 		'Accessories' => 'Аксессуары',
 		'Accessory' => 'Аксессуар',
-		'Accessory types' => 'Типы Аксессуаров',
+		'Accessory Types' => 'Типы Аксессуаров',
 		'Locations' => 'Локации',
 		'Location Types' => 'Типы Локаций',
 		'Levels' => 'Уровни',

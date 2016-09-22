@@ -18,7 +18,7 @@ class LevelController extends CommonBackendController {
 	
 	/**
 	 * Lists all Level models.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
@@ -33,7 +33,7 @@ class LevelController extends CommonBackendController {
 	
 	/**
 	 * Displays a single Level model.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -46,7 +46,7 @@ class LevelController extends CommonBackendController {
 	/**
 	 * Creates a new Level model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
@@ -54,8 +54,7 @@ class LevelController extends CommonBackendController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'create', [ 
@@ -67,7 +66,7 @@ class LevelController extends CommonBackendController {
 	/**
 	 * Updates an existing Level model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -76,8 +75,7 @@ class LevelController extends CommonBackendController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'update', [ 
@@ -89,7 +87,7 @@ class LevelController extends CommonBackendController {
 	/**
 	 * Deletes an existing Level model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return mixed
 	 */
@@ -104,7 +102,7 @@ class LevelController extends CommonBackendController {
 	/**
 	 * Finds the Level model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return Level the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found

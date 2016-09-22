@@ -96,9 +96,6 @@ class EquipmentController extends CommonBackendController {
 		$model = new Equipment ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			$this->updateExpiriences ( $model->id );
-			$this->updateMaterials ( $model->id );
-			
 			return $this->redirect ( [ 
 					'index' 
 			] );
