@@ -6,11 +6,9 @@ use Yii;
 use app\models\ar\Equipment;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use app\models\ar\Expirience;
 use app\models\ar\Level;
 use app\models\ar\EqiupmentExpirience;
-use app\models\ar\EqiupmentMaterial;
 use app\models\ar\Material;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
@@ -125,9 +123,6 @@ class EquipmentController extends CommonBackendController {
 		$model = $this->findModel ( $id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			$this->updateExpiriences ( $id );
-			$this->updateMaterials ( $id );
-			
 			return $this->redirect ( [ 
 					'index' 
 			] );
@@ -170,39 +165,6 @@ class EquipmentController extends CommonBackendController {
 			return $model;
 		} else {
 			throw new NotFoundHttpException ( 'The requested page does not exist.' );
-		}
-	}
-	protected function updateExpiriences($id) {
-		EqiupmentExpirience::deleteAll ( [ 
-				'equipment_id' => $id 
-		] );
-		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
-			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
-				foreach ( $levels as $level => $quantity ) {
-					$ee = new EqiupmentExpirience ();
-					$ee->equipment_id = $id;
-					$ee->expirience_id = $expirience;
-					$ee->level_id = $level;
-					$ee->quantity = $quantity;
-					$ee->save ();
-				}
-			}
-		}
-	}
-	protected function updateMaterials($id) {
-		EqiupmentMaterial::deleteAll ( [ 
-				'equipment_id' => $id 
-		] );
-		if (Yii::$app->request->post ( 'material' ) && is_array ( Yii::$app->request->post ( 'material' ) )) {
-			foreach ( Yii::$app->request->post ( 'material' ) as $key => $material ) {
-				if ($material > 0) {
-					$m = new EqiupmentMaterial ();
-					$m->equipment_id = $id;
-					$m->material_id = $key;
-					$m->quantity = $material;
-					$m->save ();
-				}
-			}
 		}
 	}
 }
