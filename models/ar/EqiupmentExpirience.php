@@ -7,7 +7,7 @@ use Yii;
 class EqiupmentExpirience extends \app\models\EqiupmentExpirience {
 	public static function getEqiupmentExpirience($id) {
 		$data = [ ];
-		if ($res = static::find ()->with ( [ 
+		if ($res = self::find ()->with ( [ 
 				'level',
 				'equipment',
 				'expirience' 
