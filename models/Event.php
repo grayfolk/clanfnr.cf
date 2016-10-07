@@ -10,10 +10,10 @@ use Yii;
  * @property integer $type_id
  * @property string $start
  * @property string $end
- * @property string $type
+ * @property string $coverage
  * @property integer $quantity
  *
- * @property EventType $type0
+ * @property EventType $type
  */
 class Event extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,7 @@ class Event extends \yii\db\ActiveRecord
             [['type_id', 'start'], 'required'],
             [['type_id', 'quantity'], 'integer'],
             [['start', 'end'], 'safe'],
-            [['type'], 'string', 'max' => 32],
+            [['coverage'], 'string', 'max' => 32],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
@@ -48,7 +48,7 @@ class Event extends \yii\db\ActiveRecord
             'type_id' => Yii::t('app', 'Type ID'),
             'start' => Yii::t('app', 'Start'),
             'end' => Yii::t('app', 'End'),
-            'type' => Yii::t('app', 'Type'),
+            'coverage' => Yii::t('app', 'Coverage'),
             'quantity' => Yii::t('app', 'Quantity'),
         ];
     }
@@ -56,7 +56,7 @@ class Event extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType0()
+    public function getType()
     {
         return $this->hasOne(EventType::className(), ['id' => 'type_id']);
     }

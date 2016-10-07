@@ -12,13 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type_id')->textInput() ?>
+    <?= $form->field($model, 'type_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\EventType::find()->all(), 'id', 'title')) ?>
 
-    <?= $form->field($model, 'start')->textInput() ?>
+    <?= $form->field($model, 'start')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 
-    <?= $form->field($model, 'end')->textInput() ?>
+    <?= $form->field($model, 'end')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 
-    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'coverage')->dropDownList([
+		'clan'=>Yii::t('app', 'Clan'),
+		'individual'=>Yii::t('app', 'Individual'),
+		'global'=>Yii::t('app', 'Global')
+		]) ?>
 
     <?= $form->field($model, 'quantity')->textInput() ?>
 

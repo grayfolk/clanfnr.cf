@@ -21,10 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'type_id',
+            'type.title',
             'start',
             'end',
-            'type',
+            'coverage',
             'quantity',
 
             ['class' => 'yii\grid\ActionColumn'],
