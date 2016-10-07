@@ -15,5 +15,7 @@ return [
 		'Silver' => 'Серебро',
 		'Create' => 'Создать',
 		'Material Types' => 'Типы Материалов',
-		'Type' => 'Тип'
+		'Type' => 'Тип',
+		'Events' => 'События',
+		'Event Types' => 'Типы Событий'
 ];

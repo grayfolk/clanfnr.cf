@@ -46,7 +46,7 @@ $config = [
 						'showScriptName' => false,
 						'rules' => [ 
 								'/' => 'home/index',
-								'<controller:(equipment|material|inviders)>' => '<controller>/index',
+								'<controller:(equipment|event|material|inviders)>' => '<controller>/index',
 								'admin/<controller:(equipment|material|accessory|accessory-type|location|location-type|material-type|level|expirience|event|event-type)>' => 'admin/<controller>/index',
 								'<action:(about|contact|captcha)>' => 'home/<action>' 
 						] 

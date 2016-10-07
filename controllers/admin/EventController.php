@@ -19,7 +19,9 @@ class EventController extends CommonBackendController {
 	 */
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Event::find () ->with('type')
+				'query' => Event::find ()->with ( 'type' )->orderBy ( [ 
+						'start' => SORT_DESC 
+				] ) 
 		] );
 		
 		return $this->render ( 'index', [ 

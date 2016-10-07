@@ -48,6 +48,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 	echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
+			['label' => Yii::t('app', 'Events'), 'url' => ['/event/index']],
 			['label' => Yii::t('app', 'Equipments'), 'url' => ['/equipment/index']],
 			// ['label' => Yii::t('app', 'Materials'), 'url' => ['/material/index']],
 			// ['label' => Yii::t('app', 'Inviders'), 'url' => ['/inviders/index']],
