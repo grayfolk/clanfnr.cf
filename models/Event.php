@@ -31,7 +31,7 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'start'], 'required'],
+            [['type_id', 'start', 'coverage'], 'required'],
             [['type_id', 'quantity'], 'integer'],
             [['start', 'end'], 'safe'],
             [['coverage'], 'string', 'max' => 32],
