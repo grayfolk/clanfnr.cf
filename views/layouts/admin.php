@@ -90,6 +90,8 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 			['label' => Yii::t('app', 'Materials'), 'url' => ['/admin/material/index']],
 			['label' => Yii::t('app', 'Material Types'), 'url' => ['/admin/material-type/index']],
 			['label' => Yii::t('app', 'Expiriences'), 'url' => ['/admin/expirience/index']],
+			['label' => Yii::t('app', 'Events'), 'url' => ['/admin/event/index']],
+			['label' => Yii::t('app', 'Event Types'), 'url' => ['/admin/event-type/index']],
         ],
     ]);
     NavBar::end();

@@ -24,23 +24,19 @@ class MaterialController extends CommonBackendController {
 	 *
 	 * @return mixed
 	 */
-	 
-	public function actionIndex() {	
-		
-		$dataProvider = new ActiveDataProvider ( [
+	public function actionIndex() {
+		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => Material::find () /*->with ( [ 
 						'materialType'
 				] ),*/		 			 
 		] );
-
+		
 		return $this->render ( 'index', [ 
 				'dataProvider' => $dataProvider,
-				//'expirience' => Expirience::find ()->all (),
-				'expiriences' => Expirience::find ()->all (),
+				// 'expirience' => Expirience::find ()->all (),
+				'expiriences' => Expirience::find ()->all () 
 		] );
 	}
-	
-	
 	
 	/**
 	 * Displays a single Material model.
@@ -64,12 +60,15 @@ class MaterialController extends CommonBackendController {
 		$model = new Material ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
+			$this->updateExpiriences ( $model->id );
 			return $this->redirect ( [ 
 					'index' 
 			] );
 		} else {
 			return $this->render ( 'create', [ 
-					'model' => $model 
+					'model' => $model,
+					'expiriences' => Expirience::find ()->all (),
+					'levels' => Level::find ()->all () 
 			] );
 		}
 	}
@@ -81,48 +80,27 @@ class MaterialController extends CommonBackendController {
 	 * @param integer $id        	
 	 * @return mixed
 	 */
-/*	public function actionUpdate($id) {
-		$model = $this->findModel ( $id );
-		
-		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			
-			
-			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
-			] );
-		} else {
-			return $this->render ( 'update', [ 
-					'model' => $model 
-			] );
-		}
-	}
-*/
-
-	
+	/*
+	 * public function actionUpdate($id) { $model = $this->findModel ( $id ); if ($model->load ( Yii::$app->request->post () ) && $model->save ()) { return $this->redirect ( [ 'view', 'id' => $model->id ] ); } else { return $this->render ( 'update', [ 'model' => $model ] ); } }
+	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel ( $id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			$this->updateExpiriences ( $id );
 			
-			
 			return $this->redirect ( [ 
-					'index',
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'update', [ 
 					'model' => $model,
 					'expiriences' => Expirience::find ()->all (),
 					'levels' => Level::find ()->all (),
-					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id )
+					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id ) 
 			] );
 		}
 	}
-	
-
-	
-	
 	protected function updateExpiriences($id) {
 		MaterialExpirience::deleteAll ( [ 
 				'material_id' => $id 
@@ -140,8 +118,7 @@ class MaterialController extends CommonBackendController {
 			}
 		}
 	}
-
-
+	
 	/**
 	 * Deletes an existing Material model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
