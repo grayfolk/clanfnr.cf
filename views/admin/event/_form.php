@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 		'clan'=>Yii::t('app', 'Clan'),
 		'individual'=>Yii::t('app', 'Individual'),
 		'global'=>Yii::t('app', 'Global')
-		]) ?>
+		], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'quantity')->textInput() ?>
 
