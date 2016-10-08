@@ -13,12 +13,27 @@ use app\models\ar\Material;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
  */
 class EquipmentController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Equipment models.
 	 *

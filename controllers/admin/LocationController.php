@@ -5,17 +5,29 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\Location;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * LocationController implements the CRUD actions for Location model.
  */
 class LocationController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Location models.
 	 *
@@ -77,8 +89,7 @@ class LocationController extends CommonBackendController {
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
-					'view',
-					'id' => $model->id 
+					'index' 
 			] );
 		} else {
 			return $this->render ( 'update', [ 

@@ -5,7 +5,6 @@ namespace app\models\ar;
 use Yii;
 
 class MaterialExpirience extends \app\models\MaterialExpirience {
-	
 	public static function getMaterialExpirience($id) {
 		$data = [ ];
 		if ($res = static::find ()->with ( [ 
@@ -26,5 +25,4 @@ class MaterialExpirience extends \app\models\MaterialExpirience {
 		}
 		return $data;
 	}
-	
 }

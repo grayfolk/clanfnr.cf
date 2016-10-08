@@ -6,14 +6,28 @@ use Yii;
 use app\models\ar\AccessoryType;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * TypeController implements the CRUD actions for AccessoryType model.
  */
 class AccessoryTypeController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all AccessoryType models.
 	 *

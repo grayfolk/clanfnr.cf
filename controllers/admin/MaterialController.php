@@ -5,20 +5,33 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\Material;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
 use app\models\ar\Expirience;
 use app\models\ar\MaterialExpirience;
 use app\models\ar\Level;
+use yii\filters\VerbFilter;
+use app\models\ar\Location;
 
 /**
  * MaterialController implements the CRUD actions for Material model.
  */
 class MaterialController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Material models.
 	 *
@@ -60,7 +73,6 @@ class MaterialController extends CommonBackendController {
 		$model = new Material ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			$this->updateExpiriences ( $model->id );
 			return $this->redirect ( [ 
 					'index' 
 			] );
@@ -87,8 +99,6 @@ class MaterialController extends CommonBackendController {
 		$model = $this->findModel ( $id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			$this->updateExpiriences ( $id );
-			
 			return $this->redirect ( [ 
 					'index' 
 			] );
@@ -99,23 +109,6 @@ class MaterialController extends CommonBackendController {
 					'levels' => Level::find ()->all (),
 					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id ) 
 			] );
-		}
-	}
-	protected function updateExpiriences($id) {
-		MaterialExpirience::deleteAll ( [ 
-				'material_id' => $id 
-		] );
-		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
-			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
-				foreach ( $levels as $level => $quantity ) {
-					$ee = new MaterialExpirience ();
-					$ee->material_id = $id;
-					$ee->expirience_id = $expirience;
-					$ee->level_id = $level;
-					$ee->quantity = $quantity;
-					$ee->save ();
-				}
-			}
 		}
 	}
 	

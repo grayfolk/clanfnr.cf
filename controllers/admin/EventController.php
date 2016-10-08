@@ -7,11 +7,27 @@ use app\models\ar\Event;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * EventsController implements the CRUD actions for Event model.
  */
 class EventController extends CommonBackendController {
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Event models.
 	 *

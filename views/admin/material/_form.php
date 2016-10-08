@@ -8,27 +8,19 @@ use yii\helpers\ArrayHelper;
 /* @var $model app\models\ar\Material */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php $form = ActiveForm::begin(); ?>
 
-<div class="material-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
+<div class="row">
+  <div class="col-md-4">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-     <div class="form-group field-material-type">
-    <label for="location-type" class="control-label">Type</label>
-    <?= Html::activeDropDownList($model, 'type_id',
+    <div class="form-group field-material-type">
+      <label for="location-type" class="control-label">Type</label>
+      <?= Html::activeDropDownList($model, 'type_id',
       yii\helpers\ArrayHelper::map(app\models\ar\MaterialType::find()->all(), 'id', 'title'), ['class'=>'form-control']) ?>
-    <div class="help-block"></div>
-  </div>
-    
-    
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+      <div class="help-block"></div>
     </div>
-    
-    
-  <div class="col-md-3">
+  </div>
+  <div class="col-md-4">
     <div class="form-group field-equipment-type">
       <label for="equipment-type" class="control-label">Навык</label>
       <div class="input-group">
@@ -92,11 +84,11 @@ use yii\helpers\ArrayHelper;
       <?php endif;?>
     </div>
   </div>
-   
- 
-
-    <?php ActiveForm::end(); ?>
-
+  <div class="col-md-4">
+  <?= Html::checkboxList('locations', ArrayHelper::getColumn(app\models\ar\MaterialLocation::find()->where(['material_id'=>$model->id])->all(), 'location_id'), ArrayHelper::map(app\models\ar\Location::find ()->orderBy(['type_id'=>SORT_ASC,'title'=>SORT_ASC])->all () , 'id', 'title'), ['separator'=>'<br>']) ?>
+  </div>
 </div>
-
-
+<div class="form-group">
+  <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+</div>
+<?php ActiveForm::end(); ?>

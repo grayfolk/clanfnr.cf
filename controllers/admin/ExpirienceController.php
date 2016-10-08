@@ -5,17 +5,29 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\Expirience;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * ExpirienceController implements the CRUD actions for Expirience model.
  */
 class ExpirienceController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Expirience models.
 	 *
@@ -53,7 +65,9 @@ class ExpirienceController extends CommonBackendController {
 		$model = new Expirience ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			return $this->redirect ( 'index' );
+			return $this->redirect ( [ 
+					'index' 
+			] );
 		} else {
 			return $this->render ( 'create', [ 
 					'model' => $model 

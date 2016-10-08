@@ -5,17 +5,29 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\ar\Level;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use app\controllers\AdminController;
 use app\components\CommonBackendController;
+use yii\filters\VerbFilter;
 
 /**
  * LevelController implements the CRUD actions for Level model.
  */
 class LevelController extends CommonBackendController {
-	
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return array_merge ( parent::behaviors (), [ 
+				'verbs' => [ 
+						'class' => VerbFilter::className (),
+						'actions' => [ 
+								'delete' => [ 
+										'POST' 
+								] 
+						] 
+				] 
+		] );
+	}
 	/**
 	 * Lists all Level models.
 	 *
