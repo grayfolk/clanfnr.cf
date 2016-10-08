@@ -3,15 +3,21 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use app\components\CommonController;
-use yii\filters\VerbFilter;
+use app\models\ar\Material;
+use app\models\ar\MaterialLocation;
+use app\models\ar\Location;
 
 class MaterialController extends CommonController {
-	public function behaviors() {
-		return [ ];
-	}
 	public function actionIndex() {
-		return $this->render ( 'index' );
+		return $this->render ( 'index', [ 
+				'materials' => Material::find ()->orderBy ( [ 
+						'title' => SORT_ASC 
+				] )->all (),
+				'locations' => Location::find ()->orderBy ( [ 
+						'title' => SORT_ASC 
+				] )->all (),
+				'materialLocations' => MaterialLocation::find ()->all () 
+		] );
 	}
 }
