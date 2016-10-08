@@ -4,5 +4,5 @@ namespace app\models\ar;
 
 use Yii;
 
-class Event extends\app\models\Event {
+class Event extends \app\models\Event {
 }

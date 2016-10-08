@@ -12,6 +12,7 @@ use Yii;
  * @property string $end
  * @property string $coverage
  * @property integer $quantity
+ * @property integer $invider_id
  *
  * @property EventType $type
  */
@@ -32,7 +33,7 @@ class Event extends \yii\db\ActiveRecord
     {
         return [
             [['type_id', 'start', 'coverage'], 'required'],
-            [['type_id', 'quantity'], 'integer'],
+            [['type_id', 'quantity', 'invider_id'], 'integer'],
             [['start', 'end'], 'safe'],
             [['coverage'], 'string', 'max' => 32],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['type_id' => 'id']],
@@ -50,6 +51,7 @@ class Event extends \yii\db\ActiveRecord
             'end' => Yii::t('app', 'End'),
             'coverage' => Yii::t('app', 'Coverage'),
             'quantity' => Yii::t('app', 'Quantity'),
+            'invider_id' => Yii::t('app', 'Invider ID'),
         ];
     }
 

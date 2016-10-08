@@ -145,6 +145,11 @@ jQuery(document).ready(function($){
 			$('input[name="material['+$(this).data('id')+']"]').val(parseInt($('input[name="material['+$(this).data('id')+']"]').val())-1)
 		return false
 	})
+	$(document).on('change', '#event-type_id', function(e){
+		if($('#event-type_id option:selected').text() == 'Захватчик') $('div.field-event-invider_id').show()
+		else $('div.field-event-invider_id').hide()
+	})
+	$('#event-type_id').trigger('change')
 })
 </script>
 </body>

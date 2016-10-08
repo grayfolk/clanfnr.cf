@@ -13,12 +13,15 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'type_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\EventType::find()->all(), 'id', 'title')) ?>
+    
+    <?= $form->field($model, 'invider_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\Location::find()->where(['type_id'=>app\models\ar\LocationType::find()->where(['title'=>'Захватчик'])->one()->id])->all(), 'id', 'title')) ?>
 
     <?= $form->field($model, 'start')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 
     <?= $form->field($model, 'end')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 
     <?= $form->field($model, 'coverage')->dropDownList([
+		'none'=>Yii::t('app', 'None'),
 		'bonus'=>Yii::t('app', 'Bonus'),
 		'clan'=>Yii::t('app', 'Clan'),
 		'individual'=>Yii::t('app', 'Individual'),
