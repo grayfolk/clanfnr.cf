@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $title
  * @property integer $type_id
+ * @property string $color
  *
  * @property LocationType $type
  */
@@ -31,6 +32,7 @@ class Location extends \yii\db\ActiveRecord
         return [
             [['type_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            [['color'], 'string', 'max' => 12],
             [['title'], 'unique'],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LocationType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -45,6 +47,7 @@ class Location extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'type_id' => Yii::t('app', 'Type ID'),
+            'color' => Yii::t('app', 'Color'),
         ];
     }
 

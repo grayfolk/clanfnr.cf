@@ -40,8 +40,8 @@ if($events && count($events)){
 		$Event->id = $key;
 		$Event->title = $title;
 		// $Event->description = $description;
-		$Event->color = $color;
-		$Event->backgroundColor = $color;
+		$Event->color = $event->coverage == 'bonus' ? $color : $event->type->color;
+		$Event->backgroundColor = $event->coverage == 'bonus' ? $color : $event->type->color;
 		$Event->start = date('Y-m-d\T', strtotime($event->start));
 		$Event->end = date('Y-m-d\T00:00:00\Z', strtotime($event->end));
 		$list[] = $Event;
@@ -49,4 +49,10 @@ if($events && count($events)){
 }
 ?>
 
-<?= \yii2fullcalendar\yii2fullcalendar::widget(['events'=> $list]);
+<?= \yii2fullcalendar\yii2fullcalendar::widget([
+	'events'=> $list,
+	'options' => [
+        'lang' => 'ru',
+	],
+	//'ajaxEvents' => yii\helpers\Url::to(['/event/index'])
+]);

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\color\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ar\Location */
@@ -13,6 +14,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'color')->widget(ColorInput::classname(), [
+    'options' => ['placeholder' => 'Select color ...'],
+])?>
 
      <div class="form-group field-location-type">
     <label for="location-type" class="control-label">Type</label>
