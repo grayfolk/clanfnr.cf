@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property string $title
- * @property string $type
  *
  * @property Event[] $events
  */
@@ -30,7 +29,7 @@ class EventType extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title', 'type'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],
         ];
     }
@@ -43,7 +42,6 @@ class EventType extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
-            'type' => Yii::t('app', 'Type'),
         ];
     }
 

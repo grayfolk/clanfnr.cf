@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'end')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 
     <?= $form->field($model, 'coverage')->dropDownList([
-		'none'=>Yii::t('app', 'None'),
+		'bonus'=>Yii::t('app', 'Bonus'),
 		'clan'=>Yii::t('app', 'Clan'),
 		'individual'=>Yii::t('app', 'Individual'),
 		'global'=>Yii::t('app', 'Global')
