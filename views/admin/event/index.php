@@ -21,7 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'type.title',
+            // 'type.title',
+			[
+				'attribute'=>'type.title',
+				'content'=>function($data){
+					if($data->invider_id)
+						return $data->type->title . " (" . (app\models\ar\Location::find()->where(['id'=>$data->location->id])->one()->title) . ")";
+					return $data->type->title;
+				}
+			],
             'start',
             'end',
             'coverage',
