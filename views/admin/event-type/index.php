@@ -22,7 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'title',
+            // 'title',
+			[
+				'attribute'=>'title',
+				'content'=>function($data){
+					return $data->title . '<span class="label pull-right" style="background-color:' . $data->color . '">' . $data->color . '</span>';
+				}
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

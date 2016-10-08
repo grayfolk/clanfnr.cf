@@ -19,10 +19,12 @@ if($events && count($events)){
 				if($event->quantity < 0) $color = '#b1f79e';
 				break;
 			case 'clan':
+				// $title .= '<span class="label label-primary">Клановое</span> ';
 				$title .= 'Клановое: ';
 				$color = '#639af2';
 				break;
 			case 'individual':
+				// $title .= '<span class="label label-info">Личное</span> ';
 				$title .= 'Личное: ';
 				$color = '#b68ad8';
 				break;
@@ -40,8 +42,8 @@ if($events && count($events)){
 		$Event->id = $key;
 		$Event->title = $title;
 		// $Event->description = $description;
-		$Event->color = $event->coverage == 'bonus'||$event->invider_id ? $color : $event->type->color;
-		$Event->backgroundColor = $event->coverage == 'bonus'||$event->invider_id ? $color : $event->type->color;
+		$Event->color = $event->invider_id ? $color : $event->type->color;
+		$Event->backgroundColor = $event->invider_id ? $color : $event->type->color;
 		$Event->start = date('Y-m-d\T', strtotime($event->start));
 		$Event->end = date('Y-m-d\T00:00:00\Z', strtotime($event->end));
 		$list[] = $Event;
@@ -55,9 +57,9 @@ if($events && count($events)){
         'lang' => 'ru',
 	],
 	'header' => [
-			'center'=>'title',
-			'left'=>'prev,next today',        
-			'right'=>'month,agendaWeek,listWeek'
-		]
-	//'ajaxEvents' => yii\helpers\Url::to(['/event/index'])
+		'center'=>'title',
+		'left'=>'prev,next today',        
+		'right'=>'month,agendaWeek,listWeek'
+	],
+	// 'ajaxEvents' => yii\helpers\Url::to(['/event/index'])
 ]);
