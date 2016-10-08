@@ -54,5 +54,10 @@ if($events && count($events)){
 	'options' => [
         'lang' => 'ru',
 	],
+	'header' => [
+			'center'=>'title',
+			'left'=>'prev,next today',        
+			'right'=>'month,agendaWeek,listWeek'
+		]
 	//'ajaxEvents' => yii\helpers\Url::to(['/event/index'])
 ]);
