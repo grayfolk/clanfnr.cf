@@ -27,6 +27,7 @@ $materialsArray = ArrayHelper::map(ArrayHelper::toArray($materialLocations), 'lo
 			'content' => $this->render('_stones', [
 				'materials' => $materials,
 				'locations' => $locations,
+				'expiriences' => $expiriences,
 				'materialsArray' => $materialsArray
 			]),
 		],
