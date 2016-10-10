@@ -37,7 +37,12 @@ class LocationController extends CommonBackendController {
 		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => Location::find ()->with ( [ 
 						'type' 
-				] ) 
+				] ),
+				'sort' => [ 
+						'defaultOrder' => [ 
+								'title' => SORT_ASC 
+						] 
+				] 
 		] );
 		
 		return $this->render ( 'index', [ 

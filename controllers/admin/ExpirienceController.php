@@ -35,7 +35,12 @@ class ExpirienceController extends CommonBackendController {
 	 */
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Expirience::find () 
+				'query' => Expirience::find (),
+				'sort' => [ 
+						'defaultOrder' => [ 
+								'title' => SORT_ASC 
+						] 
+				] 
 		] );
 		
 		return $this->render ( 'index', [ 

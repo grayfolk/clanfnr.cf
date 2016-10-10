@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
     <div class="form-group field-material-type">
       <label for="location-type" class="control-label">Type</label>
       <?= Html::activeDropDownList($model, 'type_id',
-      yii\helpers\ArrayHelper::map(app\models\ar\MaterialType::find()->all(), 'id', 'title'), ['class'=>'form-control']) ?>
+      yii\helpers\ArrayHelper::map(app\models\ar\MaterialType::find()->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title'), ['class'=>'form-control']) ?>
       <div class="help-block"></div>
     </div>
   </div>

@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\EventType::find()->all(), 'id', 'title')) ?>
+    <?= $form->field($model, 'type_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\EventType::find()->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title')) ?>
     
-    <?= $form->field($model, 'invider_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\Location::find()->where(['type_id'=>app\models\ar\LocationType::find()->where(['title'=>'Захватчик'])->one()->id])->all(), 'id', 'title')) ?>
+    <?= $form->field($model, 'invider_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\Location::find()->where(['type_id'=>app\models\ar\LocationType::find()->where(['title'=>'Захватчик'])->one()->id])->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title')) ?>
 
     <?= $form->field($model, 'start')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','options'=>['class' => 'form-control']]) ?>
 

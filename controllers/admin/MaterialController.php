@@ -39,9 +39,12 @@ class MaterialController extends CommonBackendController {
 	 */
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Material::find () /*->with ( [ 
-						'materialType'
-				] ),*/		 			 
+				'query' => Material::find (),
+				'sort' => [ 
+						'defaultOrder' => [ 
+								'title' => SORT_ASC 
+						] 
+				] 
 		] );
 		
 		return $this->render ( 'index', [ 
@@ -79,7 +82,9 @@ class MaterialController extends CommonBackendController {
 		} else {
 			return $this->render ( 'create', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->all (),
+					'expiriences' => Expirience::find ()->orderBy ( [ 
+							'title' => SORT_ASC 
+					] )->all (),
 					'levels' => Level::find ()->all () 
 			] );
 		}
@@ -105,7 +110,9 @@ class MaterialController extends CommonBackendController {
 		} else {
 			return $this->render ( 'update', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->all (),
+					'expiriences' => Expirience::find ()->orderBy ( [ 
+							'title' => SORT_ASC 
+					] )->all (),
 					'levels' => Level::find ()->all (),
 					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id ) 
 			] );

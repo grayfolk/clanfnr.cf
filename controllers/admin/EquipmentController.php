@@ -45,22 +45,13 @@ class EquipmentController extends CommonBackendController {
 				'query' => $query,
 				'sort' => [ 
 						'defaultOrder' => [ 
-								'id' => SORT_DESC 
+								'title' => SORT_ASC 
 						],
 						'attributes' => [ 
 								'id',
 								'title',
 								'level',
-								'silver',
-								/* 'accessory.title' => [ 
-										'asc' => [ 
-												'accessory.title' => SORT_ASC 
-										],
-										'desc' => [ 
-												'accessory.title' => SORT_DESC 
-										],
-										'default' => SORT_DESC 
-								]  */
+								'silver' 
 						] 
 				] 
 		] );
