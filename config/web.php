@@ -47,9 +47,14 @@ $config = [
 						'rules' => [ 
 								'/' => 'home/index',
 								'<controller:(equipment|event|material|inviders)>' => '<controller>/index',
-								'admin/<controller:(equipment|material|accessory|accessory-type|location|location-type|material-type|level|expirience|event|event-type)>' => 'admin/<controller>/index',
-								'<action:(about|contact|captcha)>' => 'home/<action>' 
-						] 
+								'<action:(about|contact|captcha)>' => 'home/<action>',
+								// Admin
+								'admin/<controller:(equipment|material|accessory|accessory-type|location|location-type|material-type|level|expirience|event|event-type)>' => 'admin/<controller>/index' ,
+								'admin/<controller:[\w-]+>/<action:(view|update|delete)>/<id:\d+>' => 'admin/<controller>/<action>',
+								'admin/<controller:[\w-]+>/<action:(view|update|delete)>/<type_id:\d+>/<start:[\w-]+>/<coverage:[\w-]+>' => 'admin/<controller>/<action>',
+								'admin/<controller:[\w-]+>/<action:[\w-]+>' => 'admin/<controller>/<action>'
+						]
+						 
 				],
 				'assetManager' => [ 
 						'class' => 'yii\web\AssetManager',
