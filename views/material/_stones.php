@@ -30,7 +30,7 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 		}
 		if(count($data)){
 			ksort($data);
-			$title = '<span class="label label-primary">' . $expirience->title . '</span>';
+			$title = $expirience->title;
 			$html .= '<table class="table table-hover table-condensed"><tr>';
 			foreach($data as $level=>$quantity){
 				switch($level){
