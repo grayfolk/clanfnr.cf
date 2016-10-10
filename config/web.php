@@ -3,6 +3,7 @@ $params = require (__DIR__ . '/params.php');
 
 $config = [ 
 		'id' => 'clanfnr.cf',
+		'name' => 'Clan FNR Official Site',
 		'basePath' => dirname ( __DIR__ ),
 		'bootstrap' => [ 
 				'log' 
