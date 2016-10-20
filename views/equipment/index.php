@@ -13,100 +13,110 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 
 $this->title = 'Clan FNR';
 $expiriencesColumns = [];
-foreach($expiriences as $expirience){
-	$expiriencesColumns [] = [
-		'header' => $expirience->title,
-		'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
-			$html = '';
-			$data = [];
-			foreach($model->eqiupmentExpiriences as $row){
-				if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
-			}
-			if(count($data)){
-				ksort($data);
-				$html .= '<table class="table table-hover table-condensed"><tr>';
-				foreach($data as $level=>$quantity){
-					switch($level){
-						case 1:
-							$class = 'active';
-							break;
-						case 3:
-							$class = 'success';
-							break;
-						case 4:
-							$class = 'info';
-							break;
-						case 5:
-							$class = 'danger';
-							break;
-						case 6:
-							$class = 'warning';
-							break;
-						default:
-							$class = '';
-							break;
-					}
-					$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
+if($expiriences){
+	foreach($expiriences as $expirience){
+		$expiriencesColumns [] = [
+			'header' => $expirience->title,
+			'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
+				$html = '';
+				$data = [];
+				foreach($model->eqiupmentExpiriences as $row){
+					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
 				}
-				$html .= '</tr></table>';
-			}
-			return [
-				'data-filter' => count($data)? $expirience->title : '',
-				'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
-				'data-html' => $html
-			];
-		},
-		'content' => function($model) use ($expirience){
-			return '';
-			$html = '';
-			$data = [];
-			foreach($model->eqiupmentExpiriences as $row){
-				if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
-			}
-			if(count($data)){
-				ksort($data);
-				$html .= '<table class="table table-hover table-condensed"><tr>';
-				foreach($data as $level=>$quantity){
-					switch($level){
-						case 1:
-							$class = 'active';
-							break;
-						case 3:
-							$class = 'success';
-							break;
-						case 4:
-							$class = 'info';
-							break;
-						case 5:
-							$class = 'danger';
-							break;
-						case 6:
-							$class = 'warning';
-							break;
-						default:
-							$class = '';
-							break;
+				if(count($data)){
+					ksort($data);
+					$html .= '<table class="table table-hover table-condensed"><tr>';
+					foreach($data as $level=>$quantity){
+						switch($level){
+							case 1:
+								$class = 'active';
+								break;
+							case 3:
+								$class = 'success';
+								break;
+							case 4:
+								$class = 'info';
+								break;
+							case 5:
+								$class = 'danger';
+								break;
+							case 6:
+								$class = 'warning';
+								break;
+							default:
+								$class = '';
+								break;
+						}
+						$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
 					}
-					$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
+					$html .= '</tr></table>';
 				}
-				$html .= '</tr></table>';
+				return [
+					'data-filter' => count($data)? $expirience->title : '',
+					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
+					'data-html' => $html
+				];
+			},
+			'content' => function($model) use ($expirience){
+				return '';
+				$html = '';
+				$data = [];
+				foreach($model->eqiupmentExpiriences as $row){
+					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+				}
+				if(count($data)){
+					ksort($data);
+					$html .= '<table class="table table-hover table-condensed"><tr>';
+					foreach($data as $level=>$quantity){
+						switch($level){
+							case 1:
+								$class = 'active';
+								break;
+							case 3:
+								$class = 'success';
+								break;
+							case 4:
+								$class = 'info';
+								break;
+							case 5:
+								$class = 'danger';
+								break;
+							case 6:
+								$class = 'warning';
+								break;
+							default:
+								$class = '';
+								break;
+						}
+						$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
+					}
+					$html .= '</tr></table>';
+				}
+				return $html;
 			}
-			return $html;
-		}
-	];
+		];
+	}
 }
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
 <div class="row">
   <div class="col-md-9 col-xs-12">
+  	<?php if($accessoryTypes):?>
     <?= Html::checkboxList('accessoryTypes', []/*ArrayHelper::getColumn($accessoryTypes, 'id')*/, ArrayHelper::map($accessoryTypes, 'id', 'title'), ['separator'=>' ']) ?>
     <hr>
+    <?php endif;?>
+    <?php if($accessories):?>
     <?= Html::checkboxList('accessories', []/*ArrayHelper::getColumn($accessories, 'id')*/, ArrayHelper::map($accessories, 'id', 'title'), ['separator'=>' ']) ?>
     <hr>
+    <?php endif;?>
     <div class="btn-group btn-group-justified visible-xs" role="group">
+      <?php if($expiriences):?>
       <a class="btn btn-primary" data-toggle="modal" data-target="#expiriencesModal"><?= Yii::t('app', 'Expiriences')?></a>
+      <?php endif;?>
+      <?php if($materials):?>
       <a class="btn btn-primary" data-toggle="modal" data-target="#materialsModal"><?= Yii::t('app', 'Materials')?></a>
+      <?php endif;?>
     </div>
     <hr class=" visible-xs">
     <div class="equipment-index">
@@ -116,7 +126,7 @@ foreach($expiriences as $expirience){
         'columns' => array_merge(
 			[[
 				'header' => Yii::t('app', 'Title'),
-				'content' => function($data) use ($expiriencesArray, $expirience){
+				'content' => function($data) use ($expiriencesArray){
 					$html = "";
 					$expiriences = [];
 					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
