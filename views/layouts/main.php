@@ -104,10 +104,13 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceTable, expirienceColumns = range(3,36)
+var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = 5, expirienceTable, expirienceColumns = range(3,expirienceCount+firstColumns)
 jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
 		// responsive: true,
+		/*search: {
+			smart: true
+		},*/
 		scrollX: true,
 		language: {
 			url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json'
@@ -125,7 +128,7 @@ jQuery(document).ready(function($){
 			},
 			{ 
 				sortable: false,
-				targets: [1,37],
+				targets: [1,37,38],
 			}
 		],
 	})
@@ -159,7 +162,7 @@ jQuery(document).ready(function($){
 	})
 	$(document).on('click', 'input[name="expiriences[]"]', function(e){
 		$('input[name="expiriencesModal[]"]').eq($('input[name="expiriences[]"]').index($(this))).prop('checked', $(this).is(':checked'))
-		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+5).visible($(this).is(':checked'))
+		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
 		triggerFilters()
 	})
 	$(document).on('click', 'input[name="accessoryTypes[]"], input[name="accessories[]"]', function(e){
@@ -175,7 +178,7 @@ jQuery(document).ready(function($){
 		triggerFilters()
 	})
 	$('input[name="expiriences[]"]:checked').each(function(){
-		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+5).visible($(this).is(':checked'))
+		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
 	})
 	$(document).on('change', '.jsExpiriencesBoolean', function(e){
 		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
@@ -204,9 +207,9 @@ function triggerFilters(){
 	var accessoryTypes = $('input[name="accessoryTypes[]"]:checked').map(function(i, e){ 
 		return $(e).val()
 	}).get().join('|')
-	expirienceTable.column(3).search(accessories, true, true)
+	expirienceTable.columns(3).search(accessories, true, true)
 	expirienceTable.column(4).search(accessoryTypes, true, true)
-	expirienceTable.column(37).search(materials, true, true)
+	expirienceTable.column(38).search(materials, true, true)
 	expirienceTable.search(expiriences, true, $('.jsExpiriencesBoolean').is(':checked'))
 	expirienceTable.draw()
 	$('td[data-html]').each(function(){

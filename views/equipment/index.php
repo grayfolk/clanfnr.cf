@@ -52,8 +52,8 @@ if($expiriences){
 					$html .= '</tr></table>';
 				}
 				return [
-					'data-filter' => count($data)? $expirience->title : '',
-					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
+					'data-filter' => count($data) ? $expirience->title : null,
+					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : null,
 					'data-html' => $html
 				];
 			},
