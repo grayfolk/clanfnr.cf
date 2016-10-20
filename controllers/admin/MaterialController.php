@@ -4,14 +4,13 @@ namespace app\controllers\admin;
 
 use Yii;
 use app\models\ar\Material;
-use yii\data\ActiveDataProvider;
+use app\models\ar\MaterialSearch;
 use yii\web\NotFoundHttpException;
 use app\components\CommonBackendController;
 use app\models\ar\Expirience;
 use app\models\ar\MaterialExpirience;
 use app\models\ar\Level;
 use yii\filters\VerbFilter;
-use app\models\ar\Location;
 
 /**
  * MaterialController implements the CRUD actions for Material model.
@@ -37,19 +36,13 @@ class MaterialController extends CommonBackendController {
 	 *
 	 * @return mixed
 	 */
-	public function actionIndex() {
-		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Material::find (),
-				'sort' => [ 
-						'defaultOrder' => [ 
-								'title' => SORT_ASC 
-						] 
-				] 
-		] );
+	public function actionIndex() {		
+		$searchModel = new MaterialSearch ();
+		$dataProvider = $searchModel->search ( Yii::$app->request->queryParams );
 		
 		return $this->render ( 'index', [ 
+				'searchModel' => $searchModel,
 				'dataProvider' => $dataProvider,
-				// 'expirience' => Expirience::find ()->all (),
 				'expiriences' => Expirience::find ()->all () 
 		] );
 	}
