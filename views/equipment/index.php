@@ -54,7 +54,7 @@ if($expiriences){
 				return [
 					'data-filter' => count($data) ? $expirience->title : null,
 					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : null,
-					'data-html' => $html
+					'data-html' => $html ? : null
 				];
 			},
 			'content' => function($model) use ($expirience){
@@ -92,6 +92,7 @@ if($expiriences){
 					}
 					$html .= '</tr></table>';
 				}
+				// $html = count($data) ? $expirience->title : null;
 				return $html;
 			}
 		];
@@ -126,6 +127,11 @@ if($expiriences){
         'columns' => array_merge(
 			[[
 				'header' => Yii::t('app', 'Title'),
+				'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
+					return [
+						'data-sort' =>  $model->title
+					];
+				},
 				'content' => function($data) use ($expiriencesArray){
 					$html = "";
 					$expiriences = [];
