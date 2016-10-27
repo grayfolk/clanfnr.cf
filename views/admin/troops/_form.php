@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <p>level_id (Уровень)</p>
     
     <?= Html::activeDropDownList($model, 'level_id',
-      yii\helpers\ArrayHelper::map(app\models\ar\Level::find()->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title'), ['class'=>'form-control']) ?>
+      yii\helpers\ArrayHelper::map(app\models\ar\Level::find()->orderBy(['id'=>SORT_ASC])->all(), 'id', 'id'), ['class'=>'form-control']) ?>
     
     
     <br>
