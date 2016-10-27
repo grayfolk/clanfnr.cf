@@ -181,9 +181,9 @@ jQuery(document).ready(function($){
 		$('input[name="materials[]"], input[name="materialsModal[]"]').prop('checked', false)
 		triggerFilters()
 	})
-	$('input[name="expiriences[]"]:checked').each(function(){
+	/*$('input[name="expiriences[]"]:checked').each(function(){
 		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
-	})
+	})*/
 	$(document).on('change', '.jsExpiriencesBoolean', function(e){
 		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
 		triggerFilters()
@@ -199,9 +199,14 @@ jQuery(document).ready(function($){
 	})
 })
 function triggerFilters(){
+	// console.log(expirienceColumns)
+	// expirienceTable.columns(expirienceColumns).visible(false)
 	var expiriences = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
 		return $(e).parents('label').text().trim()
 	}).get().join('|')
+	var expiriencesValues = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
+		return parseInt($(e).val())
+	}).get()
 	var materials = $('input[name="materials[]"]:checked').map(function(i, e){ 
 		return $(e).parents('label').text().trim()
 	}).get().join('|')
@@ -214,7 +219,11 @@ function triggerFilters(){
 	expirienceTable.columns(3).search(accessories, true, true)
 	expirienceTable.column(4).search(accessoryTypes, true, true)
 	expirienceTable.column(38).search(materials, true, true)
-	expirienceTable.search(expiriences, true, $('.jsExpiriencesBoolean').is(':checked'))
+	/*if(expiriencesValues.length){
+		console.log(expiriencesValues)
+		// expirienceTable.columns(expiriencesValues).visible(true);
+	}*/
+	// expirienceTable.columns(expirienceColumns).search(expiriencesValues, true, $('.jsExpiriencesBoolean').is(':checked'))
 	expirienceTable.draw()
 	$('td[data-html]').each(function(){
 		$(this).html($(this).data('html'))

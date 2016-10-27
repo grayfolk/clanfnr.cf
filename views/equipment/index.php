@@ -18,82 +18,27 @@ if($expiriences){
 		$expiriencesColumns [] = [
 			'header' => $expirience->title,
 			'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
-				$html = '';
 				$data = [];
 				foreach($model->eqiupmentExpiriences as $row){
 					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
 				}
-				if(count($data)){
-					ksort($data);
-					$html .= '<table class="table table-hover table-condensed"><tr>';
-					foreach($data as $level=>$quantity){
-						switch($level){
-							case 1:
-								$class = 'active';
-								break;
-							case 3:
-								$class = 'success';
-								break;
-							case 4:
-								$class = 'info';
-								break;
-							case 5:
-								$class = 'danger';
-								break;
-							case 6:
-								$class = 'warning';
-								break;
-							default:
-								$class = '';
-								break;
-						}
-						$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
-					}
-					$html .= '</tr></table>';
-				}
 				return [
 					'data-filter' => count($data) ? $expirience->title : null,
-					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : null,
-					'data-html' => $html ? : null
+					'data-filter' => count($data) ? $expirience->id : null,
+					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
+					'data-html' => \app\helpers\CommonHelper::createExpirienceTable($data),
+					'data-id' => count($data) ? $expirience->id : null,
+					// 'class' => count($data) ? 'expirienceColumns' : null
 				];
 			},
 			'content' => function($model) use ($expirience){
 				return '';
-				$html = '';
 				$data = [];
 				foreach($model->eqiupmentExpiriences as $row){
 					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
 				}
-				if(count($data)){
-					ksort($data);
-					$html .= '<table class="table table-hover table-condensed"><tr>';
-					foreach($data as $level=>$quantity){
-						switch($level){
-							case 1:
-								$class = 'active';
-								break;
-							case 3:
-								$class = 'success';
-								break;
-							case 4:
-								$class = 'info';
-								break;
-							case 5:
-								$class = 'danger';
-								break;
-							case 6:
-								$class = 'warning';
-								break;
-							default:
-								$class = '';
-								break;
-						}
-						$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
-					}
-					$html .= '</tr></table>';
-				}
 				// $html = count($data) ? $expirience->title : null;
-				return $html;
+				return \app\helpers\CommonHelper::createExpirienceTable($data);
 			}
 		];
 	}
@@ -136,38 +81,12 @@ if($expiriences){
 					$html = "";
 					$expiriences = [];
 					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
-						$html .= $expiriencesArray[$key] . "<table class='table table-condensed'><tr>";
+						$html .= $expiriencesArray[$key];
 						$expiriencesData = [];
 						foreach($data->eqiupmentExpiriences as $row){
 							if($row->expirience_id == $key) $expiriencesData[$row->level_id] = $row->quantity;
 						}
-						if(count($expiriencesData)){
-							ksort($expiriencesData);
-							foreach($expiriencesData as $level=>$quantity){
-								switch($level){
-									case 1:
-										$class = 'active';
-										break;
-									case 3:
-										$class = 'success';
-										break;
-									case 4:
-										$class = 'info';
-										break;
-									case 5:
-										$class = 'danger';
-										break;
-									case 6:
-										$class = 'warning';
-										break;
-									default:
-										$class = '';
-										break;
-								}
-								$html .= "<td class='".$class."'>".$quantity."%</td>";
-							}
-							$html .= '</tr></table>';
-						}
+						$html .= htmlspecialchars(\app\helpers\CommonHelper::createExpirienceTable($expiriencesData));
 					}
 					return '<a tabindex="-1" role="button" data-toggle="popover" title="' . $data->title . '" data-content="' .$html . '">' . $data->title . '</a>';
 				}

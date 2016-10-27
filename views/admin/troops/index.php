@@ -36,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'level',
 				'attribute' => 'type_id',
 				'header' => Yii::t('app', 'Level'),
-				'value' => 'level.title',
+				'value' => function($data){
+					return 'T' . $data->level->id;
+				},
 				'filter' => ArrayHelper::map(app\models\ar\Level::find()->all(), 'id', 'title')	
 			],
 			

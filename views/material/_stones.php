@@ -23,39 +23,13 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
         <?= implode(', ',$l)?></td>
 	<?php
 	foreach($expiriences as $expirience){
-    	$html = $title = '';
+    	$title = '';
 		$data = [];
 		foreach($material->materialExpiriences as $row){
 			if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
 		}
 		if(count($data)){
-			ksort($data);
-			$title = $expirience->title;
-			$html .= '<table class="table table-hover table-condensed"><tr>';
-			foreach($data as $level=>$quantity){
-				switch($level){
-					case 1:
-						$class = 'active';
-						break;
-					case 3:
-						$class = 'success';
-						break;
-					case 4:
-						$class = 'info';
-						break;
-					case 5:
-						$class = 'danger';
-						break;
-					case 6:
-						$class = 'warning';
-						break;
-					default:
-						$class = '';
-						break;
-				}
-				$html .= '<td class="'.$class.'">'.$quantity.'%</td>';
-			}
-			$html .= '</tr></table>';
+			$html = \app\helpers\CommonHelper::createExpirienceTable($data);
 			break;
 		}
 	}

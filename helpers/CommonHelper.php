@@ -3,8 +3,46 @@
 namespace app\helpers;
 
 class CommonHelper {
+	/**
+	 *
+	 * @param array $data        	
+	 * @return string
+	 */
+	public static function createExpirienceTable($data) {
+		$html = '';
+		if (! count ( $data ))
+			return $html;
+		ksort ( $data );
+		$html .= '<table class="table table-hover table-condensed"><tr>';
+		foreach ( $data as $level => $quantity ) {
+			switch ($level) {
+				case 1 :
+					$class = 'active';
+					break;
+				case 3 :
+					$class = 'success';
+					break;
+				case 4 :
+					$class = 'info';
+					break;
+				case 5 :
+					$class = 'danger';
+					break;
+				case 6 :
+					$class = 'warning';
+					break;
+				default :
+					$class = '';
+					break;
+			}
+			$html .= '<td class="' . $class . '">' . $quantity . '%</td>';
+		}
+		$html .= '</tr></table>';
+		return $html;
+	}
 	public static function thousandsCurrencyFormat($num) {
-		if($num<1000) return $num;
+		if ($num < 1000)
+			return $num;
 		$x = round ( $num );
 		$x_number_format = number_format ( $x );
 		$x_array = explode ( ',', $x_number_format );
