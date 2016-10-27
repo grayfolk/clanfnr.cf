@@ -5,6 +5,7 @@ namespace app\models\ar;
 use Yii;
 
 class Material extends \app\models\Material {
+	
 	public function afterSave($insert, $changedAttributes) {
 		parent::afterSave ( $insert, $changedAttributes );
 		MaterialExpirience::deleteAll ( [ 

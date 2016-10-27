@@ -17,5 +17,7 @@ return [
 		'Material Types' => 'Типы Материалов',
 		'Type' => 'Тип',
 		'Events' => 'События',
-		'Event Types' => 'Типы Событий'
+		'Event Types' => 'Типы Событий',
+		'Troops' => 'Войска',
+		'Troops Types' => 'Типы Войск'
 ];
