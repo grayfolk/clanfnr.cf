@@ -47,7 +47,7 @@ class EquipmentController extends CommonController {
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$data = $where = [ ];
 		if (Yii::$app->request->isAjax) {
-			Equipment::find ()->with ( [ 
+			Equipment::find ()->joinWith ( [ 
 					'accessory' => function ($query) {
 						$query->from ( [ 
 								'accessory' 
@@ -60,11 +60,6 @@ class EquipmentController extends CommonController {
 					},
 					'eqiupmentExpiriences',
 					'eqiupmentMaterials' 
-			] )->where ( [ 
-					'accessory_id' => [ 
-							1,
-							2 
-					] 
 			] )->all ();
 			$expiriences = Expirience::find ()->all ();
 			$materials = Material::find ()->all ();
@@ -114,11 +109,34 @@ class EquipmentController extends CommonController {
 					] );
 				}
 			}
+			if (array_key_exists ( 'materials', $form ) && count ( $form ['materials'] )) {
+			}
+			if (Yii::$app->request->post ( 'order' ) && count ( Yii::$app->request->post ( 'order' ) )) {
+				// Reset default order
+				$order = [ ];
+				foreach ( Yii::$app->request->post ( 'order' ) as $o ) {
+					if (isset ( $o ['column'] )) {
+						switch ($o ['column']) {
+							case 0 : // title
+								$order ['equipment.title'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
+								break;
+							case 2 : // level
+								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
+								break;
+							default :
+								break;
+						}
+					}
+				}
+			}
+			// Orders
+			$query = $query->limit ( Yii::$app->request->post ( 'length', 50 ) )->orderBy ( $order )->offset ( Yii::$app->request->post ( 'start', 0 ) );
+			
 			/*
 			 * var_dump ( $query->prepare ( Yii::$app->db->queryBuilder )->createCommand ()->rawSql ); exit ();
 			 */
 			
-			$equipments = $query->limit ( Yii::$app->request->post ( 'length', 50 ) )->orderBy ( $order )->offset ( Yii::$app->request->post ( 'start', 0 ) )->all ();
+			$equipments = $query->all ();
 			if ($equipments) {
 				foreach ( $equipments as $equipment ) {
 					$expirienceData = $expiriencesColumns = $materialsColumn = [ ];
@@ -129,6 +147,7 @@ class EquipmentController extends CommonController {
 									$expirienceData [$row->level_id] = $row->quantity;
 							}
 							$expiriencesColumns [] = \app\helpers\CommonHelper::createExpirienceTable ( $expirienceData );
+							$expirienceData = [ ];
 						}
 					}
 					if ($materials) {
