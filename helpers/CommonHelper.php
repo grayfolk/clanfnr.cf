@@ -2,6 +2,7 @@
 
 namespace app\helpers;
 
+use yii\helpers\ArrayHelper;
 class CommonHelper {
 	/**
 	 *
@@ -38,6 +39,20 @@ class CommonHelper {
 			$html .= '<td class="' . $class . '">' . $quantity . '%</td>';
 		}
 		$html .= '</tr></table>';
+		return $html;
+	}
+	public static function createExpiriencesTable($model, $expiriencesArray) {
+		$html = "";
+		$expiriences = [ ];
+		foreach ( ArrayHelper::map ( $model->eqiupmentExpiriences, 'expirience_id', 'quantity' ) as $key => $quantity ) {
+			$html .= $expiriencesArray [$key];
+			$expiriencesData = [ ];
+			foreach ( $model->eqiupmentExpiriences as $row ) {
+				if ($row->expirience_id == $key)
+					$expiriencesData [$row->level_id] = $row->quantity;
+			}
+			$html .= htmlspecialchars ( self::createExpirienceTable ( $expiriencesData ) );
+		}
 		return $html;
 	}
 	public static function thousandsCurrencyFormat($num) {

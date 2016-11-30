@@ -133,23 +133,13 @@ jQuery(document).ready(function($){
 				visible: false,
 				targets: expirienceColumns,
 			},
-			/*{ 
-				visible: false,
-				targets: [3,4],
-			},*/
 			{ 
 				sortable: false,
 				targets: [1,35,36],
 			}
 		],
 	})
-	.on('order.dt', function(){
-		popover()
-	})
-	.on('search.dt', function(){
-		popover()
-	})
-	.on('page.dt', function(){
+	.on('draw.dt', function(){
 		popover()
 	})
 	$(document).on('click', 'input[name="expiriencesModal[]"]', function(e){
@@ -179,14 +169,10 @@ jQuery(document).ready(function($){
 		$('input[name="materials[]"], input[name="materialsModal[]"]').prop('checked', false)
 		triggerFilters()
 	})
-	/*$('input[name="expiriences[]"]:checked').each(function(){
-		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
-	})*/
 	$(document).on('change', '.jsExpiriencesBoolean', function(e){
 		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
 		triggerFilters()
 	})
-	// triggerFilters()
 	popover()
 	$('body').on('click', function (e) {
 		$('[data-toggle="popover"]').each(function () {
