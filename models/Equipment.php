@@ -17,8 +17,8 @@ use Yii;
  * @property EqiupmentExpirience[] $eqiupmentExpiriences
  * @property EqiupmentMaterial[] $eqiupmentMaterials
  * @property Material[] $materials
+ * @property AccessoryType $type
  * @property Accessory $accessory
- * @property Accessory $type
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -39,8 +39,8 @@ class Equipment extends \yii\db\ActiveRecord
             [['accessory_id', 'type_id', 'level', 'silver'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AccessoryType::className(), 'targetAttribute' => ['type_id' => 'id']],
             [['accessory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accessory::className(), 'targetAttribute' => ['accessory_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Accessory::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -86,25 +86,16 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccessory()
+    public function getType()
     {
-        return $this->hasOne(Accessory::className(), ['id' => 'accessory_id']);
+        return $this->hasOne(AccessoryType::className(), ['id' => 'type_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
+    public function getAccessory()
     {
-        return $this->hasOne(Accessory::className(), ['id' => 'type_id']);
-    }
-
-    /**
-     * @inheritdoc
-     * @return EquipmentQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new EquipmentQuery(get_called_class());
+        return $this->hasOne(Accessory::className(), ['id' => 'accessory_id']);
     }
 }

@@ -24,7 +24,7 @@ if($expiriences){
 				}
 				return [
 					'data-filter' => count($data) ? $expirience->title : null,
-					'data-filter' => count($data) ? $expirience->id : null,
+					// 'data-filter' => count($data) ? 'expirience_' . $expirience->id : null,
 					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
 					'data-html' => \app\helpers\CommonHelper::createExpirienceTable($data),
 					'data-id' => count($data) ? $expirience->id : null,
@@ -37,6 +37,7 @@ if($expiriences){
 				foreach($model->eqiupmentExpiriences as $row){
 					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
 				}
+				return count($data) ? 'expirience_' . $expirience->id : '';
 				// $html = count($data) ? $expirience->title : null;
 				return \app\helpers\CommonHelper::createExpirienceTable($data);
 			}
@@ -101,8 +102,8 @@ if($expiriences){
 				}
 			],
             'level',
-			'accessory_id',
-			'type_id'],
+			/*'accessory_id',
+			'type_id'*/],
 			$expiriencesColumns,
 			[[
 			 	'label' => 'silver',
@@ -128,7 +129,18 @@ if($expiriences){
 					}
 					return '<span style="white-space:nowrap">' . implode(', ', $materials) . '</span>';
 				}
-			]]
+			],
+			/*[
+				'header' => Yii::t('app', 'Title'),
+				'content' => function($data) use ($expiriencesArray){
+					$html = "";
+					$expiriences = [];
+					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
+						$expiriences[] = $expiriencesArray[$key];
+					}
+					return implode('|', $expiriences);
+				}
+			]*/]
 		),
     ]); ?>
     </div>
@@ -136,7 +148,7 @@ if($expiriences){
   <div class="col-md-3 hidden-xs">
     <div class="page-header">
       <h4>
-        <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean"></label></small>
+        <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean" name="expirienceAnd"></label></small>
       </h4>
     </div>
     <?= Html::checkboxList('expiriences', null, ArrayHelper::map($expiriences, 'id', 'title'), ['separator'=>'<br>']) ?>
@@ -160,7 +172,7 @@ if($expiriences){
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="<?= Yii::t('app', 'Close')?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">
-          <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean"></label></small>
+          <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean" value="expirienceAnd"></label></small>
         </h4>
       </div>
       <div class="modal-body">

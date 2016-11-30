@@ -104,13 +104,20 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = 5, expirienceTable, expirienceColumns = range(firstColumns,expirienceCount+firstColumns)
+var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = 3, expirienceTable, expirienceColumns = range(firstColumns,expirienceCount+firstColumns)
 jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
-		// responsive: true,
-		/*search: {
-			smart: true
-		},*/
+		processing: true,
+		serverSide: true,
+		ajax: {
+			// url: '/equipment/json',
+			type: 'POST',
+			data: function(d){
+				return $.extend({}, d, {
+					form: $('#w0').serialize()
+				})
+			}
+		},
 		scrollX: true,
 		language: {
 			url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json'
@@ -126,33 +133,24 @@ jQuery(document).ready(function($){
 				visible: false,
 				targets: expirienceColumns,
 			},
-			{ 
+			/*{ 
 				visible: false,
 				targets: [3,4],
-			},
+			},*/
 			{ 
 				sortable: false,
-				targets: [1,37,38],
+				targets: [1,35,36],
 			}
 		],
 	})
 	.on('order.dt', function(){
 		popover()
-		$('td[data-html]').each(function(){
-			$(this).html($(this).data('html'))
-		})
 	})
 	.on('search.dt', function(){
 		popover()
-		$('td[data-html]').each(function(){
-			$(this).html($(this).data('html'))
-		})
 	})
 	.on('page.dt', function(){
 		popover()
-		$('td[data-html]').each(function(){
-			$(this).html($(this).data('html'))
-		})
 	})
 	$(document).on('click', 'input[name="expiriencesModal[]"]', function(e){
 		$('input[name="expiriences[]"]').eq($('input[name="expiriencesModal[]"]').index($(this))).trigger('click')
@@ -188,7 +186,7 @@ jQuery(document).ready(function($){
 		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
 		triggerFilters()
 	})
-	triggerFilters()
+	// triggerFilters()
 	popover()
 	$('body').on('click', function (e) {
 		$('[data-toggle="popover"]').each(function () {
@@ -199,36 +197,7 @@ jQuery(document).ready(function($){
 	})
 })
 function triggerFilters(){
-	// console.log(expirienceColumns)
-	// expirienceTable.columns(expirienceColumns).visible(false)
-	var expiriences = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
-		return $(e).parents('label').text().trim()
-	}).get().join('|')
-	var expiriencesValues = $('input[name="expiriences[]"]:checked').map(function(i, e){ 
-		return parseInt($(e).val())
-	}).get()
-	var materials = $('input[name="materials[]"]:checked').map(function(i, e){ 
-		return $(e).parents('label').text().trim()
-	}).get().join('|')
-	var accessories = $('input[name="accessories[]"]:checked').map(function(i, e){ 
-		return $(e).val()
-	}).get().join('|')
-	var accessoryTypes = $('input[name="accessoryTypes[]"]:checked').map(function(i, e){ 
-		return $(e).val()
-	}).get().join('|')
-	expirienceTable.columns(3).search(accessories, true, true)
-	expirienceTable.column(4).search(accessoryTypes, true, true)
-	expirienceTable.column(38).search(materials, true, true)
-	/*if(expiriencesValues.length){
-		console.log(expiriencesValues)
-		// expirienceTable.columns(expiriencesValues).visible(true);
-	}*/
-	// expirienceTable.columns(expirienceColumns).search(expiriencesValues, true, $('.jsExpiriencesBoolean').is(':checked'))
-	expirienceTable.draw()
-	$('td[data-html]').each(function(){
-		$(this).html($(this).data('html'))
-	})
-	expirienceTable.draw()
+	expirienceTable.ajax.reload(null, false)
 }
 function popover(){
 	$('[data-toggle="popover"]').popover({
