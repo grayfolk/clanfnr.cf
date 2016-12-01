@@ -12,8 +12,10 @@ use app\models\ar\Accessory;
 use app\models\ar\Material;
 use app\models\ar\EqiupmentExpirience;
 use yii\helpers\ArrayHelper;
+use app\models\ar\EqiupmentMaterial;
 
 class EquipmentController extends CommonController {
+	public $firstColumns = 3;
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => Equipment::find ()->with ( [ 
@@ -37,10 +39,20 @@ class EquipmentController extends CommonController {
 		] );
 		return $this->render ( 'index', [ 
 				'dataProvider' => $dataProvider,
-				'expiriences' => Expirience::find ()->all (),
+				'expiriences' => Expirience::find ()->orderBy ( [ 
+						'title' => SORT_ASC 
+				] )->all (),
 				'accessoryTypes' => AccessoryType::find ()->all (),
 				'accessories' => Accessory::find ()->all (),
-				'materials' => Material::find ()->all () 
+				'materials' => Material::find ()->where ( [ 
+						'type_id' => [ 
+								1,
+								3 
+						] 
+				] )->orderBy ( [ 
+						'title' => SORT_ASC 
+				] )->all (),
+				'firstColumns' => $this->firstColumns 
 		] );
 	}
 	public function actionJson() {
@@ -84,17 +96,15 @@ class EquipmentController extends CommonController {
 			}
 			if (array_key_exists ( 'expiriences', $form ) && count ( $form ['expiriences'] )) {
 				if (array_key_exists ( 'expirienceAnd', $form )) {
-					$condition = [ 
-							'and' 
-					];
-					foreach ( $form ['expiriences'] as $id ) {
-						$condition [] = 'expirience_id = ' . $id;
-					}
 					$query = $query->andWhere ( [ 
 							'in',
 							'id',
-							EqiupmentExpirience::find ()->select ( 'equipment_id' )->where ( $condition )->groupBy ( [ 
+							EqiupmentExpirience::find ()->select ( 'equipment_id' )->where ( [ 
+									'expirience_id' => $form ['expiriences'] 
+							] )->groupBy ( [ 
 									'equipment_id' 
+							] )->having ( [ 
+									'count(*)' => count ( $form ['expiriences'] ) * 6 
 							] ) 
 					] );
 				} else {
@@ -110,6 +120,17 @@ class EquipmentController extends CommonController {
 				}
 			}
 			if (array_key_exists ( 'materials', $form ) && count ( $form ['materials'] )) {
+				$query = $query->andWhere ( [ 
+						'in',
+						'id',
+						EqiupmentMaterial::find ()->select ( 'equipment_id' )->where ( [ 
+								'material_id' => $form ['materials'] 
+						] )->groupBy ( [ 
+								'equipment_id' 
+						] )->having ( [ 
+								'count(*)' => count ( $form ['materials'] ) 
+						] ) 
+				] );
 			}
 			if (Yii::$app->request->post ( 'order' ) && count ( Yii::$app->request->post ( 'order' ) )) {
 				// Reset default order
@@ -124,6 +145,10 @@ class EquipmentController extends CommonController {
 								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								break;
 							default :
+								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $expiriences ) ) )) {
+									// Expiriences
+									/* ->leftJoin ( '{{%equipment_expirience}} e', '{{%e}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e}}.[[level_id]] = 6' ) */
+								}
 								break;
 						}
 					}

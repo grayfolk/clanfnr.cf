@@ -37,4 +37,15 @@ class Equipment extends \app\models\Equipment {
 			}
 		}
 	}
+	/**
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getEqiupmentExpiriencesSort() {
+		return $this->hasMany ( EqiupmentExpirience::className (), [ 
+				'equipment_id' => 'id' 
+		] )->where ( [ 
+				'level_id' => 6 
+		] );
+	}
 }

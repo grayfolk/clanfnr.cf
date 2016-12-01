@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * ExpirienceController implements the CRUD actions for Expirience model.
  */
-class ExpirienceController extends CommonBackendController {
+class ExperienceController extends CommonBackendController {
 	/**
 	 * @inheritdoc
 	 */

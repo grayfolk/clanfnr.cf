@@ -104,7 +104,7 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = 3, expirienceTable, expirienceColumns = range(firstColumns,expirienceCount+firstColumns)
+var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = <?= $firstColumns?>, expirienceTable, expirienceColumns = range(firstColumns,expirienceCount+firstColumns)
 jQuery(document).ready(function($){
 	expirienceTable = $('.equipment-index table').DataTable({
 		processing: true,
