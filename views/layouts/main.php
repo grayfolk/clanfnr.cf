@@ -175,6 +175,10 @@ jQuery(document).ready(function($){
 		triggerFilters()
 	})
 	$(document).on('change', '.jsExperiencesBoolean', function(e){
+		experienceTable.order([
+			[ 2, "desc" ],
+			[ 0, "asc" ]
+		])
 		$('.jsExperiencesBoolean').prop('checked', $(this).is(':checked'))
 		triggerFilters()
 	})
