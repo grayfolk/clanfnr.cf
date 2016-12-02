@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle {
 			'yii\web\YiiAsset',
 			'yii\bootstrap\BootstrapAsset',
 			'\app\assets\DataTablesAsset',
+			// '\app\assets\DataTablesColReorderAsset'
 			// '\app\assets\DataTablesResponsiveAsset' 
 	];
 }

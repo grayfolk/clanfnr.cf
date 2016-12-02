@@ -50,7 +50,7 @@ class EquipmentController extends CommonController {
 						] 
 				] )->orderBy ( [ 
 						'title' => SORT_ASC 
-				] )->all ()
+				] )->all () 
 		] );
 	}
 	public function actionJson() {
@@ -71,10 +71,13 @@ class EquipmentController extends CommonController {
 					'equipmentExperiences',
 					'equipmentMaterials' 
 			] )->all ();
-			$experiences = Experience::find ()->all ();
+			$experiences = Experience::find ()->orderBy ( [ 
+					'title' => SORT_ASC 
+			] )->all ();
 			$materials = Material::find ()->all ();
 			$materialsArray = ArrayHelper::map ( $materials, 'id', 'title' );
 			$experiencesArray = ArrayHelper::map ( $experiences, 'id', 'title' );
+			$experiencesIds = ArrayHelper::getColumn ( $experiences, 'id' );
 			$query = Equipment::find ()->where ( '1=1' );
 			// Default order
 			$order = [ 
@@ -88,9 +91,6 @@ class EquipmentController extends CommonController {
 			}
 			if (array_key_exists ( 'accessories', $form ) && count ( $form ['accessories'] )) {
 				$where ['accessory_id'] = $form ['accessories'];
-			}
-			if (count ( $where )) {
-				$query = $query->andWhere ( $where );
 			}
 			if (array_key_exists ( 'experiences', $form ) && count ( $form ['experiences'] )) {
 				if (array_key_exists ( 'experienceAnd', $form )) {
@@ -145,12 +145,19 @@ class EquipmentController extends CommonController {
 							default :
 								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $experiences ) ) )) {
 									// Experiences
-									/* ->leftJoin ( '{{%equipment_experience}} e', '{{%e}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e}}.[[level_id]] = 6' ) */
+									// Search experience id
+									$expId = $experiencesIds [$o ['column'] - $this->firstColumns];
+									$query = $query->innerJoin ( '{{%equipment_experience}} e' . $expId, '{{%e' . $expId . '}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e' . $expId . '}}.[[experience_id]] = ' . $expId . ' and {{%e' . $expId . '}}.[[level_id]] = 6' );
+									
+									$order ['{{e' . $expId . '}}.[[quantity]]'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								}
 								break;
 						}
 					}
 				}
+			}
+			if (count ( $where )) {
+				$query = $query->andWhere ( $where );
 			}
 			// Orders
 			$query = $query->limit ( Yii::$app->request->post ( 'length', 50 ) )->orderBy ( $order )->offset ( Yii::$app->request->post ( 'start', 0 ) );

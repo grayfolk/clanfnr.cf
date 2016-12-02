@@ -16,6 +16,7 @@ class DataTablesAsset extends AssetBundle {
 	];
 	public $js = [ 
 			'media/js/jquery.dataTables.min.js',
+			'media/js/dataTables.bootstrap.min.js',
 			'media/js/dataTables.bootstrap.min.js' 
 	];
 	public $depends = [ 

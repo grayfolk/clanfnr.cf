@@ -126,6 +126,7 @@ jQuery(document).ready(function($){
 			[ 2, "desc" ],
 			[ 0, "asc" ]
 		],
+		// colReorder: true,
 		pageLength: 50,
 		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= Yii::t('app', 'All')?>"]],
 		columnDefs: [
@@ -155,6 +156,10 @@ jQuery(document).ready(function($){
 	$(document).on('click', 'input[name="experiences[]"]', function(e){
 		$('input[name="experiencesModal[]"]').eq($('input[name="experiences[]"]').index($(this))).prop('checked', $(this).is(':checked'))
 		experienceTable.column($('input[name="experiences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
+		experienceTable.order([
+			[ 2, "desc" ],
+			[ 0, "asc" ]
+		])
 		triggerFilters()
 	})
 	$(document).on('click', 'input[name="accessoryTypes[]"], input[name="accessories[]"]', function(e){

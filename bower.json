@@ -9,6 +9,7 @@
   ],
   "devDependencies": {
 		"datatables": "*",
-		"datatables-responsive": "*"
+		"datatables-responsive": "*",
+		"datatables.net-colreorder": "*"
   }
 }
