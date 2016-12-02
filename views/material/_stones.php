@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\ArrayHelper;
-$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
+$experiencesArray = ArrayHelper::map($experiences, 'id', 'title');
 ?>
 <br />
 <table class="table table-striped table-hover table-condensed">
@@ -22,14 +22,14 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
         <?php endforeach;?>
         <?= implode(', ',$l)?></td>
 	<?php
-	foreach($expiriences as $expirience){
+	foreach($experiences as $experience){
     	$title = '';
 		$data = [];
-		foreach($material->materialExpiriences as $row){
-			if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+		foreach($material->materialExperiences as $row){
+			if($row->experience_id == $experience->id) $data[$row->level_id] = $row->quantity;
 		}
 		if(count($data)){
-			$html = \app\helpers\CommonHelper::createExpirienceTable($data);
+			$html = \app\helpers\CommonHelper::createExperienceTable($data);
 			break;
 		}
 	}

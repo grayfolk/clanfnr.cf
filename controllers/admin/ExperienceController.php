@@ -3,14 +3,14 @@
 namespace app\controllers\admin;
 
 use Yii;
-use app\models\ar\Expirience;
+use app\models\ar\Experience;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use app\components\CommonBackendController;
 use yii\filters\VerbFilter;
 
 /**
- * ExpirienceController implements the CRUD actions for Expirience model.
+ * ExperienceController implements the CRUD actions for Experience model.
  */
 class ExperienceController extends CommonBackendController {
 	/**
@@ -29,13 +29,13 @@ class ExperienceController extends CommonBackendController {
 		] );
 	}
 	/**
-	 * Lists all Expirience models.
+	 * Lists all Experience models.
 	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => Expirience::find (),
+				'query' => Experience::find (),
 				'sort' => [ 
 						'defaultOrder' => [ 
 								'title' => SORT_ASC 
@@ -49,7 +49,7 @@ class ExperienceController extends CommonBackendController {
 	}
 	
 	/**
-	 * Displays a single Expirience model.
+	 * Displays a single Experience model.
 	 *
 	 * @param integer $id        	
 	 * @return mixed
@@ -61,13 +61,13 @@ class ExperienceController extends CommonBackendController {
 	}
 	
 	/**
-	 * Creates a new Expirience model.
+	 * Creates a new Experience model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Expirience ();
+		$model = new Experience ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
@@ -81,7 +81,7 @@ class ExperienceController extends CommonBackendController {
 	}
 	
 	/**
-	 * Updates an existing Expirience model.
+	 * Updates an existing Experience model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @param integer $id        	
@@ -102,7 +102,7 @@ class ExperienceController extends CommonBackendController {
 	}
 	
 	/**
-	 * Deletes an existing Expirience model.
+	 * Deletes an existing Experience model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id        	
@@ -117,15 +117,15 @@ class ExperienceController extends CommonBackendController {
 	}
 	
 	/**
-	 * Finds the Expirience model based on its primary key value.
+	 * Finds the Experience model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 *
 	 * @param integer $id        	
-	 * @return Expirience the loaded model
+	 * @return Experience the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id) {
-		if (($model = Expirience::findOne ( $id )) !== null) {
+		if (($model = Experience::findOne ( $id )) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException ( 'The requested page does not exist.' );

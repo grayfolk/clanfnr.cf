@@ -104,9 +104,9 @@ if($controller->id === $default_controller && $controller->action->id === $contr
 </footer>
 <?php $this->endBody() ?>
 <script>
-var expirienceCount = <?= app\models\ar\Expirience::find()->count()?>, firstColumns = <?= $firstColumns?>, expirienceTable, expirienceColumns = range(firstColumns,expirienceCount+firstColumns)
+var experienceCount = <?= app\models\ar\Experience::find()->count()?>, firstColumns = <?= $this->params['firstColumns']?>, experienceTable, experienceColumns = range(firstColumns,experienceCount+firstColumns)
 jQuery(document).ready(function($){
-	expirienceTable = $('.equipment-index table').DataTable({
+	experienceTable = $('.equipment-index table').DataTable({
 		processing: true,
 		serverSide: true,
 		ajax: {
@@ -131,7 +131,7 @@ jQuery(document).ready(function($){
 		columnDefs: [
 			{ 
 				visible: false,
-				targets: expirienceColumns,
+				targets: experienceColumns,
 			},
 			{ 
 				sortable: false,
@@ -142,8 +142,8 @@ jQuery(document).ready(function($){
 	.on('draw.dt', function(){
 		popover()
 	})
-	$(document).on('click', 'input[name="expiriencesModal[]"]', function(e){
-		$('input[name="expiriences[]"]').eq($('input[name="expiriencesModal[]"]').index($(this))).trigger('click')
+	$(document).on('click', 'input[name="experiencesModal[]"]', function(e){
+		$('input[name="experiences[]"]').eq($('input[name="experiencesModal[]"]').index($(this))).trigger('click')
 	})
 	$(document).on('click', 'input[name="materialsModal[]"]', function(e){
 		$('input[name="materials[]"]').eq($('input[name="materialsModal[]"]').index($(this))).trigger('click')
@@ -152,25 +152,25 @@ jQuery(document).ready(function($){
 		$('input[name="materialsModal[]"]').eq($('input[name="materials[]"]').index($(this))).prop('checked', $(this).is(':checked'))
 		triggerFilters()
 	})
-	$(document).on('click', 'input[name="expiriences[]"]', function(e){
-		$('input[name="expiriencesModal[]"]').eq($('input[name="expiriences[]"]').index($(this))).prop('checked', $(this).is(':checked'))
-		expirienceTable.column($('input[name="expiriences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
+	$(document).on('click', 'input[name="experiences[]"]', function(e){
+		$('input[name="experiencesModal[]"]').eq($('input[name="experiences[]"]').index($(this))).prop('checked', $(this).is(':checked'))
+		experienceTable.column($('input[name="experiences[]"]').index($(this))+firstColumns).visible($(this).is(':checked'))
 		triggerFilters()
 	})
 	$(document).on('click', 'input[name="accessoryTypes[]"], input[name="accessories[]"]', function(e){
 		triggerFilters()
 	})
-	$(document).on('click', '.resetExpiriences', function(e){
-		$('input[name="expiriences[]"], input[name="expiriencesModal[]"]').prop('checked', false)
-		expirienceTable.columns(expirienceColumns).visible(false)
+	$(document).on('click', '.resetExperiences', function(e){
+		$('input[name="experiences[]"], input[name="experiencesModal[]"]').prop('checked', false)
+		experienceTable.columns(experienceColumns).visible(false)
 		triggerFilters()
 	})
 	$(document).on('click', '.resetMaterials', function(e){
 		$('input[name="materials[]"], input[name="materialsModal[]"]').prop('checked', false)
 		triggerFilters()
 	})
-	$(document).on('change', '.jsExpiriencesBoolean', function(e){
-		$('.jsExpiriencesBoolean').prop('checked', $(this).is(':checked'))
+	$(document).on('change', '.jsExperiencesBoolean', function(e){
+		$('.jsExperiencesBoolean').prop('checked', $(this).is(':checked'))
 		triggerFilters()
 	})
 	popover()
@@ -183,7 +183,7 @@ jQuery(document).ready(function($){
 	})
 })
 function triggerFilters(){
-	expirienceTable.ajax.reload(null, false)
+	experienceTable.ajax.reload(null, false)
 }
 function popover(){
 	$('[data-toggle="popover"]').popover({

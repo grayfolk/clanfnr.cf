@@ -6,16 +6,15 @@ use Yii;
 use app\components\CommonController;
 use app\models\ar\Equipment;
 use yii\data\ActiveDataProvider;
-use app\models\ar\Expirience;
+use app\models\ar\Experience;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
 use app\models\ar\Material;
-use app\models\ar\EqiupmentExpirience;
+use app\models\ar\EquipmentExperience;
 use yii\helpers\ArrayHelper;
-use app\models\ar\EqiupmentMaterial;
+use app\models\ar\EquipmentMaterial;
 
 class EquipmentController extends CommonController {
-	public $firstColumns = 3;
 	public function actionIndex() {
 		$dataProvider = new ActiveDataProvider ( [ 
 				'query' => Equipment::find ()->with ( [ 
@@ -29,8 +28,8 @@ class EquipmentController extends CommonController {
 									'accessory_type' 
 							] );
 						},
-						'eqiupmentExpiriences',
-						'eqiupmentMaterials' 
+						'equipmentExperiences',
+						'equipmentMaterials' 
 				] )->where ( [ 
 						'level' => 100 
 				] ),
@@ -39,7 +38,7 @@ class EquipmentController extends CommonController {
 		] );
 		return $this->render ( 'index', [ 
 				'dataProvider' => $dataProvider,
-				'expiriences' => Expirience::find ()->orderBy ( [ 
+				'experiences' => Experience::find ()->orderBy ( [ 
 						'title' => SORT_ASC 
 				] )->all (),
 				'accessoryTypes' => AccessoryType::find ()->all (),
@@ -51,8 +50,7 @@ class EquipmentController extends CommonController {
 						] 
 				] )->orderBy ( [ 
 						'title' => SORT_ASC 
-				] )->all (),
-				'firstColumns' => $this->firstColumns 
+				] )->all ()
 		] );
 	}
 	public function actionJson() {
@@ -70,13 +68,13 @@ class EquipmentController extends CommonController {
 								'accessory_type' 
 						] );
 					},
-					'eqiupmentExpiriences',
-					'eqiupmentMaterials' 
+					'equipmentExperiences',
+					'equipmentMaterials' 
 			] )->all ();
-			$expiriences = Expirience::find ()->all ();
+			$experiences = Experience::find ()->all ();
 			$materials = Material::find ()->all ();
 			$materialsArray = ArrayHelper::map ( $materials, 'id', 'title' );
-			$expiriencesArray = ArrayHelper::map ( $expiriences, 'id', 'title' );
+			$experiencesArray = ArrayHelper::map ( $experiences, 'id', 'title' );
 			$query = Equipment::find ()->where ( '1=1' );
 			// Default order
 			$order = [ 
@@ -94,25 +92,25 @@ class EquipmentController extends CommonController {
 			if (count ( $where )) {
 				$query = $query->andWhere ( $where );
 			}
-			if (array_key_exists ( 'expiriences', $form ) && count ( $form ['expiriences'] )) {
-				if (array_key_exists ( 'expirienceAnd', $form )) {
+			if (array_key_exists ( 'experiences', $form ) && count ( $form ['experiences'] )) {
+				if (array_key_exists ( 'experienceAnd', $form )) {
 					$query = $query->andWhere ( [ 
 							'in',
 							'id',
-							EqiupmentExpirience::find ()->select ( 'equipment_id' )->where ( [ 
-									'expirience_id' => $form ['expiriences'] 
+							EquipmentExperience::find ()->select ( 'equipment_id' )->where ( [ 
+									'experience_id' => $form ['experiences'] 
 							] )->groupBy ( [ 
 									'equipment_id' 
 							] )->having ( [ 
-									'count(*)' => count ( $form ['expiriences'] ) * 6 
+									'count(*)' => count ( $form ['experiences'] ) * 6 
 							] ) 
 					] );
 				} else {
 					$query = $query->andWhere ( [ 
 							'in',
 							'id',
-							EqiupmentExpirience::find ()->select ( 'equipment_id' )->where ( [ 
-									'expirience_id' => $form ['expiriences'] 
+							EquipmentExperience::find ()->select ( 'equipment_id' )->where ( [ 
+									'experience_id' => $form ['experiences'] 
 							] )->groupBy ( [ 
 									'equipment_id' 
 							] ) 
@@ -123,7 +121,7 @@ class EquipmentController extends CommonController {
 				$query = $query->andWhere ( [ 
 						'in',
 						'id',
-						EqiupmentMaterial::find ()->select ( 'equipment_id' )->where ( [ 
+						EquipmentMaterial::find ()->select ( 'equipment_id' )->where ( [ 
 								'material_id' => $form ['materials'] 
 						] )->groupBy ( [ 
 								'equipment_id' 
@@ -145,9 +143,9 @@ class EquipmentController extends CommonController {
 								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								break;
 							default :
-								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $expiriences ) ) )) {
-									// Expiriences
-									/* ->leftJoin ( '{{%equipment_expirience}} e', '{{%e}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e}}.[[level_id]] = 6' ) */
+								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $experiences ) ) )) {
+									// Experiences
+									/* ->leftJoin ( '{{%equipment_experience}} e', '{{%e}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e}}.[[level_id]] = 6' ) */
 								}
 								break;
 						}
@@ -164,32 +162,32 @@ class EquipmentController extends CommonController {
 			$equipments = $query->all ();
 			if ($equipments) {
 				foreach ( $equipments as $equipment ) {
-					$expirienceData = $expiriencesColumns = $materialsColumn = [ ];
-					if ($expiriences) {
-						foreach ( $expiriences as $expirience ) {
-							foreach ( $equipment->eqiupmentExpiriences as $row ) {
-								if ($row->expirience_id == $expirience->id)
-									$expirienceData [$row->level_id] = $row->quantity;
+					$experienceData = $experiencesColumns = $materialsColumn = [ ];
+					if ($experiences) {
+						foreach ( $experiences as $experience ) {
+							foreach ( $equipment->equipmentExperiences as $row ) {
+								if ($row->experience_id == $experience->id)
+									$experienceData [$row->level_id] = $row->quantity;
 							}
-							$expiriencesColumns [] = \app\helpers\CommonHelper::createExpirienceTable ( $expirienceData );
-							$expirienceData = [ ];
+							$experiencesColumns [] = \app\helpers\CommonHelper::createExperienceTable ( $experienceData );
+							$experienceData = [ ];
 						}
 					}
 					if ($materials) {
 						foreach ( $materials as $material ) {
-							foreach ( ArrayHelper::map ( $equipment->eqiupmentMaterials, 'material_id', 'quantity' ) as $key => $quantity ) {
+							foreach ( ArrayHelper::map ( $equipment->equipmentMaterials, 'material_id', 'quantity' ) as $key => $quantity ) {
 								$materialsColumn [$key] = $materialsArray [$key] . ($quantity > 1 ? " ($quantity)" : '');
 							}
 						}
 					}
 					$data [] = array_merge ( [ 
-							'<a tabindex="-1" role="button" data-toggle="popover" title="' . $equipment->title . '" data-content="' . \app\helpers\CommonHelper::createExpiriencesTable ( $equipment, $expiriencesArray ) . '">' . $equipment->title . '</a>',
+							'<a tabindex="-1" role="button" data-toggle="popover" title="' . $equipment->title . '" data-content="' . \app\helpers\CommonHelper::createExperiencesTable ( $equipment, $experiencesArray ) . '">' . $equipment->title . '</a>',
 							implode ( ' ', [ 
 									$equipment->accessory ? '<span class="label label-info">' . $equipment->accessory->title . '</span>' : '',
 									$equipment->type ? '<span class="label label-default">' . $equipment->type->title . '</span>' : '' 
 							] ),
 							$equipment->level 
-					], $expiriencesColumns, [ 
+					], $experiencesColumns, [ 
 							\app\helpers\CommonHelper::thousandsCurrencyFormat ( $equipment->silver ),
 							'<span style="white-space:nowrap">' . implode ( ', ', $materialsColumn ) . '</span>' 
 					] );

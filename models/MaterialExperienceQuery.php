@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[MaterialExpirience]].
+ * This is the ActiveQuery class for [[MaterialExperience]].
  *
- * @see MaterialExpirience
+ * @see MaterialExperience
  */
-class MaterialExpirienceQuery extends \yii\db\ActiveQuery
+class MaterialExperienceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class MaterialExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return MaterialExpirience[]|array
+     * @return MaterialExperience[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class MaterialExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return MaterialExpirience|array|null
+     * @return MaterialExperience|array|null
      */
     public function one($db = null)
     {

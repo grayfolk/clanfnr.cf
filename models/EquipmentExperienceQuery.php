@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[EqiupmentExpirience]].
+ * This is the ActiveQuery class for [[EquipmentExperience]].
  *
- * @see EqiupmentExpirience
+ * @see EquipmentExperience
  */
-class EqiupmentExpirienceQuery extends \yii\db\ActiveQuery
+class EquipmentExperienceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class EqiupmentExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return EqiupmentExpirience[]|array
+     * @return EquipmentExperience[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class EqiupmentExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return EqiupmentExpirience|array|null
+     * @return EquipmentExperience|array|null
      */
     public function one($db = null)
     {

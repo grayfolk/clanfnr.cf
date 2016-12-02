@@ -4,23 +4,23 @@ namespace app\models\ar;
 
 use Yii;
 
-class EqiupmentExpirience extends \app\models\EqiupmentExpirience {
-	public static function getEqiupmentExpirience($id) {
+class EquipmentExperience extends \app\models\EquipmentExperience {
+	public static function getEquipmentExperience($id) {
 		$data = [ ];
 		if ($res = self::find ()->with ( [ 
 				'level',
 				'equipment',
-				'expirience' 
+				'experience' 
 		] )->where ( [ 
 				'equipment_id' => $id 
 		] )->all ()) {
 			foreach ( $res as $row ) {
-				if (! array_key_exists ( $row->expirience_id, $data ))
-					$data [$row->expirience_id] = [ 
-							'id' => $row->expirience_id,
-							'title' => $row->expirience->title 
+				if (! array_key_exists ( $row->experience_id, $data ))
+					$data [$row->experience_id] = [ 
+							'id' => $row->experience_id,
+							'title' => $row->experience->title 
 					];
-				$data [$row->expirience_id] ['levels'] [$row->level_id] = $row->quantity;
+				$data [$row->experience_id] ['levels'] [$row->level_id] = $row->quantity;
 			}
 		}
 		return $data;

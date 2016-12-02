@@ -11,7 +11,7 @@ return [
 		'Materials' => 'Материалы',
 		'Map' => 'Карта',
 		'Inviders' => 'Захватчики',
-		'Expiriences' => 'Навыки',
+		'Experiences' => 'Навыки',
 		'Silver' => 'Серебро',
 		'Create' => 'Создать',
 		'Material Types' => 'Типы Материалов',

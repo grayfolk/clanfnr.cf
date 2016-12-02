@@ -13,9 +13,11 @@ use Yii;
  * @property integer $is_invider
  * @property integer $type_id
  *
- * @property EqiupmentMaterial[] $eqiupmentMaterials
+ * @property EquipmentMaterial[] $equipmentMaterials
  * @property Equipment[] $equipment
- * @property MaterialExpirience[] $materialExpiriences
+ * @property MaterialExperience[] $materialExperiences
+ * @property MaterialLocation[] $materialLocations
+ * @property Location[] $locations
  */
 class Material extends \yii\db\ActiveRecord
 {
@@ -56,9 +58,9 @@ class Material extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEqiupmentMaterials()
+    public function getEquipmentMaterials()
     {
-        return $this->hasMany(EqiupmentMaterial::className(), ['material_id' => 'id']);
+        return $this->hasMany(EquipmentMaterial::className(), ['material_id' => 'id']);
     }
 
     /**
@@ -66,15 +68,31 @@ class Material extends \yii\db\ActiveRecord
      */
     public function getEquipment()
     {
-        return $this->hasMany(Equipment::className(), ['id' => 'equipment_id'])->viaTable('{{%eqiupment_material}}', ['material_id' => 'id']);
+        return $this->hasMany(Equipment::className(), ['id' => 'equipment_id'])->viaTable('{{%equipment_material}}', ['material_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialExpiriences()
+    public function getMaterialExperiences()
     {
-        return $this->hasMany(MaterialExpirience::className(), ['material_id' => 'id']);
+        return $this->hasMany(MaterialExperience::className(), ['material_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterialLocations()
+    {
+        return $this->hasMany(MaterialLocation::className(), ['material_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocations()
+    {
+        return $this->hasMany(Location::className(), ['id' => 'location_id'])->viaTable('{{%material_location}}', ['material_id' => 'id']);
     }
 
     /**

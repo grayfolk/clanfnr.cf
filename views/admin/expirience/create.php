@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ar\Expirience */
+/* @var $model app\models\ar\Experience */
 
-$this->title = Yii::t('app', 'Create Expirience');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Expiriences'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Experience');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Experiences'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="expirience-create">
+<div class="experience-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

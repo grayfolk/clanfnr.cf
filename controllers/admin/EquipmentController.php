@@ -6,9 +6,9 @@ use Yii;
 use app\models\ar\Equipment;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use app\models\ar\Expirience;
+use app\models\ar\Experience;
 use app\models\ar\Level;
-use app\models\ar\EqiupmentExpirience;
+use app\models\ar\EquipmentExperience;
 use app\models\ar\Material;
 use app\models\ar\AccessoryType;
 use app\models\ar\Accessory;
@@ -67,13 +67,13 @@ class EquipmentController extends CommonBackendController {
 							'accessory_type' 
 					] );
 				},
-				'eqiupmentExpiriences',
-				'eqiupmentMaterials' 
+				'equipmentExperiences',
+				'equipmentMaterials' 
 		] );
 		
 		return $this->render ( 'index', [ 
 				'dataProvider' => $dataProvider,
-				'expiriences' => Expirience::find ()->all (),
+				'experiences' => Experience::find ()->all (),
 				'accessoryTypes' => AccessoryType::find ()->all (),
 				'accessories' => Accessory::find ()->all (),
 				'materials' => Material::find ()->all () 
@@ -108,7 +108,7 @@ class EquipmentController extends CommonBackendController {
 		} else {
 			return $this->render ( 'create', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->all (),
+					'experiences' => Experience::find ()->all (),
 					'levels' => Level::find ()->all (),
 					'materials' => Material::find ()->all () 
 			] );
@@ -132,10 +132,10 @@ class EquipmentController extends CommonBackendController {
 		} else {
 			return $this->render ( 'update', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->all (),
+					'experiences' => Experience::find ()->all (),
 					'levels' => Level::find ()->all (),
 					'materials' => Material::find ()->all (),
-					'expirienceData' => EqiupmentExpirience::getEqiupmentExpirience ( $id ) 
+					'experienceData' => EquipmentExperience::getEquipmentExperience ( $id ) 
 			] );
 		}
 	}

@@ -14,11 +14,11 @@ use Yii;
  * @property integer $level
  * @property integer $silver
  *
- * @property EqiupmentExpirience[] $eqiupmentExpiriences
- * @property EqiupmentMaterial[] $eqiupmentMaterials
- * @property Material[] $materials
  * @property AccessoryType $type
  * @property Accessory $accessory
+ * @property EquipmentExperience[] $equipmentExperiences
+ * @property EquipmentMaterial[] $equipmentMaterials
+ * @property Material[] $materials
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -62,30 +62,6 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEqiupmentExpiriences()
-    {
-        return $this->hasMany(EqiupmentExpirience::className(), ['equipment_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEqiupmentMaterials()
-    {
-        return $this->hasMany(EqiupmentMaterial::className(), ['equipment_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMaterials()
-    {
-        return $this->hasMany(Material::className(), ['id' => 'material_id'])->viaTable('{{%eqiupment_material}}', ['equipment_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getType()
     {
         return $this->hasOne(AccessoryType::className(), ['id' => 'type_id']);
@@ -97,5 +73,38 @@ class Equipment extends \yii\db\ActiveRecord
     public function getAccessory()
     {
         return $this->hasOne(Accessory::className(), ['id' => 'accessory_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEquipmentExperiences()
+    {
+        return $this->hasMany(EquipmentExperience::className(), ['equipment_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEquipmentMaterials()
+    {
+        return $this->hasMany(EquipmentMaterial::className(), ['equipment_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterials()
+    {
+        return $this->hasMany(Material::className(), ['id' => 'material_id'])->viaTable('{{%equipment_material}}', ['equipment_id' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     * @return EquipmentQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new EquipmentQuery(get_called_class());
     }
 }

@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[Expirience]].
+ * This is the ActiveQuery class for [[Experience]].
  *
- * @see Expirience
+ * @see Experience
  */
-class ExpirienceQuery extends \yii\db\ActiveQuery
+class ExperienceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class ExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Expirience[]|array
+     * @return Experience[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class ExpirienceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Expirience|array|null
+     * @return Experience|array|null
      */
     public function one($db = null)
     {

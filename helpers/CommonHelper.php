@@ -3,13 +3,14 @@
 namespace app\helpers;
 
 use yii\helpers\ArrayHelper;
+
 class CommonHelper {
 	/**
 	 *
 	 * @param array $data        	
 	 * @return string
 	 */
-	public static function createExpirienceTable($data) {
+	public static function createExperienceTable($data) {
 		$html = '';
 		if (! count ( $data ))
 			return $html;
@@ -41,17 +42,17 @@ class CommonHelper {
 		$html .= '</tr></table>';
 		return $html;
 	}
-	public static function createExpiriencesTable($model, $expiriencesArray) {
+	public static function createExperiencesTable($model, $experiencesArray) {
 		$html = "";
-		$expiriences = [ ];
-		foreach ( ArrayHelper::map ( $model->eqiupmentExpiriences, 'expirience_id', 'quantity' ) as $key => $quantity ) {
-			$html .= $expiriencesArray [$key];
-			$expiriencesData = [ ];
-			foreach ( $model->eqiupmentExpiriences as $row ) {
-				if ($row->expirience_id == $key)
-					$expiriencesData [$row->level_id] = $row->quantity;
+		$experiences = [ ];
+		foreach ( ArrayHelper::map ( $model->equipmentExperiences, 'experience_id', 'quantity' ) as $key => $quantity ) {
+			$html .= $experiencesArray [$key];
+			$experiencesData = [ ];
+			foreach ( $model->equipmentExperiences as $row ) {
+				if ($row->experience_id == $key)
+					$experiencesData [$row->level_id] = $row->quantity;
 			}
-			$html .= htmlspecialchars ( self::createExpirienceTable ( $expiriencesData ) );
+			$html .= htmlspecialchars ( self::createExperienceTable ( $experiencesData ) );
 		}
 		return $html;
 	}

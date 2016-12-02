@@ -7,28 +7,28 @@ use Yii;
 class Equipment extends \app\models\Equipment {
 	public function afterSave($insert, $changedAttributes) {
 		parent::afterSave ( $insert, $changedAttributes );
-		EqiupmentExpirience::deleteAll ( [ 
+		EquipmentExperience::deleteAll ( [ 
 				'equipment_id' => $this->id 
 		] );
-		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
-			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
+		if (Yii::$app->request->post ( 'experience' ) && is_array ( Yii::$app->request->post ( 'experience' ) )) {
+			foreach ( Yii::$app->request->post ( 'experience' ) as $experience => $levels ) {
 				foreach ( $levels as $level => $quantity ) {
-					$ee = new EqiupmentExpirience ();
+					$ee = new EquipmentExperience ();
 					$ee->equipment_id = $this->id;
-					$ee->expirience_id = $expirience;
+					$ee->experience_id = $experience;
 					$ee->level_id = $level;
 					$ee->quantity = $quantity;
 					$ee->save ();
 				}
 			}
 		}
-		EqiupmentMaterial::deleteAll ( [ 
+		EquipmentMaterial::deleteAll ( [ 
 				'equipment_id' => $this->id 
 		] );
 		if (Yii::$app->request->post ( 'material' ) && is_array ( Yii::$app->request->post ( 'material' ) )) {
 			foreach ( Yii::$app->request->post ( 'material' ) as $key => $material ) {
 				if ($material > 0) {
-					$m = new EqiupmentMaterial ();
+					$m = new EquipmentMaterial ();
 					$m->equipment_id = $this->id;
 					$m->material_id = $key;
 					$m->quantity = $material;
@@ -41,8 +41,8 @@ class Equipment extends \app\models\Equipment {
 	 *
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getEqiupmentExpiriencesSort() {
-		return $this->hasMany ( EqiupmentExpirience::className (), [ 
+	public function getEquipmentExperiencesSort() {
+		return $this->hasMany ( EquipmentExperience::className (), [ 
 				'equipment_id' => 'id' 
 		] )->where ( [ 
 				'level_id' => 6 

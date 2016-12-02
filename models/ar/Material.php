@@ -8,15 +8,15 @@ class Material extends \app\models\Material {
 	
 	public function afterSave($insert, $changedAttributes) {
 		parent::afterSave ( $insert, $changedAttributes );
-		MaterialExpirience::deleteAll ( [ 
+		MaterialExperience::deleteAll ( [ 
 				'material_id' => $this->id 
 		] );
-		if (Yii::$app->request->post ( 'expirience' ) && is_array ( Yii::$app->request->post ( 'expirience' ) )) {
-			foreach ( Yii::$app->request->post ( 'expirience' ) as $expirience => $levels ) {
+		if (Yii::$app->request->post ( 'experience' ) && is_array ( Yii::$app->request->post ( 'experience' ) )) {
+			foreach ( Yii::$app->request->post ( 'experience' ) as $experience => $levels ) {
 				foreach ( $levels as $level => $quantity ) {
-					$me = new MaterialExpirience ();
+					$me = new MaterialExperience ();
 					$me->material_id = $this->id;
-					$me->expirience_id = $expirience;
+					$me->experience_id = $experience;
 					$me->level_id = $level;
 					$me->quantity = $quantity;
 					$me->save ();
@@ -42,12 +42,12 @@ class Material extends \app\models\Material {
 	}
 	
 	/*
-	 * public function getMaterialExpirience() { return $this->hasMany(MaterialExpirience::className(), ['material_id' => 'id']); }
+	 * public function getMaterialExperience() { return $this->hasMany(MaterialExperience::className(), ['material_id' => 'id']); }
 	 */
-	public function getExpirience() {
-		return $this->hasOne ( Expirience::className (), [ 
-				'id' => 'expirience_id' 
-		] )->viaTable ( '{{%material_expirience}}', [ 
+	public function getExperience() {
+		return $this->hasOne ( Experience::className (), [ 
+				'id' => 'experience_id' 
+		] )->viaTable ( '{{%material_experience}}', [ 
 				'material_id' => 'id' 
 		] );
 	}

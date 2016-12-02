@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[EqiupmentMaterial]].
+ * This is the ActiveQuery class for [[EquipmentMaterial]].
  *
- * @see EqiupmentMaterial
+ * @see EquipmentMaterial
  */
-class EqiupmentMaterialQuery extends \yii\db\ActiveQuery
+class EquipmentMaterialQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class EqiupmentMaterialQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return EqiupmentMaterial[]|array
+     * @return EquipmentMaterial[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class EqiupmentMaterialQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return EqiupmentMaterial|array|null
+     * @return EquipmentMaterial|array|null
      */
     public function one($db = null)
     {

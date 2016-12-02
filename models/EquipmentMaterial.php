@@ -5,23 +5,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%eqiupment_material}}".
+ * This is the model class for table "{{%equipment_material}}".
  *
  * @property integer $equipment_id
  * @property integer $material_id
  * @property integer $quantity
  *
- * @property Material $material
  * @property Equipment $equipment
+ * @property Material $material
  */
-class EqiupmentMaterial extends \yii\db\ActiveRecord
+class EquipmentMaterial extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%eqiupment_material}}';
+        return '{{%equipment_material}}';
     }
 
     /**
@@ -32,8 +32,8 @@ class EqiupmentMaterial extends \yii\db\ActiveRecord
         return [
             [['equipment_id', 'material_id'], 'required'],
             [['equipment_id', 'material_id', 'quantity'], 'integer'],
-            [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => Material::className(), 'targetAttribute' => ['material_id' => 'id']],
             [['equipment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Equipment::className(), 'targetAttribute' => ['equipment_id' => 'id']],
+            [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => Material::className(), 'targetAttribute' => ['material_id' => 'id']],
         ];
     }
 
@@ -52,25 +52,25 @@ class EqiupmentMaterial extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterial()
-    {
-        return $this->hasOne(Material::className(), ['id' => 'material_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEquipment()
     {
         return $this->hasOne(Equipment::className(), ['id' => 'equipment_id']);
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterial()
+    {
+        return $this->hasOne(Material::className(), ['id' => 'material_id']);
+    }
+
+    /**
      * @inheritdoc
-     * @return EqiupmentMaterialQuery the active query used by this AR class.
+     * @return EquipmentMaterialQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new EqiupmentMaterialQuery(get_called_class());
+        return new EquipmentMaterialQuery(get_called_class());
     }
 }

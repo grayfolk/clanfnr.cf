@@ -7,8 +7,8 @@ use app\models\ar\Material;
 use app\models\ar\MaterialSearch;
 use yii\web\NotFoundHttpException;
 use app\components\CommonBackendController;
-use app\models\ar\Expirience;
-use app\models\ar\MaterialExpirience;
+use app\models\ar\Experience;
+use app\models\ar\MaterialExperience;
 use app\models\ar\Level;
 use yii\filters\VerbFilter;
 
@@ -43,7 +43,7 @@ class MaterialController extends CommonBackendController {
 		return $this->render ( 'index', [ 
 				'searchModel' => $searchModel,
 				'dataProvider' => $dataProvider,
-				'expiriences' => Expirience::find ()->all () 
+				'experiences' => Experience::find ()->all () 
 		] );
 	}
 	
@@ -75,7 +75,7 @@ class MaterialController extends CommonBackendController {
 		} else {
 			return $this->render ( 'create', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->orderBy ( [ 
+					'experiences' => Experience::find ()->orderBy ( [ 
 							'title' => SORT_ASC 
 					] )->all (),
 					'levels' => Level::find ()->all () 
@@ -103,11 +103,11 @@ class MaterialController extends CommonBackendController {
 		} else {
 			return $this->render ( 'update', [ 
 					'model' => $model,
-					'expiriences' => Expirience::find ()->orderBy ( [ 
+					'experiences' => Experience::find ()->orderBy ( [ 
 							'title' => SORT_ASC 
 					] )->all (),
 					'levels' => Level::find ()->all (),
-					'expirienceData' => MaterialExpirience::getMaterialExpirience ( $id ) 
+					'experienceData' => MaterialExperience::getMaterialExperience ( $id ) 
 			] );
 		}
 	}

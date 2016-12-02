@@ -9,37 +9,37 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $materialsArray = ArrayHelper::map($materials, 'id', 'title');
-$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
+$experiencesArray = ArrayHelper::map($experiences, 'id', 'title');
 
 $this->title = 'Clan FNR';
-$expiriencesColumns = [];
-if($expiriences){
-	foreach($expiriences as $expirience){
-		$expiriencesColumns [] = [
-			'header' => $expirience->title,
-			'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
+$experiencesColumns = [];
+if($experiences){
+	foreach($experiences as $experience){
+		$experiencesColumns [] = [
+			'header' => $experience->title,
+			'contentOptions' =>function ($model, $key, $index, $column) use ($experience){
 				$data = [];
-				foreach($model->eqiupmentExpiriences as $row){
-					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+				foreach($model->equipmentExperiences as $row){
+					if($row->experience_id == $experience->id) $data[$row->level_id] = $row->quantity;
 				}
 				return [
-					'data-filter' => count($data) ? $expirience->title : null,
-					// 'data-filter' => count($data) ? 'expirience_' . $expirience->id : null,
+					'data-filter' => count($data) ? $experience->title : null,
+					// 'data-filter' => count($data) ? 'experience_' . $experience->id : null,
 					'data-sort' => array_key_exists(6, $data) ? $data[6]*10 : 0,
-					'data-html' => \app\helpers\CommonHelper::createExpirienceTable($data),
-					'data-id' => count($data) ? $expirience->id : null,
-					// 'class' => count($data) ? 'expirienceColumns' : null
+					'data-html' => \app\helpers\CommonHelper::createExperienceTable($data),
+					'data-id' => count($data) ? $experience->id : null,
+					// 'class' => count($data) ? 'experienceColumns' : null
 				];
 			},
-			'content' => function($model) use ($expirience){
+			'content' => function($model) use ($experience){
 				return '';
 				$data = [];
-				foreach($model->eqiupmentExpiriences as $row){
-					if($row->expirience_id == $expirience->id) $data[$row->level_id] = $row->quantity;
+				foreach($model->equipmentExperiences as $row){
+					if($row->experience_id == $experience->id) $data[$row->level_id] = $row->quantity;
 				}
-				return count($data) ? 'expirience_' . $expirience->id : '';
-				// $html = count($data) ? $expirience->title : null;
-				return \app\helpers\CommonHelper::createExpirienceTable($data);
+				return count($data) ? 'experience_' . $experience->id : '';
+				// $html = count($data) ? $experience->title : null;
+				return \app\helpers\CommonHelper::createExperienceTable($data);
 			}
 		];
 	}
@@ -58,8 +58,8 @@ if($expiriences){
     <hr>
     <?php endif;?>
     <div class="btn-group btn-group-justified visible-xs" role="group">
-      <?php if($expiriences):?>
-      <a class="btn btn-primary" data-toggle="modal" data-target="#expiriencesModal"><?= Yii::t('app', 'Expiriences')?></a>
+      <?php if($experiences):?>
+      <a class="btn btn-primary" data-toggle="modal" data-target="#experiencesModal"><?= Yii::t('app', 'Experiences')?></a>
       <?php endif;?>
       <?php if($materials):?>
       <a class="btn btn-primary" data-toggle="modal" data-target="#materialsModal"><?= Yii::t('app', 'Materials')?></a>
@@ -73,21 +73,21 @@ if($expiriences){
         'columns' => array_merge(
 			[[
 				'header' => Yii::t('app', 'Title'),
-				'contentOptions' =>function ($model, $key, $index, $column) use ($expirience){
+				'contentOptions' =>function ($model, $key, $index, $column) use ($experience){
 					return [
 						'data-sort' =>  $model->title
 					];
 				},
-				'content' => function($data) use ($expiriencesArray){
+				'content' => function($data) use ($experiencesArray){
 					$html = "";
-					$expiriences = [];
-					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
-						$html .= $expiriencesArray[$key];
-						$expiriencesData = [];
-						foreach($data->eqiupmentExpiriences as $row){
-							if($row->expirience_id == $key) $expiriencesData[$row->level_id] = $row->quantity;
+					$experiences = [];
+					foreach(ArrayHelper::map($data->equipmentExperiences, 'experience_id', 'quantity') as $key=>$quantity){
+						$html .= $experiencesArray[$key];
+						$experiencesData = [];
+						foreach($data->equipmentExperiences as $row){
+							if($row->experience_id == $key) $experiencesData[$row->level_id] = $row->quantity;
 						}
-						$html .= htmlspecialchars(\app\helpers\CommonHelper::createExpirienceTable($expiriencesData));
+						$html .= htmlspecialchars(\app\helpers\CommonHelper::createExperienceTable($experiencesData));
 					}
 					return '<a tabindex="-1" role="button" data-toggle="popover" title="' . $data->title . '" data-content="' .$html . '">' . $data->title . '</a>';
 				}
@@ -104,7 +104,7 @@ if($expiriences){
             'level',
 			/*'accessory_id',
 			'type_id'*/],
-			$expiriencesColumns,
+			$experiencesColumns,
 			[[
 			 	'label' => 'silver',
 				'attribute' => 'silver',
@@ -124,7 +124,7 @@ if($expiriences){
 			 	'header' => Yii::t('app', 'Materials'),
 				'content' => function($data) use ($materialsArray){
 					$materials = [];
-					foreach(ArrayHelper::map($data->eqiupmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
+					foreach(ArrayHelper::map($data->equipmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
 						$materials[] = $materialsArray[$key] . ( $quantity > 1 ? " ($quantity)" : '' );
 					}
 					return '<span style="white-space:nowrap">' . implode(', ', $materials) . '</span>';
@@ -132,13 +132,13 @@ if($expiriences){
 			],
 			/*[
 				'header' => Yii::t('app', 'Title'),
-				'content' => function($data) use ($expiriencesArray){
+				'content' => function($data) use ($experiencesArray){
 					$html = "";
-					$expiriences = [];
-					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
-						$expiriences[] = $expiriencesArray[$key];
+					$experiences = [];
+					foreach(ArrayHelper::map($data->equipmentExperiences, 'experience_id', 'quantity') as $key=>$quantity){
+						$experiences[] = $experiencesArray[$key];
 					}
-					return implode('|', $expiriences);
+					return implode('|', $experiences);
 				}
 			]*/]
 		),
@@ -148,11 +148,11 @@ if($expiriences){
   <div class="col-md-3 hidden-xs">
     <div class="page-header">
       <h4>
-        <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean" name="expirienceAnd"></label></small>
+        <?= Yii::t('app', 'Experiences')?> <small><label> And/Or<input type="checkbox" class="jsExperiencesBoolean" name="experienceAnd"></label></small>
       </h4>
     </div>
-    <?= Html::checkboxList('expiriences', null, ArrayHelper::map($expiriences, 'id', 'title'), ['separator'=>'<br>']) ?>
-    <button type="button" class="btn btn-primary btn-sm resetExpiriences">
+    <?= Html::checkboxList('experiences', null, ArrayHelper::map($experiences, 'id', 'title'), ['separator'=>'<br>']) ?>
+    <button type="button" class="btn btn-primary btn-sm resetExperiences">
     <?= Yii::t('app', 'Reset')?>
     </button>
     <div class="page-header">
@@ -166,23 +166,23 @@ if($expiriences){
     </button>
   </div>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="expiriencesModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="experiencesModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="<?= Yii::t('app', 'Close')?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">
-          <?= Yii::t('app', 'Expiriences')?> <small><label> And/Or<input type="checkbox" class="jsExpiriencesBoolean" value="expirienceAnd"></label></small>
+          <?= Yii::t('app', 'Experiences')?> <small><label> And/Or<input type="checkbox" class="jsExperiencesBoolean" value="experienceAnd"></label></small>
         </h4>
       </div>
       <div class="modal-body">
-        <?= Html::checkboxList('expiriencesModal', null, ArrayHelper::map($expiriences, 'id', 'title'), ['separator'=>'<br>']) ?>
+        <?= Html::checkboxList('experiencesModal', null, ArrayHelper::map($experiences, 'id', 'title'), ['separator'=>'<br>']) ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">
         <?= Yii::t('app', 'Close')?>
         </button>
-        <button type="button" class="btn btn-primary resetExpiriences">
+        <button type="button" class="btn btn-primary resetExperiences">
         <?= Yii::t('app', 'Reset')?>
         </button>
       </div>

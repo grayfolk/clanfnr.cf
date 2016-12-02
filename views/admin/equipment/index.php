@@ -11,7 +11,7 @@ $this->title = Yii::t('app', 'Equipments');
 $this->params['breadcrumbs'][] = $this->title;
 
 $materialsArray = ArrayHelper::map($materials, 'id', 'title');
-$expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
+$experiencesArray = ArrayHelper::map($experiences, 'id', 'title');
 ?>
 <div class="equipment-index">
 
@@ -45,15 +45,15 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 				}
 			],
 			[
-			 	'label' => 'expiriences',
-				'attribute' => 'expiriences',
-			 	'header' => Yii::t('app', 'Expiriences'),
-				'content' => function($data) use ($expiriencesArray){
-					$expiriences = [];
-					foreach(ArrayHelper::map($data->eqiupmentExpiriences, 'expirience_id', 'quantity') as $key=>$quantity){
-						$expiriences[] = '<span class="label label-primary">' . $expiriencesArray[$key] . '</span>';
+			 	'label' => 'experiences',
+				'attribute' => 'experiences',
+			 	'header' => Yii::t('app', 'Experiences'),
+				'content' => function($data) use ($experiencesArray){
+					$experiences = [];
+					foreach(ArrayHelper::map($data->equipmentExperiences, 'experience_id', 'quantity') as $key=>$quantity){
+						$experiences[] = '<span class="label label-primary">' . $experiencesArray[$key] . '</span>';
 					}
-					return implode('<div class="clearfix"></div>', $expiriences);
+					return implode('<div class="clearfix"></div>', $experiences);
 				}
 			],
 			[
@@ -62,7 +62,7 @@ $expiriencesArray = ArrayHelper::map($expiriences, 'id', 'title');
 			 	'header' => Yii::t('app', 'Materials'),
 				'content' => function($data) use ($materialsArray){
 					$materials = [];
-					foreach(ArrayHelper::map($data->eqiupmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
+					foreach(ArrayHelper::map($data->equipmentMaterials, 'material_id', 'quantity') as $key=>$quantity){
 						$materials[] = $materialsArray[$key] . ( $quantity > 1 ? " ($quantity)" : '' );
 					}
 					return '<span style="white-space:nowrap">' . implode(', ', $materials) . '</span>';

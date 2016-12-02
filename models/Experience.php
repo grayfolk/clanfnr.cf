@@ -5,22 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%expirience}}".
+ * This is the model class for table "{{%experience}}".
  *
  * @property integer $id
  * @property string $title
  *
- * @property ExpirienceEquipment[] $expirienceEquipments
- * @property Equipment[] $equipment
+ * @property EquipmentExperience[] $equipmentExperiences
+ * @property MaterialExperience[] $materialExperiences
  */
-class Expirience extends \yii\db\ActiveRecord
+class Experience extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%expirience}}';
+        return '{{%experience}}';
     }
 
     /**
@@ -48,25 +48,25 @@ class Expirience extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExpirienceEquipments()
+    public function getEquipmentExperiences()
     {
-        return $this->hasMany(ExpirienceEquipment::className(), ['expirience_id' => 'id']);
+        return $this->hasMany(EquipmentExperience::className(), ['experience_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEquipment()
+    public function getMaterialExperiences()
     {
-        return $this->hasMany(Equipment::className(), ['id' => 'equipment_id'])->viaTable('{{%expirience_equipment}}', ['expirience_id' => 'id']);
+        return $this->hasMany(MaterialExperience::className(), ['experience_id' => 'id']);
     }
 
     /**
      * @inheritdoc
-     * @return ExpirienceQuery the active query used by this AR class.
+     * @return ExperienceQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new ExpirienceQuery(get_called_class());
+        return new ExperienceQuery(get_called_class());
     }
 }

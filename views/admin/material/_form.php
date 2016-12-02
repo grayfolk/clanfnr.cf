@@ -24,33 +24,33 @@ use yii\helpers\ArrayHelper;
     <div class="form-group field-equipment-type">
       <label for="equipment-type" class="control-label">Навык</label>
       <div class="input-group">
-        <?= Html::dropdownList('expiriences', null, ArrayHelper::map($expiriences, 'id', 'title'), ['class'=>'form-control']) ?>
+        <?= Html::dropdownList('experiences', null, ArrayHelper::map($experiences, 'id', 'title'), ['class'=>'form-control']) ?>
         <span class="input-group-btn">
-        <button class="btn btn-success" type="button" id="equipmentExpiriencesAdd"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
+        <button class="btn btn-success" type="button" id="equipmentExperiencesAdd"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
         </span> </div>
     </div>
-    <div id="equipmentExpiriencesHolder">
-      <?php if(isset($expirienceData)):?>
-      <?php foreach($expirienceData as $row):?>
-      <div class="thumbnail jsEquipmentExpiriencesItem">
+    <div id="equipmentExperiencesHolder">
+      <?php if(isset($experienceData)):?>
+      <?php foreach($experienceData as $row):?>
+      <div class="thumbnail jsEquipmentExperiencesItem">
         <h4><span class="title">
           <?= $row['title']?>
           </span> <span class="pull-right">
-          <button class="btn btn-success btn-xs jsEquipmentExpiriencesDone hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
-          <button class="btn btn-primary btn-xs jsEquipmentExpiriencesEdit" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button>
-          <button class="btn btn-danger btn-xs jsEquipmentExpiriencesRemove" type="button" data-selected="<?= $row['id']?>"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+          <button class="btn btn-success btn-xs jsEquipmentExperiencesDone hide" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span></button>
+          <button class="btn btn-primary btn-xs jsEquipmentExperiencesEdit" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-xs jsEquipmentExperiencesRemove" type="button" data-selected="<?= $row['id']?>"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
           </span></h4>
-        <table class="table table-striped table-condensed jsEquipmentExpiriencesEditArea hide">
+        <table class="table table-striped table-condensed jsEquipmentExperiencesEditArea hide">
           <?php foreach($levels as $level):?>
           <tr>
             <td><?= $level->title?></td>
             <td><div class="input-group">
-                <input type="text" name="expirience[<?= $row['id']?>][<?= $level->id?>]" class="form-control" value="<?= $row['levels'][$level->id] ?? 0?>">
+                <input type="text" name="experience[<?= $row['id']?>][<?= $level->id?>]" class="form-control" value="<?= $row['levels'][$level->id] ?? 0?>">
                 <span class="input-group-addon">%</span></div></td>
           </tr>
           <?php endforeach;?>
         </table>
-        <table class="table table-hover table-condensed jsEquipmentExpiriencesShowArea">
+        <table class="table table-hover table-condensed jsEquipmentExperiencesShowArea">
           <tr>
             <?php foreach($levels as $level):
 			switch($level->id){

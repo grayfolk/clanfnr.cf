@@ -4,5 +4,5 @@ namespace app\models\ar;
 
 use Yii;
 
-class EqiupmentMaterial extends \app\models\EqiupmentMaterial {
+class EquipmentMaterial extends \app\models\EquipmentMaterial {
 }
