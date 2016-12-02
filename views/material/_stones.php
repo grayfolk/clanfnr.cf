@@ -26,7 +26,10 @@ $experiencesArray = ArrayHelper::map($experiences, 'id', 'title');
     	$title = '';
 		$data = [];
 		foreach($material->materialExperiences as $row){
-			if($row->experience_id == $experience->id) $data[$row->level_id] = $row->quantity;
+			if($row->experience_id == $experience->id){
+				$data[$row->level_id] = $row->quantity;
+				$title =$experience->title;
+			}
 		}
 		if(count($data)){
 			$html = \app\helpers\CommonHelper::createExperienceTable($data);
