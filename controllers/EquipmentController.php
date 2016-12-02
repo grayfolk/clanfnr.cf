@@ -143,7 +143,7 @@ class EquipmentController extends CommonController {
 								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								break;
 							default :
-								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $experiences ) ) )) {
+								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $experiences ) + $this->firstColumns ) )) {
 									// Experiences
 									// Search experience id
 									$expId = $experiencesIds [$o ['column'] - $this->firstColumns];
