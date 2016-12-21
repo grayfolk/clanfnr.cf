@@ -6,7 +6,10 @@ $config = [
 		'name' => 'Clan FNR Official Site',
 		'basePath' => dirname ( __DIR__ ),
 		'bootstrap' => [ 
-				'log' 
+				'log',
+				function () {
+					app\components\CommonController::addViewParams ();
+				} 
 		],
 		'language' => 'ru-RU',
 		'defaultRoute' => 'home',
@@ -56,8 +59,7 @@ $config = [
 								'admin/<controller:[\w-]+>/<action:(view|update|delete)>/<type_id:\d+>/<start:[\w-]+>/<coverage:[\w-]+>' => 'admin/<controller>/<action>',
 								'admin/<controller:[\w-]+>/<action:[\w-]+>' => 'admin/<controller>/<action>' 
 						] 
-				]
-				,
+				],
 				'assetManager' => [ 
 						'class' => 'yii\web\AssetManager',
 						'linkAssets' => true,

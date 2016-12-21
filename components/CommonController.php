@@ -10,8 +10,8 @@ use yii\web\Controller;
  * @author Vladymyr Protsenko <grayfolk@gmail.com>
  */
 class CommonController extends Controller {
-	public $firstColumns = 3;
-	public function init() {
-		$this->view->params ['firstColumns'] = $this->firstColumns;
+	public static $firstColumns = 3;
+	public static function addViewParams() {
+		Yii::$app->view->params ['firstColumns'] = static::$firstColumns;
 	}
 }
