@@ -100,7 +100,11 @@ $levels = app\models\ar\Level::find ()->orderBy(['id' => SORT_ASC])->all ();
     </div>
   </div>
   <div class="col-md-6 row">
-    <?php foreach($materials as $material):?>
+    <?php $type_id = null;
+	foreach($materials as $material):
+	if($type_id && $material->type_id != $type_id) echo '<div class="col-md-12 row"><hr class="clearfix"></div>';
+	$type_id = $material->type_id;
+	?>
     <div class="form-group form-group-sm col-md-6">
       <label for="material-<?= $material->id?>" class="control-label col-sm-6 small">
         <?= $material->title?>

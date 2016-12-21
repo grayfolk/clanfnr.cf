@@ -83,7 +83,14 @@ class EquipmentController extends CommonBackendController {
 					'model' => $model,
 					'experiences' => Experience::find ()->all (),
 					'levels' => Level::find ()->all (),
-					'materials' => Material::find ()->all () 
+					'materials' => Material::find ()->where ( [ 
+							'!=',
+							'type_id',
+							2 
+					] )->orderBy ( [ 
+							'type_id' => SORT_ASC,
+							'title' => SORT_ASC 
+					] )->all () 
 			] );
 		}
 	}
@@ -107,7 +114,14 @@ class EquipmentController extends CommonBackendController {
 					'model' => $model,
 					'experiences' => Experience::find ()->all (),
 					'levels' => Level::find ()->all (),
-					'materials' => Material::find ()->all (),
+					'materials' => Material::find ()->where ( [ 
+							'!=',
+							'type_id',
+							2 
+					] )->orderBy ( [ 
+							'type_id' => SORT_ASC,
+							'title' => SORT_ASC 
+					] )->all (),
 					'experienceData' => EquipmentExperience::getEquipmentExperience ( $id ) 
 			] );
 		}
