@@ -23,6 +23,7 @@ $experiencesArray = ArrayHelper::map($experiences, 'id', 'title');
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+		'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',

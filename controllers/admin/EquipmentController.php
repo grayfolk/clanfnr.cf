@@ -4,7 +4,7 @@ namespace app\controllers\admin;
 
 use Yii;
 use app\models\ar\Equipment;
-use yii\data\ActiveDataProvider;
+use app\models\ar\EquipmentSearch;
 use yii\web\NotFoundHttpException;
 use app\models\ar\Experience;
 use app\models\ar\Level;
@@ -40,38 +40,11 @@ class EquipmentController extends CommonBackendController {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$query = Equipment::find ();
-		$dataProvider = new ActiveDataProvider ( [ 
-				'query' => $query,
-				'sort' => [ 
-						'defaultOrder' => [ 
-								'title' => SORT_ASC 
-						],
-						'attributes' => [ 
-								'id',
-								'title',
-								'level',
-								'silver' 
-						] 
-				] 
-		] );
-		
-		$query->with ( [ 
-				'accessory' => function ($query) {
-					$query->from ( [ 
-							'accessory' 
-					] );
-				},
-				'type' => function ($query) {
-					$query->from ( [ 
-							'accessory_type' 
-					] );
-				},
-				'equipmentExperiences',
-				'equipmentMaterials' 
-		] );
+		$searchModel = new EquipmentSearch ();
+		$dataProvider = $searchModel->search ( Yii::$app->request->queryParams );
 		
 		return $this->render ( 'index', [ 
+				'searchModel' => $searchModel,
 				'dataProvider' => $dataProvider,
 				'experiences' => Experience::find ()->all (),
 				'accessoryTypes' => AccessoryType::find ()->all (),
