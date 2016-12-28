@@ -32,7 +32,7 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'start', 'coverage'], 'required'],
+            [['type_id', 'start', 'coverage', 'invider_id'], 'required'],
             [['type_id', 'quantity', 'invider_id'], 'integer'],
             [['start', 'end'], 'safe'],
             [['coverage'], 'string', 'max' => 32],
@@ -61,14 +61,5 @@ class Event extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(EventType::className(), ['id' => 'type_id']);
-    }
-
-    /**
-     * @inheritdoc
-     * @return EventQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new EventQuery(get_called_class());
     }
 }

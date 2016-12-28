@@ -54,6 +54,7 @@ $config = [
 								'<controller:(equipment|event|material|inviders)>' => '<controller>/index',
 								'<action:(about|contact|captcha)>' => 'home/<action>',
 								// Admin
+								'/admin' => 'admin/event/index',
 								'admin/<controller:(equipment|material|accessory|accessory-type|location|location-type|material-type|level|experience|event|event-type)>' => 'admin/<controller>/index',
 								'admin/<controller:[\w-]+>/<action:(view|update|delete)>/<id:\d+>' => 'admin/<controller>/<action>',
 								'admin/<controller:[\w-]+>/<action:(view|update|delete)>/<type_id:\d+>/<start:[\w-]+>/<coverage:[\w-]+>' => 'admin/<controller>/<action>',
