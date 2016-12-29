@@ -13,7 +13,7 @@ class Event extends \app\models\Event {
 	public function beforeSave($insert) {
 		if (parent::beforeSave ( $insert )) {
 			if ($this->coverage != 'none') {
-				$this->invider_id = null;
+				$this->invider_id = 0;
 			}
 			return true;
 		}
