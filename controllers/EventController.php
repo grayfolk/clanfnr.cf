@@ -18,11 +18,11 @@ class EventController extends CommonController {
 		$times = Event::find ()->where ( [ 
 				'>=',
 				'start',
-				date ( 'Y-m-d', strtotime ( \Yii::$app->request->post ( 'start' ) ) + 60 * 60 * 24 * 10 ) 
+				date ( 'Y-m-d', strtotime ( \Yii::$app->request->post ( 'start' ) ) - 60 * 60 * 24 * 15 ) 
 		] )->andWhere ( [ 
 				'<=',
 				'end',
-				date ( 'Y-m-d', strtotime ( \Yii::$app->request->post ( 'end' ) ) - 60 * 60 * 24 * 10 ) 
+				date ( 'Y-m-d', strtotime ( \Yii::$app->request->post ( 'end' ) ) + 60 * 60 * 24 * 15 ) 
 		] )->all ();
 		$events = [ ];
 		foreach ( $times as $key => $time ) {
