@@ -5,6 +5,7 @@ $this->title = 'Clan FNR';
 ?>
 
 <?php
+/*
 $list = [];
 if($events && count($events)){
 	foreach($events as $key=>$event){
@@ -49,13 +50,18 @@ if($events && count($events)){
 		$list[] = $Event;
 	}
 }
+*/
 ?>
 
 <?= \yii2fullcalendar\yii2fullcalendar::widget([
-	'events'=> $list,
+	'events'=> [
+		'url' => \yii\helpers\Url::to(['/event/index']),
+		'type' => 'POST'
+	],
 	'options' => [
         'lang' => 'ru',
 	],
+	// 'ajaxEvents' => \yii\helpers\Url::to(['/event/index']),
 	'header' => [
 		'center'=>'title',
 		'left'=>'prev,next today',        

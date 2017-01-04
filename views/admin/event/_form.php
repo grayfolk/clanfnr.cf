@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type_id')->dropDownList(yii\helpers\ArrayHelper::map(app\models\ar\EventType::find()->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title')) ?>
     
-    <?= $form->field($model, 'invider_id')->dropDownList(array_merge(yii\helpers\ArrayHelper::map(app\models\ar\Location::find()->where(['type_id'=>app\models\ar\LocationType::find()->where(['title'=>'Захватчик'])->one()->id])->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title'), [0=>'Select'])) /* , ['prompt'=>['text'=>'Select','options'=>['value'=>0]]] */ ?>
+    <?= $form->field($model, 'invider_id')->dropDownList([0=>'Select'] + yii\helpers\ArrayHelper::map(app\models\ar\Location::find()->where(['type_id'=>app\models\ar\LocationType::find()->where(['title'=>'Захватчик'])->one()->id])->orderBy(['title'=>SORT_ASC])->all(), 'id', 'title')) /* , ['prompt'=>['text'=>'Select','options'=>['value'=>0]]] */ ?>
 
     <?= $form->field($model, 'start')->widget('\yii\jui\DatePicker', ['dateFormat' => 'yyyy-MM-dd','clientOptions'=>['numberOfMonths'=>2],'options'=>['class' => 'form-control']]) ?>
 

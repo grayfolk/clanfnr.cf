@@ -52,9 +52,9 @@ class EventController extends CommonBackendController {
 	 * @param string $start        	
 	 * @return mixed
 	 */
-	public function actionView($type_id, $start) {
+	public function actionView($type_id, $start, $invider_id) {
 		return $this->render ( 'view', [ 
-				'model' => $this->findModel ( $type_id, $start ) 
+				'model' => $this->findModel ( $type_id, $start, $invider_id ) 
 		] );
 	}
 	
@@ -86,8 +86,8 @@ class EventController extends CommonBackendController {
 	 * @param string $start        	
 	 * @return mixed
 	 */
-	public function actionUpdate($type_id, $start) {
-		$model = $this->findModel ( $type_id, $start );
+	public function actionUpdate($type_id, $start, $invider_id) {
+		$model = $this->findModel ( $type_id, $start, $invider_id );
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
 			return $this->redirect ( [ 
@@ -108,8 +108,8 @@ class EventController extends CommonBackendController {
 	 * @param string $start        	
 	 * @return mixed
 	 */
-	public function actionDelete($type_id, $start) {
-		$this->findModel ( $type_id, $start )->delete ();
+	public function actionDelete($type_id, $start, $invider_id) {
+		$this->findModel ( $type_id, $start, $invider_id )->delete ();
 		
 		return $this->redirect ( [ 
 				'index' 
@@ -125,10 +125,11 @@ class EventController extends CommonBackendController {
 	 * @return Event the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
-	protected function findModel($type_id, $start) {
+	protected function findModel($type_id, $start, $invider_id) {
 		if (($model = Event::findOne ( [ 
 				'type_id' => $type_id,
-				'start' => $start 
+				'start' => $start,
+				'invider_id' => $invider_id 
 		] )) !== null) {
 			return $model;
 		} else {
