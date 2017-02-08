@@ -68,7 +68,7 @@ class EventController extends CommonController {
 			// $Event->description = $description;
 			$Event->color = $time->invider_id ? $color : $time->type->color;
 			$Event->backgroundColor = $time->invider_id ? $color : $time->type->color;
-			$Event->start = date ( 'Y-m-d\T', strtotime ( $time->start ) );
+			$Event->start = date ( 'Y-m-d\T00:00:00\Z', strtotime ( $time->start ) );
 			$Event->end = date ( 'Y-m-d\T00:00:00\Z', strtotime ( $time->end ) );
 			$events [] = $Event;
 		}
