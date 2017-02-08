@@ -143,10 +143,10 @@ class EquipmentController extends CommonController {
 								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								break;
 							default :
-								if (in_array ( $o ['column'], range ( $this->firstColumns, count ( $experiences ) + $this->firstColumns ) )) {
+								if (in_array ( $o ['column'], range ( static::$firstColumns, count ( $experiences ) + static::$firstColumns ) )) {
 									// Experiences
 									// Search experience id
-									$expId = $experiencesIds [$o ['column'] - $this->firstColumns];
+									$expId = $experiencesIds [$o ['column'] - static::$firstColumns];
 									$query = $query->innerJoin ( '{{%equipment_experience}} e' . $expId, '{{%e' . $expId . '}}.[[equipment_id]] = {{%equipment}}.[[id]] and {{%e' . $expId . '}}.[[experience_id]] = ' . $expId . ' and {{%e' . $expId . '}}.[[level_id]] = 6' );
 									
 									$order ['{{e' . $expId . '}}.[[quantity]]'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
