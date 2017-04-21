@@ -142,6 +142,9 @@ class EquipmentController extends CommonController {
 							case 2 : // level
 								$order ['equipment.level'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
 								break;
+							case count ( $experiences ) + static::$firstColumns : // silver
+								$order ['equipment.silver'] = isset ( $o ['dir'] ) && $o ['dir'] == 'desc' ? SORT_DESC : SORT_ASC;
+								break;
 							default :
 								if (in_array ( $o ['column'], range ( static::$firstColumns, count ( $experiences ) + static::$firstColumns ) )) {
 									// Experiences
