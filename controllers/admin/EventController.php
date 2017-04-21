@@ -68,9 +68,7 @@ class EventController extends CommonBackendController {
 		$model = new Event ();
 		
 		if ($model->load ( Yii::$app->request->post () ) && $model->save ()) {
-			return $this->redirect ( [ 
-					'index' 
-			] );
+			return $this->refresh();
 		} else {
 			return $this->render ( 'create', [ 
 					'model' => $model 
