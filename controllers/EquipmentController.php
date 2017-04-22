@@ -162,6 +162,7 @@ class EquipmentController extends CommonController {
 			if (count ( $where )) {
 				$query = $query->andWhere ( $where );
 			}
+			$count = $query->count ();
 			// Orders
 			$query = $query->limit ( Yii::$app->request->post ( 'length', 50 ) )->orderBy ( $order )->offset ( Yii::$app->request->post ( 'start', 0 ) );
 			
@@ -206,7 +207,7 @@ class EquipmentController extends CommonController {
 			return [ 
 					'draw' => Yii::$app->request->post ( 'draw', 1 ),
 					'recordsTotal' => Equipment::find ()->count (),
-					'recordsFiltered' => $query->count (),
+					'recordsFiltered' => $count,
 					'data' => $data 
 			];
 		}

@@ -142,6 +142,9 @@ jQuery(document).ready(function($){
 	})
 	.on('draw.dt', function(){
 		popover()
+		$('html, body').animate({
+			scrollTop: 0
+		}, 200)
 	})
 	$(document).on('click', 'input[name="experiencesModal[]"]', function(e){
 		$('input[name="experiences[]"]').eq($('input[name="experiencesModal[]"]').index($(this))).trigger('click')
